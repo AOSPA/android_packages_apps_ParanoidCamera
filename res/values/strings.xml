@@ -776,4 +776,20 @@ CHAR LIMIT = NONE] -->
     <string name="overflow_best_item2">Delete All</string>
 
     <string name="settings_title">Settings</string>
- </resources>
+
+    <!-- common aspect ratios -->
+    <string name="pref_camera_aspectratio_43" translatable="false">4:3</string>
+    <string name="pref_camera_aspectratio_32" translatable="false">3:2</string>
+    <string name="pref_camera_aspectratio_1610" translatable="false">16:10</string>
+    <string name="pref_camera_aspectratio_53" translatable="false">5:3</string>
+    <string name="pref_camera_aspectratio_169" translatable="false">16:9</string>
+    <string name="pref_camera_aspectratio_11" translatable="false">1:1</string>
+    <!-- aspect ratio greater than 16:9, so "widescreen" or "cinematic" -->
+    <string name="pref_camera_aspectratio_wide">Wide</string>
+
+    <!-- format for entries in the picture size menu. Parameter one is aspect ratio
+         parameter two is size in megapixels, e.g. "(4:3) 12.1 megapixels"
+         NOTE: for Chinese (zh) and Korean (ko) the pixel number (parameter two)
+         will be multiplied by 100 as those languages want to count by ten thousands -->
+    <string name="pref_camera_megapixel_format">(%1$s) %2$1.1f megapixels</string>
+</resources>
