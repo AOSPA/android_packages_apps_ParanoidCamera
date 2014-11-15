@@ -270,10 +270,6 @@ public class SettingsManager implements ListMenu.SettingsListener {
     public void updateQcfaPictureSize() {
         ListPreference picturePref = mPreferenceGroup.findPreference(KEY_PICTURE_SIZE);
         if (picturePref != null) {
-            picturePref.setEntries(mContext.getResources().getStringArray(
-                    R.array.pref_camera2_picturesize_entries));
-            picturePref.setEntryValues(mContext.getResources().getStringArray(
-                    R.array.pref_camera2_picturesize_entryvalues));
             filterUnsupportedOptions(picturePref, getSupportedPictureSize(
                     getCurrentCameraId()));
         }
@@ -708,13 +704,9 @@ public class SettingsManager implements ListMenu.SettingsListener {
         if (cameraIdPref != null) buildCameraId();
 
         if (pictureSize != null) {
-            if (filterUnsupportedOptions(pictureSize, getSupportedPictureSize(cameraId))) {
-                mFilteredKeys.add(pictureSize.getKey());
-            } else {
-                if (filterSimilarPictureSize(mPreferenceGroup, pictureSize)) {
-                    mFilteredKeys.add(pictureSize.getKey());
-                }
-            }
+            CameraSettings.formatPictureSizes(pictureSize,
+                    getSupportedPictureSizeList(cameraId), mContext);
+            CameraSettings.resetIfInvalid(pictureSize);
         }
 
         if (exposure != null) buildExposureCompensation(cameraId);
@@ -1093,6 +1085,27 @@ public class SettingsManager implements ListMenu.SettingsListener {
     public boolean isFlashSupported(int id) {
         return mCharacteristics.get(id).get(CameraCharacteristics.FLASH_INFO_AVAILABLE) &&
                 mValuesMap.get(KEY_FLASH_MODE) != null;
+    }
+
+    private List<Size> getSupportedPictureSizeList(int cameraId) {
+        StreamConfigurationMap map = mCharacteristics.get(cameraId).get(
+                CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+        Size[] sizes = map.getOutputSizes(ImageFormat.JPEG);
+        List<Size> res = new ArrayList<>();
+        if (sizes != null) {
+            for (int i = 0; i < sizes.length; i++) {
+                res.add(sizes[i]);
+            }
+        }
+
+        Size[] highResSizes = map.getHighResolutionOutputSizes(ImageFormat.JPEG);
+        if (highResSizes != null) {
+            for (int i = 0; i < highResSizes.length; i++) {
+                res.add(highResSizes[i]);
+            }
+        }
+
+        return res;
     }
 
     private List<String> getSupportedPictureSize(int cameraId) {

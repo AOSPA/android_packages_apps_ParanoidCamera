@@ -70,9 +70,7 @@
     <IconListPreference
             camera:key="pref_camera_picturesize_key"
             camera:singleIcon="@drawable/ic_settings_picturesize"
-            camera:title="@string/pref_camera_picturesize_title"
-            camera:entries="@array/pref_camera_picturesize_entries"
-            camera:entryValues="@array/pref_camera_picturesize_entryvalues" />
+            camera:title="@string/pref_camera_picturesize_title" />
     <IconListPreference
             camera:key="pref_camera_focusmode_key"
             camera:defaultValue="@array/pref_camera_focusmode_default_array"
