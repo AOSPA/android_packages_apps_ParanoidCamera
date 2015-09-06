@@ -3234,6 +3234,11 @@ public class PhotoModule
         mErrorCallback.setActivity(mActivity);
         mCameraDevice.setErrorCallback(mErrorCallback);
 
+        // Reset camera state after taking a picture
+        if (mCameraState != PREVIEW_STOPPED && mCameraState != INIT) {
+            setCameraState(IDLE);
+        }
+
         if (mFocusManager == null) initializeFocusManager();
 
         if (!mSnapshotOnIdle) {
