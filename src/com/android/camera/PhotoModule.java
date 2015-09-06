@@ -2979,6 +2979,11 @@ public class PhotoModule
         mErrorCallback.setActivity(mActivity);
         mCameraDevice.setErrorCallback(mErrorCallback);
 
+        // Reset camera state after taking a picture.
+        if (mCameraState != PREVIEW_STOPPED && mCameraState != INIT) {
+            setCameraState(IDLE);
+        }
+
         if (!mSnapshotOnIdle) {
             mFocusManager.setAeAwbLock(false); // Unlock AE and AWB.
         }
