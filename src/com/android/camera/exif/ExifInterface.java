@@ -37,6 +37,7 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel.MapMode;
+import java.nio.MappedByteBuffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1040,11 +1041,12 @@ public class ExifInterface {
             }
 
             // Map only exif header into memory.
-            ByteBuffer buf = file.getChannel().map(MapMode.READ_WRITE, 0, exifSize);
+            MappedByteBuffer buf = file.getChannel().map(MapMode.READ_WRITE, 0, exifSize);
 
             // Attempt to overwrite tag values without changing lengths (avoids
             // file copy).
             ret = rewriteExif(buf, tags);
+            buf.force();
         } catch (IOException e) {
             closeSilently(file);
             throw e;
