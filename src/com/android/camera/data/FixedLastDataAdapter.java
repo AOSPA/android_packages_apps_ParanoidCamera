@@ -21,6 +21,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 
+import co.aospa.camera.R;
+
 import com.android.camera.ui.FilmStripView;
 
 /**
@@ -110,14 +112,15 @@ public class FixedLastDataAdapter extends AbstractLocalDataAdapterWrapper {
     }
 
     @Override
-    public View getView(Activity activity, int dataID) {
+    public View getView(Activity activity, int dataID, boolean inFullScreen) {
         int totalNumber = mAdapter.getTotalNumber();
 
         if (dataID < totalNumber) {
-            return mAdapter.getView(activity, dataID);
+            return mAdapter.getView(activity, dataID, inFullScreen);
         } else if (dataID == totalNumber) {
             return mLastData.getView(activity,
-                    mSuggestedWidth, mSuggestedHeight, null, null);
+                    mSuggestedWidth, mSuggestedHeight, R.color.photo_placeholder,
+                    null, inFullScreen);
         }
 
         return null;

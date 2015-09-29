@@ -9,6 +9,7 @@ LOCAL_STATIC_JAVA_LIBRARIES += android-support-v4
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-recyclerview
 LOCAL_STATIC_JAVA_LIBRARIES += xmp_toolkit
 LOCAL_STATIC_JAVA_LIBRARIES += androidx.heifwriter_heifwriter
+LOCAL_STATIC_JAVA_LIBRARIES += glide
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 LOCAL_SRC_FILES += $(call all-java-files-under, src_pd)
@@ -39,6 +40,9 @@ LOCAL_OVERRIDES_PACKAGES := Camera2
 endif
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+
+# Guava uses deprecated org.apache.http.legacy classes.
+LOCAL_JAVA_LIBRARIES += org.apache.http.legacy
 
 # If this is an unbundled build (to install separately) then include
 # the libraries in the APK, otherwise just put them in /system/lib and
