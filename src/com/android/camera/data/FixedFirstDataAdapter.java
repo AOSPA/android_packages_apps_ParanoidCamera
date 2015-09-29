@@ -24,6 +24,8 @@ import android.view.View;
 import com.android.camera.ui.FilmStripView.DataAdapter;
 import com.android.camera.ui.FilmStripView.ImageData;
 
+import org.codeaurora.snapcam.R;
+
 /**
  * A {@link LocalDataAdapter} which puts a {@link LocalData} fixed at the first
  * position. It's done by combining a {@link LocalData} and another
@@ -107,12 +109,13 @@ public class FixedFirstDataAdapter extends AbstractLocalDataAdapterWrapper
     }
 
     @Override
-    public View getView(Activity activity, int dataID) {
+    public View getView(Activity activity, int dataID, boolean inFullScreen) {
         if (dataID == 0) {
             return mFirstData.getView(
-                    activity, mSuggestedWidth, mSuggestedHeight, null, null);
+                    activity, mSuggestedWidth, mSuggestedHeight, R.color.photo_placeholder,
+                    null, inFullScreen);
         }
-        return mAdapter.getView(activity, dataID - 1);
+        return mAdapter.getView(activity, dataID - 1, inFullScreen);
     }
 
     @Override

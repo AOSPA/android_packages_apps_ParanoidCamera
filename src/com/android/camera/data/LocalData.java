@@ -74,8 +74,8 @@ public interface LocalData extends FilmStripView.ImageData {
      */
     public static final int LOCAL_IN_PROGRESS_DATA = 7;
 
-    View getView(Activity a, int width, int height, Drawable placeHolder,
-            LocalDataAdapter adapter);
+    View getView(Activity a, int width, int height, int placeHolderResourceId,
+            LocalDataAdapter adapter, boolean full);
 
     /**
      * Gets the date when this data is created. The returned date is also used
