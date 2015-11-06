@@ -1594,7 +1594,8 @@ public class VideoModule implements CameraModule,
             }
             mMediaRecorder.setOutputFormat(mProfile.fileFormat);
             mMediaRecorder.setVideoFrameRate(mProfile.videoFrameRate);
-            mMediaRecorder.setVideoEncodingBitRate(mProfile.videoBitRate);
+            mMediaRecorder.setVideoEncodingBitRate(mProfile.videoBitRate *
+                                                ((isHSR ? captureRate : 30) / 30));
             mMediaRecorder.setVideoEncoder(mProfile.videoCodec);
             if (isHSR) {
                 Log.i(TAG, "Configuring audio for HSR");
