@@ -124,10 +124,6 @@ public class WideAnglePanoramaModule
     private float mHorizontalViewAngle;
     private float mVerticalViewAngle;
 
-    // Prefer FOCUS_MODE_INFINITY to FOCUS_MODE_CONTINUOUS_VIDEO because of
-    // getting a better image quality by the former.
-    private String mTargetFocusMode = Parameters.FOCUS_MODE_INFINITY;
-
     private PanoOrientationEventListener mOrientationEventListener;
     // The value could be 0, 90, 180, 270 for the 4 different orientations measured in clockwise
     // respectively.
@@ -464,12 +460,13 @@ public class WideAnglePanoramaModule
         parameters.setPreviewFpsRange(minFps, maxFps);
         Log.d(TAG, "preview fps: " + minFps + ", " + maxFps);
 
+        // use CAF for viewfinder until starting the real mosaic, then lock
         List<String> supportedFocusModes = parameters.getSupportedFocusModes();
-        if (supportedFocusModes.indexOf(mTargetFocusMode) >= 0) {
-            parameters.setFocusMode(mTargetFocusMode);
+        if (supportedFocusModes.indexOf(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE) >= 0) {
+            parameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         } else {
             // Use the default focus mode and log a message
-            Log.w(TAG, "Cannot set the focus mode to " + mTargetFocusMode +
+            Log.w(TAG, "Cannot set the focus mode to " + Parameters.FOCUS_MODE_CONTINUOUS_PICTURE +
                   " becuase the mode is not supported.");
         }
 
@@ -567,15 +564,25 @@ public class WideAnglePanoramaModule
 
     public void startCapture() {
         // Reset values so we can do this again.
+
+        Parameters parameters = mCameraDevice.getParameters();
+        List<String> supportedFocusModes = parameters.getSupportedFocusModes();
+        if (supportedFocusModes.indexOf(Parameters.FOCUS_MODE_FIXED) >= 0) {
+            parameters.setFocusMode(Parameters.FOCUS_MODE_FIXED);
+        } else {
+            // Use the default focus mode and log a message
+            Log.w(TAG, "Cannot set the focus mode to " + Parameters.FOCUS_MODE_FIXED +
+                  " becuase the mode is not supported.");
+        }
+        parameters.setAutoExposureLock(true);
+        parameters.setAutoWhiteBalanceLock(true);
+        configureCamera(parameters);
+
         mCancelComputation = false;
         mTimeTaken = System.currentTimeMillis();
         mActivity.setSwipingEnabled(false);
         mCaptureState = CAPTURE_STATE_MOSAIC;
         mUI.onStartCapture();
-        Parameters parameters = mCameraDevice.getParameters();
-        parameters.setAutoExposureLock(true);
-        parameters.setAutoWhiteBalanceLock(true);
-        configureCamera(parameters);
 
         mMosaicFrameProcessor.setProgressListener(new MosaicFrameProcessor.ProgressListener() {
             @Override
@@ -624,6 +631,14 @@ public class WideAnglePanoramaModule
         Parameters parameters = mCameraDevice.getParameters();
         parameters.setAutoExposureLock(false);
         parameters.setAutoWhiteBalanceLock(false);
+        List<String> supportedFocusModes = parameters.getSupportedFocusModes();
+        if (supportedFocusModes.indexOf(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE) >= 0) {
+            parameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        } else {
+            // Use the default focus mode and log a message
+            Log.w(TAG, "Cannot set the focus mode to " + Parameters.FOCUS_MODE_CONTINUOUS_PICTURE +
+                  " becuase the mode is not supported.");
+        }
         configureCamera(parameters);
 
         mMosaicFrameProcessor.setProgressListener(null);
