@@ -287,6 +287,10 @@ public class CameraSettings {
     private final Parameters mParameters;
     private final CameraInfo[] mCameraInfo;
     private final int mCameraId;
+
+    public static String mKeyIso = null;
+    public static String mKeyIsoValues = null;
+
     private static final HashMap<Integer, String>
             VIDEO_ENCODER_TABLE = new HashMap<Integer, String>();
     public static final HashMap<String, Integer>
@@ -466,6 +470,22 @@ public class CameraSettings {
         mParameters = parameters;
         mCameraId = cameraId;
         mCameraInfo = cameraInfo;
+
+        // ISO
+        mKeyIso = mContext.getResources().getString(R.string.key_iso);
+        mKeyIsoValues = mContext.getResources().getString(R.string.key_iso_values);
+
+        if (mKeyIso == null || mKeyIso.isEmpty()) {
+            mKeyIso = "iso";
+        } else {
+            Log.d(TAG, "Using key for iso: " + mKeyIso);
+        }
+
+        if (mKeyIsoValues == null || mKeyIsoValues.isEmpty()) {
+            mKeyIso = "iso-values";
+        } else {
+            Log.d(TAG, "Using key for iso-values: " + mKeyIsoValues);
+        }
     }
 
     public PreferenceGroup getPreferenceGroup(int preferenceRes) {
@@ -474,6 +494,28 @@ public class CameraSettings {
                 (PreferenceGroup) inflater.inflate(preferenceRes);
         if (mParameters != null) initPreference(group);
         return group;
+    }
+
+    public static List<String> getSupportedIsoValues(Parameters params) {
+        String isoValues = params.get(mKeyIsoValues);
+        if (isoValues == null) {
+            return null;
+        }
+        Log.d(TAG, "Supported iso values: " + isoValues);
+        return split(isoValues);
+    }
+
+    public static String getISOValue(Parameters params) {
+        String iso = params.get(mKeyIso);
+
+        if (iso == null) {
+            return null;
+        }
+        return iso;
+    }
+
+    public static void setISOValue(Parameters params, String iso) {
+        params.set(mKeyIso, iso);
     }
 
     public static String getSupportedHighestVideoQuality(
@@ -754,6 +796,22 @@ public class CameraSettings {
         return supported;
     }
 
+    private static ListPreference removeLeadingISO(ListPreference pref) {
+        CharSequence entryValues[] = pref.getEntryValues();
+        if (entryValues.length > 0) {
+            CharSequence modEntryValues[] = new CharSequence[entryValues.length];
+            for (int i = 0, len = entryValues.length; i < len; i++) {
+                String isoValue = entryValues[i].toString();
+                if (isoValue.startsWith("ISO") && !isoValue.startsWith("ISO_")) {
+                    isoValue = isoValue.replaceAll("ISO", "");
+                }
+                modEntryValues[i] = isoValue;
+            }
+            pref.setEntryValues(modEntryValues);
+        }
+        return pref;
+    }
+
     private void qcomInitPreferences(PreferenceGroup group){
         //Qcom Preference add here
         ListPreference powerMode = group.findPreference(KEY_POWER_MODE);
@@ -816,6 +874,12 @@ public class CameraSettings {
             }
         }
 
+        // Remove leading ISO from iso-values
+        boolean isoValuesUseNumbers = mContext.getResources().getBoolean(R.bool.iso_values_use_numbers);
+        if (isoValuesUseNumbers && mIso != null) {
+            mIso = removeLeadingISO(mIso);
+        }
+
         if (hdr_need_1x != null) {
             filterUnsupportedOptions(group,
                     hdr_need_1x, getSupportedHDRNeed1x(mParameters));
@@ -864,7 +928,7 @@ public class CameraSettings {
 
         if (mIso != null) {
             filterUnsupportedOptions(group,
-                    mIso, ParametersWrapper.getSupportedIsoValues(mParameters));
+                    mIso, getSupportedIsoValues(mParameters));
         }
 
         if (redeyeReduction != null) {
