@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ *               2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +19,7 @@ package com.android.camera.app;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 
 import com.android.camera.SDCard;
 import com.android.camera.util.CameraUtil;
@@ -28,9 +30,11 @@ public class CameraApp extends Application {
     private static long mMaxSystemMemory;
     public static boolean mIsLowMemoryDevice = false;
     private static final long LOW_MEMORY_DEVICE_THRESHOLD = 2L*1024*1024*1024;
+    private static Application mApp = null;
     @Override
     public void onCreate() {
         super.onCreate();
+        mApp = this;
         ActivityManager actManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
         actManager.getMemoryInfo(memInfo);
@@ -43,5 +47,9 @@ public class CameraApp extends Application {
         CameraUtil.initialize(this);
         SDCard.initialize(this);
     }
-}
 
+    public static Context getContext()
+    {
+        return mApp.getApplicationContext();
+    }
+}
