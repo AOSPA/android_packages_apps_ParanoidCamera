@@ -1986,7 +1986,7 @@ public class PhotoModule
             mUI.overrideSettings(CameraSettings.KEY_LONGSHOT, null);
         }
 
-        String isoMode = ParametersWrapper.getISOValue(mParameters);
+        String isoMode = CameraSettings.getISOValue(mParameters);
         final String isoManual = CameraSettings.KEY_MANUAL_ISO;
         if (isoMode.equals(isoManual)) {
             final String isoPref = mPreferences.getString(
@@ -3414,8 +3414,8 @@ public class PhotoModule
                     CameraSettings.KEY_ISO,
                     mActivity.getString(R.string.pref_camera_iso_default));
             if (CameraUtil.isSupported(iso,
-                    ParametersWrapper.getSupportedIsoValues(mParameters))) {
-                ParametersWrapper.setISOValue(mParameters, iso);
+                CameraSettings.getSupportedIsoValues(mParameters))) {
+                CameraSettings.setISOValue(mParameters, iso);
             }
         }
         // Set color effect parameter.
@@ -4723,7 +4723,7 @@ public class PhotoModule
         mParameters = mCameraDevice.getParameters();
         final int minISO = mParameters.getInt(CameraSettings.KEY_MIN_ISO);
         final int maxISO = mParameters.getInt(CameraSettings.KEY_MAX_ISO);
-        String isoMode = ParametersWrapper.getISOValue(mParameters);
+        String isoMode = CameraSettings.getISOValue(mParameters);
         final String isoManual = CameraSettings.KEY_MANUAL_ISO;
         String currentISO = mParameters.get(CameraSettings.KEY_CURRENT_ISO);
         if (currentISO != null) {
@@ -4765,7 +4765,7 @@ public class PhotoModule
                     if (newISO <= maxISO && newISO >= minISO) {
                         Log.v(TAG, "Setting ISO : " + newISO);
                         mManual3AEnabled |= MANUAL_EXPOSURE;
-                        ParametersWrapper.setISOValue(mParameters, isoManual);
+                        CameraSettings.setISOValue(mParameters, isoManual);
                         mParameters.set(CameraSettings.KEY_CONTINUOUS_ISO, newISO);
                         mParameters.set(CameraSettings.KEY_EXPOSURE_TIME, "0");
                         updateCommonManual3ASettings();
@@ -4801,8 +4801,8 @@ public class PhotoModule
                         Log.v(TAG, "Setting Exposure time : " + newExpTime);
                         mManual3AEnabled |= MANUAL_EXPOSURE;
                         mParameters.set(CameraSettings.KEY_EXPOSURE_TIME, expTime);
-                        ParametersWrapper.setISOValue(mParameters, ParametersWrapper.ISO_AUTO);
-                        mUI.setPreference(CameraSettings.KEY_ISO, ParametersWrapper.ISO_AUTO);
+                        CameraSettings.setISOValue(mParameters, Parameters.ISO_AUTO);
+                        mUI.setPreference(CameraSettings.KEY_ISO, Parameters.ISO_AUTO);
                         mUI.overrideSettings(CameraSettings.KEY_ISO, null);
                         updateCommonManual3ASettings();
                         onSharedPreferenceChanged();
@@ -4853,7 +4853,7 @@ public class PhotoModule
                         newExpTime >= Double.parseDouble(minExpTime)) {
                         mManual3AEnabled |= MANUAL_EXPOSURE;
                         Log.v(TAG, "Setting ISO : " + newISO);
-                        ParametersWrapper.setISOValue(mParameters, isoManual);
+                        CameraSettings.setISOValue(mParameters, isoManual);
                         mParameters.set(CameraSettings.KEY_CONTINUOUS_ISO, newISO);
                         Log.v(TAG, "Setting Exposure time : " + newExpTime);
                         mParameters.set(CameraSettings.KEY_EXPOSURE_TIME, expTime);
