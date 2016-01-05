@@ -51,4 +51,11 @@
 
     <!-- Minimum picture size (in pixel) to include in selection list -->
     <integer name="minimum_picture_size">900000</integer>
+
+    <!-- Restart preview for back camera onPictureTaken -->
+    <bool name="back_camera_restart_preview_onPictureTaken">false</bool>
+
+    <!-- Restart preview for front camera onPictureTaken -->
+    <bool name="front_camera_restart_preview_onPictureTaken">false</bool>
+
 </resources>
