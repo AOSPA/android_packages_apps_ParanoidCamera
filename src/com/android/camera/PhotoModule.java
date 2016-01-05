@@ -1512,7 +1512,20 @@ public class PhotoModule
                     && (mCameraState != LONGSHOT)
                     && (mSnapshotMode != CameraInfoWrapper.CAMERA_SUPPORT_MODE_ZSL)
                     && (mReceivedSnapNum == mBurstSnapNum);
+
             needRestartPreview |= mLgeHdrMode;
+
+            boolean backCameraRestartPreviewOnPictureTaken =
+                    mActivity.getResources().getBoolean(R.bool.back_camera_restart_preview_onPictureTaken);
+            boolean frontCameraRestartPreviewOnPictureTaken =
+                    mActivity.getResources().getBoolean(R.bool.front_camera_restart_preview_onPictureTaken);
+
+            CameraInfo info = CameraHolder.instance().getCameraInfo()[mCameraId];
+            if ((info.facing == CameraInfo.CAMERA_FACING_BACK && backCameraRestartPreviewOnPictureTaken)
+                    || (info.facing == CameraInfo.CAMERA_FACING_FRONT && frontCameraRestartPreviewOnPictureTaken)) {
+                needRestartPreview = true;
+            }
+
             if (needRestartPreview) {
                 mHandler.post(() -> {
                     setupPreview();
@@ -1557,7 +1570,6 @@ public class PhotoModule
                             .findPreference(CameraSettings.KEY_SELFIE_MIRROR);
                     if (selfieMirrorPref != null && selfieMirrorPref.getValue() != null &&
                             selfieMirrorPref.getValue().equalsIgnoreCase("enable")) {
-                        CameraInfo info = CameraHolder.instance().getCameraInfo()[mCameraId];
                         jpegData = flipJpeg(jpegData, info.orientation, orientation);
                         jpegData = addExifTags(jpegData, orientation);
                     }
