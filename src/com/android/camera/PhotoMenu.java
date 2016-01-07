@@ -1492,9 +1492,11 @@ public class PhotoMenu extends MenuController
         } else if (notSame(pref,CameraSettings.KEY_FLASH_MODE,"Off")) {
             ListPreference aePref =
                       mPreferenceGroup.findPreference(CameraSettings.KEY_AE_BRACKET_HDR);
-            if (notSame(aePref,CameraSettings.KEY_AE_BRACKET_HDR,"Off")) {
-               RotateTextToast.makeText(mActivity,
-                              R.string.flash_aebracket_message,Toast.LENGTH_SHORT).show();
+            if (aePref != null) {
+                if (notSame(aePref,CameraSettings.KEY_AE_BRACKET_HDR,"Off")) {
+                   RotateTextToast.makeText(mActivity,
+                                  R.string.flash_aebracket_message,Toast.LENGTH_SHORT).show();
+                }
             }
         } else if (notSame(pref, CameraSettings.KEY_LONGSHOT, mSettingOff)) {
             ListPreference advancefeaturePref =
