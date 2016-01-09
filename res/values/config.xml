@@ -42,4 +42,7 @@
     <!-- ISO values use numbers.
          Example: 50 instead of ISO50 -->
     <bool name="iso_values_use_numbers">false</bool>
+
+    <!-- Enable support for LGE HDR -->
+    <bool name="lge_hdr_mode">false</bool>
 </resources>
