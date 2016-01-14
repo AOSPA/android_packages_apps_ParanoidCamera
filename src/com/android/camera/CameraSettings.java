@@ -460,11 +460,18 @@ public class CameraSettings {
     }
 
     public static String getSupportedHighestVideoQuality(
-            int cameraId, Parameters parameters) {
+            Context context, int cameraId, Parameters parameters) {
         // When launching the camera app first time, we will set the video quality
         // to the first one (i.e. highest quality) in the supported list
         List<String> supported = getSupportedVideoQualities(cameraId,parameters);
         assert (supported != null) : "No supported video quality is found";
+        for (String candidate : context.getResources().getStringArray(
+                R.array.pref_video_quality_entryvalues)) {
+            if (supported.indexOf(candidate) >= 0) {
+                return candidate;
+            }
+        }
+        Log.w(TAG, "No supported video size matches, using the first reported size");
         return supported.get(0);
     }
 
