@@ -404,8 +404,13 @@ public class PhotoUI implements PieListener,
         } else {
             float width = mMaxPreviewWidth, height = mMaxPreviewHeight;
             if (width == 0 || height == 0) return;
-            if(mScreenRatio == CameraUtil.RATIO_4_3)
-                height -=  (mTopMargin + mBottomMargin);
+            if (mScreenRatio == CameraUtil.RATIO_4_3) {
+                if (height > width) {
+                    height -= (mTopMargin + mBottomMargin);
+                } else {
+                    width -= (mTopMargin + mBottomMargin);
+                }
+            }
             if (mOrientationResize) {
                 scaledTextureWidth = height * mAspectRatio;
                 if (scaledTextureWidth > width) {
