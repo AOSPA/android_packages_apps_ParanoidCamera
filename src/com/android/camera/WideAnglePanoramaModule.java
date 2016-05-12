@@ -701,13 +701,21 @@ public class WideAnglePanoramaModule
                     } catch (InterruptedException e) {
                         throw new RuntimeException("Panorama reportProgress failed", e);
                     }
-                    // Update the progress bar
-                    mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mUI.updateSavingProgress(progress);
-                        }
-                    });
+                    // Update the progress bar if we haven't paused.  In the case where
+                    // we pause the UI, then launch the camera from the lockscreen with
+                    // this thread still running, a new WideAnglePanoramaModule is
+                    // created, but this thread is left running to finish the task (and
+                    // mPaused continues to be true for that instance.
+                    if (!mPaused) {
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!mPaused) {
+                                    mUI.updateSavingProgress(progress);
+                                }
+                            }
+                        });
+                    }
                 }
             }
         };
