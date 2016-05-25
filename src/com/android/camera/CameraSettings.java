@@ -1001,6 +1001,7 @@ public class CameraSettings {
         ListPreference seeMoreMode = group.findPreference(KEY_SEE_MORE);
         ListPreference videoEncoder = group.findPreference(KEY_VIDEO_ENCODER);
         ListPreference noiseReductionMode = group.findPreference(KEY_NOISE_REDUCTION);
+        ListPreference savePath = group.findPreference(KEY_CAMERA_SAVEPATH);
 
         // Since the screen could be loaded from different resources, we need
         // to check if the preference is available here
@@ -1114,7 +1115,7 @@ public class CameraSettings {
             final String CAMERA_SAVEPATH_SDCARD = "1";
             final int CAMERA_SAVEPATH_SDCARD_IDX = 1;
             final int CAMERA_SAVEPATH_PHONE_IDX = 0;
-            ListPreference savePath = group.findPreference(KEY_CAMERA_SAVEPATH);
+
             SharedPreferences pref = group.getSharedPreferences();
             String savePathValue = null;
             if (pref != null) {
@@ -1130,7 +1131,13 @@ public class CameraSettings {
                     Log.d(TAG, "set Phone as save path when sdCard is unavailable.");
                     savePath.setValueIndex(CAMERA_SAVEPATH_PHONE_IDX);
                 }
-           }
+            }
+        }
+        if (savePath != null) {
+            Log.d(TAG, "check storage menu " +  SDCard.instance().isWriteable());
+            if (!SDCard.instance().isWriteable()) {
+                removePreference(group, savePath.getKey());
+            }
         }
 
         qcomInitPreferences(group);
