@@ -1313,10 +1313,14 @@ public class CameraSettings {
             version = 2;
         }
         if (version == 2) {
-            editor.putString(KEY_RECORD_LOCATION,
-                    pref.getBoolean(KEY_RECORD_LOCATION, false)
-                    ? RecordLocationPreference.VALUE_ON
-                    : RecordLocationPreference.VALUE_NONE);
+            try {
+                boolean value = pref.getBoolean(KEY_RECORD_LOCATION, false);
+                editor.putString(KEY_RECORD_LOCATION,
+                        value ? RecordLocationPreference.VALUE_ON
+                              : RecordLocationPreference.VALUE_NONE);
+            } catch (ClassCastException e) {
+                Log.e(TAG, "error convert record location", e);
+            }
             version = 3;
         }
         if (version == 3) {
