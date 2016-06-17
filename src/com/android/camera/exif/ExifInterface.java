@@ -1099,7 +1099,16 @@ public class ExifInterface {
             throws FileNotFoundException,
             IOException {
         // Attempt in-place write
-        if (!rewriteExif(filename, tags)) {
+        boolean rewriteOkay = false;
+        try {
+            rewriteOkay = rewriteExif(filename, tags);
+        } catch (IOException e) {
+            // If jpeg does not contains exif, rewriteExif
+            // will throw EOF IOException, let's catch
+            // it and fall back to do a copy instead
+            // of in-place replacement.
+        }
+        if (!rewriteOkay) {
             // Fall back to doing a copy
             ExifData tempData = mData;
             mData = new ExifData(DEFAULT_BYTE_ORDER);
