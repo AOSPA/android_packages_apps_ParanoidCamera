@@ -16,11 +16,13 @@
 
 package com.android.camera.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.ScaleGestureDetector;
 
@@ -53,6 +55,10 @@ public class ZoomRenderer extends OverlayRenderer
     private float mZoomMinValue;
     private float mZoomMaxValue;
 
+    private Point mDispSize;
+    private int mBottomMargin;
+    private int mTopMargin;
+
     public interface OnZoomChangedListener {
         void onZoomStart();
         void onZoomEnd();
@@ -77,6 +83,13 @@ public class ZoomRenderer extends OverlayRenderer
         mMinCircle = res.getDimensionPixelSize(R.dimen.zoom_ring_min);
         mTextBounds = new Rect();
         setVisible(false);
+        mBottomMargin =
+            ctx.getResources().getDimensionPixelSize(R.dimen.preview_bottom_margin);
+        mTopMargin =
+            ctx.getResources().getDimensionPixelSize(R.dimen.preview_top_margin);
+        mDispSize = new Point();
+        Activity activity = (Activity) ctx;
+        activity.getWindowManager().getDefaultDisplay().getRealSize(mDispSize);
     }
 
     // set from module
@@ -115,9 +128,13 @@ public class ZoomRenderer extends OverlayRenderer
 
     @Override
     public void layout(int l, int t, int r, int b) {
+        l = 0;
+        t = mTopMargin;
+        r = mDispSize.x;
+        b = mDispSize.y - mBottomMargin;
         super.layout(l, t, r, b);
         mCenterX = (r - l) / 2;
-        mCenterY = (b - t) / 2;
+        mCenterY = ((b - t) / 2) + t;
         mMaxCircle = Math.min(getWidth(), getHeight());
         mMaxCircle = (mMaxCircle - mMinCircle) / 2;
     }
