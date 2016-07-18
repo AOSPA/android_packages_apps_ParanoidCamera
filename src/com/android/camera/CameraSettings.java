@@ -418,7 +418,7 @@ public class CameraSettings {
         }
 
         if (mKeyIsoValues == null || mKeyIsoValues.isEmpty()) {
-            mKeyIso = "iso-values";
+            mKeyIsoValues = "iso-values";
         } else {
             Log.d(TAG, "Using key for iso-values: " + mKeyIsoValues);
         }
