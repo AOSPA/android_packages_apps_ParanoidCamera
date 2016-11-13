@@ -130,6 +130,7 @@ public class CameraSettings {
 
     public static final String KEY_FACE_RECOGNITION = "pref_camera_facerc_key";
     public static final String KEY_DIS = "pref_camera_dis_key";
+    public static final String KEY_ANTISHAKE = "pref_camera_antishake_key";
 
     public static final String KEY_LONGSHOT = "pref_camera_longshot_key";
     public static final String KEY_INSTANT_CAPTURE = "pref_camera_instant_capture_key";
