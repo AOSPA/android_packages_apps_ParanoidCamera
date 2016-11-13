@@ -466,7 +466,6 @@
 
      <!-- Settings screen, ISO dialog radio button choices -->
      <string name="pref_camera_iso_entry_auto">Auto</string>
-     <string name="pref_camera_iso_entry_isodeblur">ISO Auto(HJR)</string>
      <string name="pref_camera_iso_entry_iso100">ISO100</string>
      <string name="pref_camera_iso_entry_iso200">ISO200</string>
      <string name="pref_camera_iso_entry_iso400">ISO400</string>
@@ -532,8 +531,10 @@
     <string name="pref_camera_touchafaec_entry_on">On</string>
 
     <!-- Select IS title -->
-    <string name="pref_camera_dis_title">Image Stabilization</string>
+    <string name="pref_camera_dis_title">Image Stabilization</string> 
     <string name="pref_camera_dis_default">disable</string>
+    <string name="pref_camera_antishake_title">Anti-shake</string>
+    <string name="pref_camera_antishake_default" translatable="false">off</string>
 
     <!-- DIS choices -->
     <string name="pref_camera_dis_entry_off">Off</string>
