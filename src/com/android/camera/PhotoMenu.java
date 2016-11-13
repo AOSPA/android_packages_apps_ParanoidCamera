@@ -187,6 +187,7 @@ public class PhotoMenu extends MenuController
                 CameraSettings.KEY_CAMERA_SAVEPATH,
                 CameraSettings.KEY_LONGSHOT,
                 CameraSettings.KEY_FACE_DETECTION,
+                CameraSettings.KEY_ANTISHAKE,
                 CameraSettings.KEY_ISO,
                 CameraSettings.KEY_EXPOSURE,
                 CameraSettings.KEY_WHITE_BALANCE,
@@ -207,6 +208,7 @@ public class PhotoMenu extends MenuController
                 CameraSettings.KEY_CAMERA_SAVEPATH,
                 CameraSettings.KEY_LONGSHOT,
                 CameraSettings.KEY_FACE_DETECTION,
+                CameraSettings.KEY_ANTISHAKE,
                 CameraSettings.KEY_ISO,
                 CameraSettings.KEY_EXPOSURE,
                 CameraSettings.KEY_WHITE_BALANCE,
@@ -1288,7 +1290,7 @@ public class PhotoMenu extends MenuController
 
     public void onPreferenceClicked(ListPreference pref, int y) {
         if (!mActivity.isDeveloperMenuEnabled()) {
-            if (pref.getKey().equals(CameraSettings.KEY_REDEYE_REDUCTION)) {
+            if (pref.getKey().equals(CameraSettings.KEY_JPEG_QUALITY)) {
                 privateCounter++;
                 if (privateCounter >= DEVELOPER_MENU_TOUCH_COUNT) {
                     mActivity.enableDeveloperMenu();
