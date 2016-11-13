@@ -26,4 +26,16 @@
         <item>@string/setting_off</item>
         <item>@string/setting_on</item>
     </array>
+
+    <!-- Anti-shake -->
+    <string-array name="pref_camera_antishake_entries" translatable="false">
+        <item>@string/setting_off</item>
+        <item>@string/setting_on</item>
+    </string-array>
+
+    <string-array name="pref_camera_antishake_entryvalues" translatable="false">
+        <item>off</item>
+        <item>on</item>
+    </string-array>
+
 </resources>
