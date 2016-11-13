@@ -18,4 +18,8 @@
     <!-- Grid -->
     <string name="pref_grid_title">Grid</string>
     <string name="pref_grid_default" translatable="false">off</string>
+
+    <!-- Anti-shake -->
+    <string name="pref_camera_antishake_title">Anti-shake</string>
+    <string name="pref_camera_antishake_default" translatable="false">off</string>
 </resources>
