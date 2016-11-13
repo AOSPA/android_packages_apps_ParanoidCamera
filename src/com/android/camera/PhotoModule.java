@@ -3503,11 +3503,15 @@ public class PhotoModule
                 ParametersWrapper.getSupportedRedeyeReductionModes(mParameters))) {
             ParametersWrapper.setRedeyeReductionMode(mParameters, redeyeReduction);
         }
-        // Set ISO parameter
+        // Set ISO and/or antishake parameter
         if ((mManual3AEnabled & MANUAL_EXPOSURE) == 0) {
-            String iso = mPreferences.getString(
-                    CameraSettings.KEY_ISO,
-                    mActivity.getString(R.string.pref_camera_iso_default));
+            String isoDefault = mActivity.getString(R.string.pref_camera_iso_default);
+            String iso = mPreferences.getString(CameraSettings.KEY_ISO, isoDefault);
+            String antishakeDefault = mActivity.getString(R.string.pref_camera_antishake_default);
+            String antishake = mPreferences.getString(CameraSettings.KEY_ANTISHAKE, antishakeDefault);
+            if (iso.equals(isoDefault) && antishake.equals("on")) {
+                iso = "ISO_HJR";
+            }
             if (CameraUtil.isSupported(iso,
                 CameraSettings.getSupportedIsoValues(mParameters))) {
                 CameraSettings.setISOValue(mParameters, iso);
