@@ -1621,7 +1621,11 @@ public class VideoModule implements CameraModule,
             // In case framerate is different, scale the bitrate
             int scaledBitrate = getHighSpeedVideoEncoderBitRate(mProfile, targetFrameRate);
             Log.i(TAG, "Scaled Video bitrate : " + scaledBitrate);
-            mMediaRecorder.setVideoEncodingBitRate(scaledBitrate);
+            if (scaledBitrate > 0) {
+                mMediaRecorder.setVideoEncodingBitRate(scaledBitrate);
+            } else {
+                Log.e(TAG, "Cannot set Video bitrate because its negative");
+            }
         }
 
         setRecordLocation();
