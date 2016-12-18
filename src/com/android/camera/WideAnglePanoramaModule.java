@@ -982,6 +982,11 @@ public class WideAnglePanoramaModule
     }
 
     @Override
+    public boolean delayAppExitToSaveImage() {
+        return false;
+    }
+
+    @Override
     public void onSwitchSavePath() {
         mPreferences.getGlobal().edit().putString(CameraSettings.KEY_CAMERA_SAVEPATH, "1").apply();
         RotateTextToast.makeText(mActivity, R.string.on_switch_save_path_to_sdcard,
