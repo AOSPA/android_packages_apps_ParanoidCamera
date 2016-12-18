@@ -78,4 +78,6 @@ public interface CameraModule {
     public void enableRecordingLocation(boolean enable);
 
     public void setPreferenceForTest(String key, String value);
+
+    public boolean delayAppExitToSaveImage();
 }

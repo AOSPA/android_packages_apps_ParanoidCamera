@@ -1113,6 +1113,11 @@ public class VideoModule implements CameraModule,
     }
 
     @Override
+    public boolean delayAppExitToSaveImage() {
+        return false;
+    }
+
+    @Override
     public void installIntentFilter() {
         if(mReceiver != null)
             return;

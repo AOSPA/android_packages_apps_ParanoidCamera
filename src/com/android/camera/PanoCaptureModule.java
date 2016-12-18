@@ -510,6 +510,11 @@ public class PanoCaptureModule implements CameraModule, PhotoController {
     }
 
     @Override
+    public boolean delayAppExitToSaveImage() {
+        return false;
+    }
+
+    @Override
     public void installIntentFilter() {
 
     }
