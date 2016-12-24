@@ -203,6 +203,7 @@ public class ListPreference extends CameraPreference {
         ArrayList<CharSequence> entries = new ArrayList<CharSequence>();
         ArrayList<CharSequence> entryValues = new ArrayList<CharSequence>();
         for (int i = 0, len = mEntryValues.length; i < len; i++) {
+            if (i >= mEntries.length) break;
             if (supported.indexOf(mEntryValues[i].toString()) >= 0) {
                 entries.add(mEntries[i]);
                 entryValues.add(mEntryValues[i]);
