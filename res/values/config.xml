@@ -45,4 +45,7 @@
 
     <!-- Enable support for LGE HDR -->
     <bool name="lge_hdr_mode">false</bool>
+
+    <!-- Enable HAL3 by default -->
+    <bool name="config_use_hal3">false</bool>
 </resources>

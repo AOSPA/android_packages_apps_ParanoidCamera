@@ -141,6 +141,14 @@ public interface CameraManager {
     }
 
     /**
+     * Sets HAL3 enabled or disabled
+     *
+     * @param hal3 The indication as to whether HAL3 should be used instead of openLegacy.
+     *
+     */
+    public void setHal3(boolean hal3);
+
+    /**
      * Opens the camera of the specified ID synchronously.
      *
      * @param handler The {@link android.os.Handler} in which the callback
