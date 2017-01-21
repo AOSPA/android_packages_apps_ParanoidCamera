@@ -17,7 +17,7 @@
 
 <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/placeholder_progress"
-        style="@android:style/Widget.Holo.ProgressBar.Large"
+        style="@android:style/Widget.Material.ProgressBar.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

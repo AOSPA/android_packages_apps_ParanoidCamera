@@ -16,7 +16,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Spinner primary text is smaller than usual due to extra vertical padding in spinner asset -->
-    <style name="ActionBarTwoLinePrimary" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <style name="ActionBarTwoLinePrimary" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
         <item name="android:textSize">14sp</item>
     </style>
 
