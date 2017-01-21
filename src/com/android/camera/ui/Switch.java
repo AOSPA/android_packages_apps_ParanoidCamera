@@ -123,7 +123,7 @@ public class Switch extends CompoundButton {
         mSwitchMinWidth = res.getDimensionPixelSize(R.dimen.switch_min_width);
         mSwitchTextMaxWidth = res.getDimensionPixelSize(R.dimen.switch_text_max_width);
         mSwitchPadding = res.getDimensionPixelSize(R.dimen.switch_padding);
-        setSwitchTextAppearance(context, android.R.style.TextAppearance_Holo_Small);
+        setSwitchTextAppearance(context, android.R.style.TextAppearance_Material_Small);
 
         ViewConfiguration config = ViewConfiguration.get(context);
         mTouchSlop = config.getScaledTouchSlop();
