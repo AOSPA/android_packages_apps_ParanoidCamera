@@ -38,6 +38,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import org.codeaurora.snapcam.R;
+import com.android.camera.CameraActivity;
 import com.android.camera.ui.ModuleSwitcher;
 import com.android.camera.ui.RotateImageView;
 import com.android.camera.ShutterButton;
@@ -68,6 +69,8 @@ public class CameraControls extends RotatableLayout {
     private View mReviewCancelButton;
     private View mReviewRetakeButton;
     private ArrowTextView mRefocusToast;
+
+    private CameraActivity mActivity;
 
     private int mSize;
     private static int WIDTH_GRID = 5;
@@ -397,6 +400,10 @@ public class CameraControls extends RotatableLayout {
         }
     }
 
+    public void setCameraActivity(CameraActivity activity) {
+        mActivity = activity;
+    }
+
     private void setLocation(int w, int h) {
         int rotation = getUnifiedRotation();
         if (mIsBokehMode) {
@@ -694,6 +701,9 @@ public class CameraControls extends RotatableLayout {
                 mPreview.animate().translationXBy(-mSize).setDuration(ANIME_DURATION);
                 break;
         }
+        if (mActivity != null) {
+            mActivity.setGridVisibility(View.GONE);
+        }
         mRemainingPhotos.setVisibility(View.INVISIBLE);
         mRefocusToast.setVisibility(View.GONE);
     }
@@ -837,6 +847,9 @@ public class CameraControls extends RotatableLayout {
         if ((mRemainingPhotos.getVisibility() == View.INVISIBLE) &&
                 !mHideRemainingPhoto){
             mRemainingPhotos.setVisibility(View.VISIBLE);
+        }
+        if (mActivity != null && mActivity.isGridEnabled()) {
+            mActivity.setGridVisibility(View.VISIBLE);
         }
         mRefocusToast.setVisibility(View.GONE);
     }
