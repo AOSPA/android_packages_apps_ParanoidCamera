@@ -117,6 +117,8 @@ public class PhotoUI implements PieListener,
     private MenuHelp mMenuHelp;
     private AlertDialog mLocationDialog;
 
+    private GridView mGridView;
+
     // Small indicators which show the camera settings in the viewfinder.
     private OnScreenIndicators mOnScreenIndicators;
 
@@ -307,6 +309,8 @@ public class PhotoUI implements PieListener,
         calculateMargins(size);
         mCameraControls.setMargins(mTopMargin, mBottomMargin);
         showFirstTimeHelp();
+
+        mGridView = mActivity.getGridView();
     }
 
     private void calculateMargins(Point size) {
@@ -476,6 +480,9 @@ public class PhotoUI implements PieListener,
         RectF r = new RectF(mSurfaceView.getLeft(), mSurfaceView.getTop(),
                 mSurfaceView.getRight(), mSurfaceView.getBottom());
         mController.onPreviewRectChanged(CameraUtil.rectFToRect(r));
+        if (mGridView != null) {
+            mGridView.setBounds(r);
+        }
     }
 
     @Override

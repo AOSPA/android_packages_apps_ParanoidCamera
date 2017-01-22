@@ -135,6 +135,10 @@ public class VideoUI implements PieRenderer.PieListener,
         SURFACE_VIEW;
     }
 
+    public CameraControls getCameraControls() {
+        return mCameraControls;
+    }
+
     public void showPreviewCover() {
         mPreviewCover.setVisibility(View.VISIBLE);
     }

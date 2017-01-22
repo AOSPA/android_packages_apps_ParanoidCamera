@@ -136,6 +136,8 @@ public class CameraSettings {
     public static final String KEY_BOKEH_MPO = "pref_camera_bokeh_mpo_key";
     public static final String KEY_BOKEH_BLUR_VALUE = "pref_camera_bokeh_blur_degree_key";
 
+    public static final String KEY_GRID = "pref_grid";
+
     private static final String KEY_QC_SUPPORTED_AE_BRACKETING_MODES = "ae-bracket-hdr-values";
     private static final String KEY_QC_SUPPORTED_AF_BRACKETING_MODES = "af-bracket-values";
     private static final String KEY_QC_SUPPORTED_RE_FOCUS_MODES = "re-focus-values";

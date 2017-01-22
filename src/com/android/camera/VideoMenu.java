@@ -117,7 +117,8 @@ public class VideoMenu extends MenuController
                 CameraSettings.KEY_CAMERA_SAVEPATH,
                 CameraSettings.KEY_WHITE_BALANCE,
                 CameraSettings.KEY_VIDEO_HIGH_FRAME_RATE,
-                CameraSettings.KEY_DIS
+                CameraSettings.KEY_DIS,
+                CameraSettings.KEY_GRID
         };
         mOtherKeys2 = new String[] {
                 CameraSettings.KEY_VIDEOCAMERA_FLASH_MODE,
@@ -141,7 +142,8 @@ public class VideoMenu extends MenuController
                 CameraSettings.KEY_VIDEO_CDS_MODE,
                 CameraSettings.KEY_VIDEO_TNR_MODE,
                 CameraSettings.KEY_VIDEO_SNAPSHOT_SIZE,
-                CameraSettings.KEY_ZOOM
+                CameraSettings.KEY_ZOOM,
+                CameraSettings.KEY_GRID
         };
         initSwitchItem(CameraSettings.KEY_CAMERA_ID, mFrontBackSwitcher);
     }
