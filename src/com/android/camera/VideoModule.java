@@ -496,6 +496,8 @@ public class VideoModule implements CameraModule,
             mPreferences = new ComboPreferences(mActivity);
         }
 
+        mUI.getCameraControls().setCameraActivity(mActivity);
+
         CameraSettings.upgradeGlobalPreferences(mPreferences.getGlobal(), activity);
         mCameraId = getPreferredCameraId(mPreferences);
 
@@ -546,6 +548,8 @@ public class VideoModule implements CameraModule,
 
         initializeVideoControl();
         mPendingSwitchCameraId = -1;
+
+        mActivity.showGrid(mPreferences);
     }
 
     @Override
@@ -1357,6 +1361,8 @@ public class VideoModule implements CameraModule,
             setMute(mWasMute, false);
         }
         mUI.applySurfaceChange(VideoUI.SURFACE_STATUS.HIDE);
+
+        mActivity.showGrid(mPreferences);
     }
 
     @Override
@@ -2906,6 +2912,7 @@ public class VideoModule implements CameraModule,
             Storage.setSaveSDCard(
                 mPreferences.getString(CameraSettings.KEY_CAMERA_SAVEPATH, "0").equals("1"));
             mActivity.updateStorageSpaceAndHint();
+            mActivity.showGrid(mPreferences);
         }
     }
 
