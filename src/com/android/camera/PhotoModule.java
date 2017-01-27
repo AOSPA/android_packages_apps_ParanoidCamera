@@ -5411,7 +5411,7 @@ class GraphView extends View {
     private float scaled;
     private static final int STATS_SIZE = 256;
     private static final String TAG = "GraphView";
-
+    private static final boolean DEBUG = false;
 
     public GraphView(Context context, AttributeSet attrs) {
         super(context,attrs);
@@ -5430,9 +5430,9 @@ class GraphView extends View {
     }
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.v(TAG, "in Camera.java ondraw");
+        if (DEBUG) Log.v(TAG, "in Camera.java ondraw");
         if(mPhotoModule == null || !mPhotoModule.mHiston ) {
-            Log.e(TAG, "returning as histogram is off ");
+            if (DEBUG) Log.e(TAG, "returning as histogram is off ");
             return;
         }
 
