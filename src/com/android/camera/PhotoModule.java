@@ -3408,29 +3408,18 @@ public class PhotoModule
         String optizoomOn = mActivity.getString(R.string
                 .pref_camera_advanced_feature_value_optizoom_on);
 
-        if (Parameters.SCENE_MODE_AUTO.equals(mSceneMode) ||
-            CameraUtil.SCENE_MODE_HDR.equals(mSceneMode) ||
-            optizoomOn.equals(mSceneMode)) {
-            // Set Touch AF/AEC parameter.
-            String touchAfAec = mPreferences.getString(
-                 CameraSettings.KEY_TOUCH_AF_AEC,
-                 mActivity.getString(R.string.pref_camera_touchafaec_default));
-            if (CameraUtil.isSupported(touchAfAec,
-                    ParametersWrapper.getSupportedTouchAfAec(mParameters))) {
-                mCurrTouchAfAec = touchAfAec;
-                ParametersWrapper.setTouchAfAec(mParameters, touchAfAec);
-            }
-        } else {
-            ParametersWrapper.setTouchAfAec(mParameters, ParametersWrapper.TOUCH_AF_AEC_OFF);
-            mFocusManager.resetTouchFocus();
-        }
-        try {
+        // Set Touch AF/AEC parameter.
+        String touchAfAec = mPreferences.getString(
+                CameraSettings.KEY_TOUCH_AF_AEC,
+                mActivity.getString(R.string.pref_camera_touchafaec_default));
+        if (CameraUtil.isSupported(touchAfAec,
+                ParametersWrapper.getSupportedTouchAfAec(mParameters))) {
+            mCurrTouchAfAec = touchAfAec;
+            ParametersWrapper.setTouchAfAec(mParameters, touchAfAec);
             if(ParametersWrapper.getTouchAfAec(mParameters).equals(ParametersWrapper.TOUCH_AF_AEC_ON))
-                this.mTouchAfAecFlag = true;
+                mTouchAfAecFlag = true;
             else
-                this.mTouchAfAecFlag = false;
-        } catch(Exception e){
-            Log.e(TAG, "Handled NULL pointer Exception");
+                mTouchAfAecFlag = false;
         }
 
         // Set Picture Format
