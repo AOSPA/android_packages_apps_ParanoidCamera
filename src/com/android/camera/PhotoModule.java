@@ -3418,19 +3418,9 @@ public class PhotoModule
         String optizoomOn = mActivity.getString(R.string
                 .pref_camera_advanced_feature_value_optizoom_on);
 
-        // Set Touch AF/AEC parameter.
-        String touchAfAec = mPreferences.getString(
-                CameraSettings.KEY_TOUCH_AF_AEC,
-                mActivity.getString(R.string.pref_camera_touchafaec_default));
-        if (CameraUtil.isSupported(touchAfAec,
-                ParametersWrapper.getSupportedTouchAfAec(mParameters))) {
-            mCurrTouchAfAec = touchAfAec;
-            ParametersWrapper.setTouchAfAec(mParameters, touchAfAec);
-            if (ParametersWrapper.getTouchAfAec(mParameters).equals(ParametersWrapper.TOUCH_AF_AEC_ON))
-                mTouchAfAecFlag = true;
-            else
-                mTouchAfAecFlag = false;
-        }
+        // Set Touch AF/AEC parameter
+        // by default never disable touch focus
+        mTouchAfAecFlag = true;
 
         // Set Picture Format
         // Picture Formats specified in UI should be consistent with
