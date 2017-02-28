@@ -144,6 +144,7 @@ public class PhotoModule
     private int mReceivedSnapNum = 0;
     public boolean mFaceDetectionEnabled = false;
     private boolean mLgeHdrMode = false;
+    private boolean mUseAbsoluteSharpness = false;
     private DrawAutoHDR mDrawAutoHDR;
    /*Histogram variables*/
     private GraphView mGraphView;
@@ -652,8 +653,8 @@ public class PhotoModule
         Storage.setSaveSDCard(
             mPreferences.getString(CameraSettings.KEY_CAMERA_SAVEPATH, "0").equals("1"));
 
-        // LGE HDR mode
         mLgeHdrMode = activity.getResources().getBoolean(R.bool.lge_hdr_mode);
+        mUseAbsoluteSharpness = activity.getResources().getBoolean(R.bool.config_use_absolute_sharpness);
 
         mActivity.showGrid(mPreferences);
     }
@@ -3527,6 +3528,10 @@ public class PhotoModule
                 mActivity.getString(R.string.pref_camera_sharpness_default));
         int sharpness = Integer.parseInt(sharpnessStr) *
                 (ParametersWrapper.getMaxSharpness(mParameters)/MAX_SHARPNESS_LEVEL);
+        if (mUseAbsoluteSharpness) {
+            sharpness = Integer.parseInt(sharpnessStr);
+        }
+
         Log.v(TAG, "Sharpness value =" + sharpness);
         if((0 <= sharpness) && (sharpness <= ParametersWrapper.getMaxSharpness(mParameters))){
             ParametersWrapper.setSharpness(mParameters, sharpness);
