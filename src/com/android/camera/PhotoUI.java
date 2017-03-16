@@ -36,6 +36,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Size;
@@ -128,6 +129,8 @@ public class PhotoUI implements PieListener,
     private PieRenderer mPieRenderer;
     private ZoomRenderer mZoomRenderer;
     private RotateTextToast mNotSelectableToast;
+
+    private Handler mHandler = new Handler();
 
     private int mZoomMax;
     private List<Integer> mZoomRatios;
@@ -1339,7 +1342,9 @@ public class PhotoUI implements PieListener,
     public void clearFocus() {
         FocusIndicator indicator = mPieRenderer;
         if (hasFaces()) {
-            mFaceView.showStart();
+            mHandler.post(() -> {
+                mFaceView.showStart();
+            });
         }
         if (indicator != null) indicator.clear();
     }
