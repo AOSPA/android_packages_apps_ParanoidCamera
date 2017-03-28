@@ -1159,10 +1159,7 @@ public class PhotoMenu extends MenuController
             label.setText(entries[i]);
             layout.addView(layout2);
 
-            // ASD only available when developer options are enabled.
-            if(entryValues[i].equals("asd")) {
-                layout2.setVisibility(mActivity.isDeveloperMenuEnabled()?View.VISIBLE:View.GONE);
-            } else if(entryValues[i].equals("hdr")) {
+            if(entryValues[i].equals("hdr")) {
                 ListPreference autoHdrPref = mPreferenceGroup.findPreference(CameraSettings.KEY_AUTO_HDR);
                 if (autoHdrPref != null && autoHdrPref.getValue().equalsIgnoreCase("enable")) {
                     layout2.setVisibility(View.GONE);
