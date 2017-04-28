@@ -798,6 +798,8 @@ public class VideoMenu extends MenuController
                 || !videoHDR.equals("off")
                 || timeLapseInterval != 0) {
             mListMenu.setPreferenceEnabled(CameraSettings.KEY_VIDEO_HIGH_FRAME_RATE, false);
+            RotateTextToast.makeText(mActivity, R.string.error_app_unsupported_hfr_selection,
+                    Toast.LENGTH_LONG).show();
         }
 
     }
