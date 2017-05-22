@@ -336,23 +336,23 @@
      <!-- Default mce setting. Do not translate. -->
      <string name="pref_camera_mce_default">enable</string>
 
-     <!-- The message is shown in toast when the app encounters an unsupported selection for HFR/HSR mode -->
-     <string name="error_app_unsupported_hfr_selection">HFR/HSR is not supported for Image Stabilization/TimeLapse/HDR</string>
+     <!-- The message is shown in toast when the app encounters an unsupported selection for Slow Motion/High FPS mode -->
+     <string name="error_app_unsupported_hfr_selection">Slow Motion/High FPS is not supported for Image Stabilization/TimeLapse/HDR</string>
 
-     <!-- The message is shown in dialog when the app encounters an unsupported resolution for HFR mode -->
-     <string name="error_app_unsupported_hfr">HFR is not supported for selected resolution</string>
+     <!-- The message is shown in dialog when the app encounters an unsupported resolution for Slow Motion mode -->
+     <string name="error_app_unsupported_hfr">Slow Motion is not supported for selected resolution</string>
 
      <!-- The message is shown in toast when the app encounters an unsupported resolution for DIS mode -->
      <string name="error_app_unsupported_dis">Unsupported video resolution for Image Stabilization</string>
 
      <!-- The message is shown in dialog when the app
-         encounters an unsupported resolution for HSR mode -->
+         encounters an unsupported resolution for High FPS mode -->
      <string name="error_app_unsupported_hsr">
-         HSR is not supported for selected resolution
+         High FPS is not supported for selected resolution
      </string>
 
-     <!-- The message is shown in dialog when the app encounters an unsupported video codec for HFR mode -->
-     <string name="error_app_unsupported_hfr_codec">Only H264 video encoding is supported when HFR is ON</string>
+     <!-- The message is shown in dialog when the app encounters an unsupported video codec for Slow Motion mode -->
+     <string name="error_app_unsupported_hfr_codec">Only H264 video encoding is supported when Slow Motion is ON</string>
 
      <!-- The message is shown in dialog when the app encounters an unsupported video resolution-->
      <string name="error_app_unsupported">Unsupported video resolution for this encoder type</string>
@@ -400,16 +400,16 @@
 
      <!-- Settings screen, hfr radio button choices -->
      <string name="pref_camera_hfr_entry_off">Off</string>
-     <string name="pref_camera_hfr_entry_2x">HFR 60</string>
-     <string name="pref_camera_hfr_entry_3x">HFR 90</string>
-     <string name="pref_camera_hfr_entry_4x">HFR 120</string>
-     <string name="pref_camera_hfr_entry_8x">HFR 240</string>
-     <string name="pref_camera_hfr_entry_hsr_60">HSR 60</string>
-     <string name="pref_camera_hfr_entry_hsr_90">HSR 90</string>
-     <string name="pref_camera_hfr_entry_hsr_120">HSR 120</string>
-     <string name="pref_camera_hfr_entry_hsr_240">HSR 240</string>
+     <string name="pref_camera_hfr_entry_2x">Slow Motion 60</string>
+     <string name="pref_camera_hfr_entry_3x">Slow Motion 90</string>
+     <string name="pref_camera_hfr_entry_4x">Slow Motion 120</string>
+     <string name="pref_camera_hfr_entry_8x">Slow Motion 240</string>
+     <string name="pref_camera_hfr_entry_hsr_60">High FPS 60</string>
+     <string name="pref_camera_hfr_entry_hsr_90">High FPS 90</string>
+     <string name="pref_camera_hfr_entry_hsr_120">High FPS 120</string>
+     <string name="pref_camera_hfr_entry_hsr_240">High FPS 240</string>
 
-     <!-- HFR entry values. Do not translate. -->
+     <!-- Slow Motion entry values. Do not translate. -->
      <string name="pref_camera_hfr_value_off">off</string>
      <string name="pref_camera_hfr_value_2x">hfr60</string>
      <string name="pref_camera_hfr_value_3x">hfr90</string>
