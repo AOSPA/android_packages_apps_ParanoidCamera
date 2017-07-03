@@ -1519,10 +1519,20 @@ public class PhotoModule
                     mActivity.getResources().getBoolean(R.bool.back_camera_restart_preview_onPictureTaken);
             boolean frontCameraRestartPreviewOnPictureTaken =
                     mActivity.getResources().getBoolean(R.bool.front_camera_restart_preview_onPictureTaken);
+            boolean manualIsoRestartPreviewOnPictureTaken =
+                    mActivity.getResources().getBoolean(R.bool.manual_iso_restart_preview_onPictureTaken);
 
             CameraInfo info = CameraHolder.instance().getCameraInfo()[mCameraId];
+
+            final String isoPref = mPreferences.getString(
+                    CameraSettings.KEY_ISO,
+                    mActivity.getString(R.string.pref_camera_iso_default));
+
+            final boolean isManualIso = !isoPref.equals("auto");
+
             if ((info.facing == CameraInfo.CAMERA_FACING_BACK && backCameraRestartPreviewOnPictureTaken)
-                    || (info.facing == CameraInfo.CAMERA_FACING_FRONT && frontCameraRestartPreviewOnPictureTaken)) {
+                    || (info.facing == CameraInfo.CAMERA_FACING_FRONT && frontCameraRestartPreviewOnPictureTaken)
+                    || (isManualIso && manualIsoRestartPreviewOnPictureTaken)) {
                 needRestartPreview = true;
             }
 
