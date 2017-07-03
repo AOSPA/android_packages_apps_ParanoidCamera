@@ -15,4 +15,7 @@
          Setting this to true will pass the configured
          sharpness value to the HAL. -->
     <bool name="config_use_absolute_sharpness">false</bool>
+
+    <!-- Restart preview when manual iso is used -->
+    <bool name="manual_iso_restart_preview_onPictureTaken">false</bool>
 </resources>
