@@ -19,6 +19,7 @@ package com.android.camera;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
@@ -47,7 +48,6 @@ import co.paranoidandroid.camera.R;
 public class TsMakeupManager implements OnSeekBarChangeListener {
     private static final String TAG = "TsMakeupManager";
     private PhotoUI mUI;
-    private PhotoMenu mMenu;
     private CameraActivity mActivity;
     private PreferenceGroup mPreferenceGroup;
     private View mTsMakeupSwitcher;
@@ -56,9 +56,9 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     private LinearLayout mMakeupLevelRoot;
     private LinearLayout mMakeupSingleRoot;
 
-    public static final String MAKEUP_ON     = "On";
-    public static final String MAKEUP_OFF    = "Off";
-    public static final String MAKEUP_NONE   = "none";
+    public static final String MAKEUP_ON = "On";
+    public static final String MAKEUP_OFF = "Off";
+    public static final String MAKEUP_NONE = "none";
 
     private static final int MODE_NONE = 0;
     private static final int MODE_WHITEN = 1;
@@ -66,10 +66,10 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     private int mMode = MODE_NONE;
     private int mSingleSelectedIndex = MODE_NONE;
 
-    private static final int MAKEUP_UI_STATUS_NONE      = 0;
-    private static final int MAKEUP_UI_STATUS_ON        = 1;
-    private static final int MAKEUP_UI_STATUS_OFF       = 2;
-    private static final int MAKEUP_UI_STATUS_DISMISS   = 3;
+    private static final int MAKEUP_UI_STATUS_NONE = 0;
+    private static final int MAKEUP_UI_STATUS_ON = 1;
+    private static final int MAKEUP_UI_STATUS_OFF = 2;
+    private static final int MAKEUP_UI_STATUS_DISMISS = 3;
     private int mMakeupUIStatus = MAKEUP_UI_STATUS_NONE;
 
     private static final int CLICK_THRESHOLD = 200;
@@ -77,6 +77,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     public static final boolean HAS_TS_MAKEUP = android.os.SystemProperties.getBoolean("persist.ts.rtmakeup", false);
 
     private MakeupLevelListener mMakeupLevelListener;
+
     interface MakeupLevelListener {
         void onMakeupLevel(String key, String value);
     }
@@ -85,20 +86,17 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
         mMakeupLevelListener = l;
     }
 
-    public TsMakeupManager(CameraActivity activity, PhotoMenu menu, PhotoUI ui, PreferenceGroup preferenceGroup, View makeupSwitcher) {
+    public TsMakeupManager(CameraActivity activity, PhotoUI ui,
+                           PreferenceGroup preferenceGroup, View makeupSwitcher) {
         mActivity = activity;
         mUI = ui;
-        mMenu = menu;
         mPreferenceGroup = preferenceGroup;
         mTsMakeupSwitcher = makeupSwitcher;
 
-        mMakeupLayoutRoot = (RelativeLayout) mUI.getRootView().findViewById(R.id.id_tsmakeup_level_layout_root);
+        mMakeupLayoutRoot = (RelativeLayout) mUI.getRootView()
+                .findViewById(R.id.id_tsmakeup_level_layout_root);
 
         mMakeupUIStatus = MAKEUP_UI_STATUS_NONE;
-    }
-
-    public View getMakeupLayoutRoot() {
-        return mMakeupLayoutRoot;
     }
 
     public boolean isShowMakeup() {
@@ -106,15 +104,15 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     }
 
     public void removeAllViews() {
-        if(mMakeupSingleRoot != null) {
+        if (mMakeupSingleRoot != null) {
             mMakeupSingleRoot.removeAllViews();
             mMakeupSingleRoot = null;
         }
-        if(mMakeupLevelRoot != null) {
+        if (mMakeupLevelRoot != null) {
             mMakeupLevelRoot.removeAllViews();
             mMakeupLevelRoot = null;
         }
-        if(mMakeupLayoutRoot != null) {
+        if (mMakeupLayoutRoot != null) {
             mMakeupLayoutRoot.removeAllViews();
         }
     }
@@ -122,7 +120,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     public void dismissMakeupUI() {
         mMakeupUIStatus = MAKEUP_UI_STATUS_DISMISS;
         removeAllViews();
-        if(mMakeupLayoutRoot != null) {
+        if (mMakeupLayoutRoot != null) {
             mMakeupLayoutRoot.setVisibility(View.GONE);
         }
     }
@@ -132,19 +130,19 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     }
 
     private void changeMakeupIcon(String value) {
-        if( !TextUtils.isEmpty(value) ) {
+        if (!TextUtils.isEmpty(value)) {
             String prefValue = MAKEUP_ON;
-            if(MAKEUP_OFF.equals(value)) {
+            if (MAKEUP_OFF.equals(value)) {
                 prefValue = MAKEUP_OFF;
             }
             final IconListPreference pref = (IconListPreference) mPreferenceGroup
                     .findPreference(CameraSettings.KEY_TS_MAKEUP_UILABLE);
-            if(pref == null)
+            if (pref == null)
                 return;
             pref.setValue(prefValue);
             int index = pref.getCurrentIndex();
             ImageView iv = (ImageView) mTsMakeupSwitcher;
-            iv.setImageResource(((IconListPreference) pref).getLargeIconIds()[index]);
+            iv.setImageResource(pref.getLargeIconIds()[index]);
             pref.setMakeupSeekBarValue(prefValue);
         }
     }
@@ -152,18 +150,18 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     public void hideMakeupUI() {
         final IconListPreference pref = (IconListPreference) mPreferenceGroup
                 .findPreference(CameraSettings.KEY_TS_MAKEUP_UILABLE);
-        if(pref == null)
+        if (pref == null)
             return;
         mMakeupUIStatus = MAKEUP_UI_STATUS_NONE;
         String tsMakeupOn = pref.getValue();
         Log.d(TAG, "TsMakeupManager.hideMakeupUI(): tsMakeupOn is " + tsMakeupOn);
-        if(MAKEUP_ON.equals(tsMakeupOn)) {
+        if (MAKEUP_ON.equals(tsMakeupOn)) {
             int index = pref.findIndexOfValue(pref.getValue());
             CharSequence[] values = pref.getEntryValues();
             index = (index + 1) % values.length;
-            pref.setMakeupSeekBarValue((String)values[index]);
+            pref.setMakeupSeekBarValue((String) values[index]);
             ImageView iv = (ImageView) mTsMakeupSwitcher;
-            iv.setImageResource(((IconListPreference) pref).getLargeIconIds()[index]);
+            iv.setImageResource(pref.getLargeIconIds()[index]);
             mMakeupLevelListener.onMakeupLevel(CameraSettings.KEY_TS_MAKEUP_LEVEL, pref.getValue());
 
             IconListPreference levelPref = (IconListPreference) mPreferenceGroup
@@ -173,11 +171,11 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
 
             mMakeupLayoutRoot.setVisibility(View.GONE);
             mMakeupLayoutRoot.removeAllViews();
-            if(mMakeupSingleRoot != null) {
+            if (mMakeupSingleRoot != null) {
                 mMakeupSingleRoot.removeAllViews();
                 mMakeupSingleRoot = null;
             }
-            if(mMakeupLevelRoot != null) {
+            if (mMakeupLevelRoot != null) {
                 mMakeupLevelRoot.removeAllViews();
                 mMakeupLevelRoot = null;
             }
@@ -188,21 +186,21 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
         mMakeupUIStatus = MAKEUP_UI_STATUS_OFF;
         mMakeupLayoutRoot.setVisibility(View.GONE);
         mMakeupLayoutRoot.removeAllViews();
-        if(mMakeupSingleRoot != null) {
+        if (mMakeupSingleRoot != null) {
             mMakeupSingleRoot.removeAllViews();
             mMakeupSingleRoot = null;
         }
-        if(mMakeupLevelRoot != null) {
+        if (mMakeupLevelRoot != null) {
             mMakeupLevelRoot.removeAllViews();
             mMakeupLevelRoot = null;
         }
 
-        if(mMakeupSingleRoot != null && mMakeupSingleRoot.getVisibility() == View.VISIBLE) {
+        if (mMakeupSingleRoot != null && mMakeupSingleRoot.getVisibility() == View.VISIBLE) {
             showSingleView(MAKEUP_NONE);
             return;
         }
 
-        if(mMakeupUIStatus == MAKEUP_UI_STATUS_DISMISS)
+        if (mMakeupUIStatus == MAKEUP_UI_STATUS_DISMISS)
             return;
 
         mMakeupLayoutRoot.setVisibility(View.VISIBLE);
@@ -211,7 +209,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
         if (pref == null)
             return;
 
-        if(mMakeupLevelRoot != null) {
+        if (mMakeupLevelRoot != null) {
             mMakeupLevelRoot.removeAllViews();
             mMakeupLevelRoot = null;
         }
@@ -219,70 +217,37 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
 
         mMakeupUIStatus = MAKEUP_UI_STATUS_ON;
 
-        int rotation = CameraUtil.getDisplayRotation(mActivity);
-        boolean mIsDefaultToPortrait = CameraUtil.isDefaultToPortrait(mActivity);
-        if (!mIsDefaultToPortrait) {
-            rotation = (rotation + 90) % 360;
-        }
         CharSequence[] entries = pref.getEntries();
         int[] thumbnails = pref.getThumbnailIds();
 
         WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight();
+        Point displaySize = new Point();
+        wm.getDefaultDisplay().getRealSize(displaySize);
         Resources r = mActivity.getResources();
         int margin = (int) (r.getDimension(R.dimen.tsmakeup_mode_paddingBottom));
         int levelBgSize = (int) (r.getDimension(R.dimen.tsmakeup_mode_level_size));
 
-        Log.d(TAG, "TsMakeupManager.showMakeupView(): rotation is " + rotation + ", WH is (" + width + ", " + height + "), margin is "
+        Log.d(TAG, "TsMakeupManager.showMakeupView(): WH is ("
+                + displaySize.x + ", " + displaySize.y + "), margin is "
                 + margin + ", levelBgSize is " + levelBgSize);
 
-        int gridRes = 0;
-        boolean portrait = (rotation == 0) || (rotation == 180);
-        int size = height;
-        if (portrait) {
-            gridRes = R.layout.ts_makeup_level_view_port;
-            size = width;
-        } else {
-            gridRes = R.layout.ts_makeup_level_view_land;
-            size = height;
-        }
-        int itemWidth = size / entries.length;
+        int itemWidth = displaySize.x / entries.length;
 
-        LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater)
+                mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        LinearLayout layout = (LinearLayout) inflater.inflate(gridRes, null, false);
+        LinearLayout layout = (LinearLayout)
+                inflater.inflate(R.layout.ts_makeup_level_view_port,
+                        null, false);
         mMakeupLevelRoot = layout;
         mUI.setMakeupMenuLayout(layout);
 
-        LinearLayout.LayoutParams params = null;
-        if(portrait) {
-            params = new LayoutParams(itemWidth, itemWidth);
-            params.gravity = Gravity.CENTER_VERTICAL;
-        } else {
-            params = new LayoutParams(itemWidth, itemWidth);
-            params.gravity = Gravity.CENTER_HORIZONTAL;
-        }
+        LinearLayout.LayoutParams params = new LayoutParams(itemWidth, itemWidth);
+        params.gravity = Gravity.CENTER_VERTICAL;
 
-        RelativeLayout.LayoutParams rootParams = null;
-        if(rotation == 0) {
-            rootParams = new RelativeLayout.LayoutParams(size, levelBgSize);
-//            rootParams.bottomMargin = margin;
-            rootParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        } else if(rotation == 90) {
-            rootParams = new RelativeLayout.LayoutParams(levelBgSize, size);
-//            rootParams.rightMargin = margin;
-            rootParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        } else if(rotation == 180) {
-            rootParams = new RelativeLayout.LayoutParams(size, levelBgSize);
-//            rootParams.topMargin = margin;
-            rootParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        } else if(rotation == 270) {
-            rootParams = new RelativeLayout.LayoutParams(levelBgSize, size);
-//            rootParams.leftMargin = margin;
-            rootParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        }
+        RelativeLayout.LayoutParams rootParams =
+                new RelativeLayout.LayoutParams(displaySize.x, levelBgSize);
+        rootParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         final View[] views = new View[entries.length];
         int init = pref.getCurrentIndex();
@@ -314,7 +279,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
 
                             showSingleView(pref.getValue());
                             mUI.adjustOrientation();
-                            if(!pref.getValue().equalsIgnoreCase("off")) {
+                            if (!pref.getValue().equalsIgnoreCase("off")) {
                                 String toast = mActivity.getString(
                                         R.string.text_tsmakeup_beautify_toast);
                                 RotateTextToast.makeText(mActivity, toast, Toast.LENGTH_SHORT).show();
@@ -338,39 +303,35 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     }
 
     private void showSingleView(String value) {
-        if(MAKEUP_NONE.equals(value)) {
-            if(mMakeupSingleRoot != null) {
+        if (MAKEUP_NONE.equals(value)) {
+            if (mMakeupSingleRoot != null) {
                 mMakeupSingleRoot.removeAllViews();
                 mMakeupSingleRoot = null;
             }
             mMakeupLayoutRoot.removeAllViews();
-            int rotation = CameraUtil.getDisplayRotation(mActivity);
-            boolean mIsDefaultToPortrait = CameraUtil.isDefaultToPortrait(mActivity);
-            if (!mIsDefaultToPortrait) {
-                rotation = (rotation + 90) % 360;
-            }
 
             WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            int width = display.getWidth();
-            int height = display.getHeight();
+            Point displaySize = new Point();
+            wm.getDefaultDisplay().getRealSize(displaySize);
             Resources r = mActivity.getResources();
             int margin = (int) (r.getDimension(R.dimen.tsmakeup_mode_paddingBottom));
             int levelBgSize = (int) (r.getDimension(R.dimen.tsmakeup_mode_level_size));
 
-            Log.d(TAG, "TsMakeupManager.showSingleView(): rotation is " + rotation + ", WH is (" + width + ", " + height + "), margin is "
+            Log.d(TAG, "TsMakeupManager.showSingleView(): WH is ("
+                    + displaySize.x + ", " + displaySize.y + "), margin is "
                     + margin + ", levelBgSize is " + levelBgSize);
 
-            int gridRes = R.layout.ts_makeup_single_level_view_port;
-            int size = width;
+            LayoutInflater inflater = (LayoutInflater)
+                    mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            final LinearLayout layout = (LinearLayout) inflater.inflate(gridRes, null, false);
+            final LinearLayout layout = (LinearLayout)
+                    inflater.inflate(R.layout.ts_makeup_single_level_view_port,
+                            null, false);
             mMakeupSingleRoot = layout;
             mUI.setMakeupMenuLayout(layout);
 
-            RelativeLayout.LayoutParams rootParams = new RelativeLayout.LayoutParams(size, android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams rootParams =
+                    new RelativeLayout.LayoutParams(displaySize.x, LayoutParams.WRAP_CONTENT);
             rootParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
             mMakeupLayoutRoot.addView(layout, rootParams);
@@ -398,7 +359,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
             layout.findViewById(R.id.id_layout_makeup_whiten).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mMode == MODE_WHITEN) {
+                    if (mMode == MODE_WHITEN) {
                         seekBar.setVisibility(View.GONE);
                         mMode = MODE_NONE;
                         return;
@@ -414,7 +375,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
             layout.findViewById(R.id.id_layout_makeup_clean).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mMode == MODE_CLEAN) {
+                    if (mMode == MODE_CLEAN) {
                         seekBar.setVisibility(View.GONE);
                         mMode = MODE_NONE;
                         return;
@@ -430,10 +391,10 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     }
 
     private void setSingleView(LinearLayout layout) {
-        if(mSingleSelectedIndex == MODE_WHITEN) {
+        if (mSingleSelectedIndex == MODE_WHITEN) {
             layout.findViewById(R.id.id_iv_makeup_whiten).setSelected(true);
             layout.findViewById(R.id.id_iv_makeup_clean).setSelected(false);
-        } else if(mSingleSelectedIndex == MODE_CLEAN) {
+        } else if (mSingleSelectedIndex == MODE_CLEAN) {
             layout.findViewById(R.id.id_iv_makeup_whiten).setSelected(false);
             layout.findViewById(R.id.id_iv_makeup_clean).setSelected(true);
         }
@@ -445,7 +406,6 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
     }
 
     @Override
@@ -455,7 +415,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
 
     private void setSeekbarValue(int value) {
         String key = CameraSettings.KEY_TS_MAKEUP_LEVEL_WHITEN;
-        if(mMode == MODE_CLEAN) {
+        if (mMode == MODE_CLEAN) {
             key = CameraSettings.KEY_TS_MAKEUP_LEVEL_CLEAN;
         }
         Log.d(TAG, "TsMakeupManager.onStopTrackingTouch(): value is " + value + ", key is " + key);
@@ -463,9 +423,8 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
     }
 
     private void setEffectValue(String key, String value) {
-        final ListPreference pref = (ListPreference) mPreferenceGroup.findPreference(key);
-        if (pref == null)
-            return;
+        final ListPreference pref = mPreferenceGroup.findPreference(key);
+        if (pref == null) return;
 
         pref.setMakeupSeekBarValue(value);
         mMakeupLevelListener.onMakeupLevel(key, value);
@@ -475,7 +434,7 @@ public class TsMakeupManager implements OnSeekBarChangeListener {
         ListPreference pref = mPreferenceGroup.findPreference(key);
         String value = pref.getValue();
         Log.d(TAG, "TsMakeupManager.getPrefValue(): value is " + value + ", key is " + key);
-        if(TextUtils.isEmpty(value)) {
+        if (TextUtils.isEmpty(value)) {
             value = mActivity.getString(R.string.pref_camera_tsmakeup_level_default);
         }
         return Integer.parseInt(value);

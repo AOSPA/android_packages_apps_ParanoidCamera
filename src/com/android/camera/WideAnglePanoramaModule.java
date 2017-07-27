@@ -45,7 +45,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
-import com.android.camera.PhotoModule;
 import com.android.camera.CameraManager.CameraProxy;
 import com.android.camera.app.OrientationManager;
 import com.android.camera.data.LocalData;
@@ -115,7 +114,7 @@ public class WideAnglePanoramaModule
     private PowerManager.WakeLock mPartialWakeLock;
     private MosaicFrameProcessor mMosaicFrameProcessor;
     private boolean mMosaicFrameProcessorInitialized;
-    private AsyncTask <Void, Void, Void> mWaitProcessorTask;
+    private AsyncTask<Void, Void, Void> mWaitProcessorTask;
     private long mTimeTaken;
     private Handler mMainHandler;
     private SurfaceTexture mCameraTexture;
@@ -158,7 +157,6 @@ public class WideAnglePanoramaModule
 
     @Override
     public void onPreviewUIDestroyed() {
-
     }
 
     private class MosaicJpeg {
@@ -229,7 +227,7 @@ public class WideAnglePanoramaModule
 
         mOrientationManager = new OrientationManager(activity);
         mCaptureState = CAPTURE_STATE_VIEWFINDER;
-        mUI = new WideAnglePanoramaUI(mActivity, this, (ViewGroup) mRootView);
+        mUI = new WideAnglePanoramaUI(activity, this, (ViewGroup) parent);
         mUI.setCaptureProgressOnDirectionChangeListener(
                 new PanoProgressBar.OnDirectionChangeListener() {
                     @Override
@@ -263,9 +261,9 @@ public class WideAnglePanoramaModule
                     }
                     renderer = mMosaicPreviewRenderer;
                 }
-                if (mRootView.getVisibility() != View.VISIBLE) {
+                if (parent.getVisibility() != View.VISIBLE) {
                     renderer.showPreviewFrameSync();
-                    mRootView.setVisibility(View.VISIBLE);
+                    parent.setVisibility(View.VISIBLE);
                 } else {
                     if (mCaptureState == CAPTURE_STATE_VIEWFINDER) {
                         if (mPreviewLayoutChanged) {
@@ -283,28 +281,30 @@ public class WideAnglePanoramaModule
             }
         };
 
-        PowerManager pm = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
+        PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
         mPartialWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Panorama");
 
         mOrientationEventListener = new PanoOrientationEventListener(mActivity);
 
         mMosaicFrameProcessor = MosaicFrameProcessor.getInstance();
 
-        Resources appRes = mActivity.getResources();
+        Resources appRes = activity.getResources();
         mPreparePreviewString = appRes.getString(R.string.pano_dialog_prepare_preview);
         mDialogTitle = appRes.getString(R.string.pano_dialog_title);
         mDialogOkString = appRes.getString(R.string.dialog_ok);
         mDialogPanoramaFailedString = appRes.getString(R.string.pano_dialog_panorama_failed);
         mDialogWaitingPreviousString = appRes.getString(R.string.pano_dialog_waiting_previous);
 
-        mPreferences = ComboPreferences.get(mActivity);
+        mPreferences = ComboPreferences.get(activity);
         if (mPreferences == null) {
-            mPreferences = new ComboPreferences(mActivity);
+            mPreferences = new ComboPreferences(activity);
         }
 
-        mPreferences.setLocalId(mActivity, getPreferredCameraId(mPreferences));
+        mPreferences.setLocalId(activity, getPreferredCameraId(mPreferences));
         CameraSettings.upgradeGlobalPreferences(mPreferences.getGlobal(), activity);
-        mLocationManager = new LocationManager(mActivity, null);
+        mLocationManager = new LocationManager(activity, null);
+
+        activity.showGrid(null);
 
         mMainHandler = new Handler() {
             @Override
@@ -323,11 +323,11 @@ public class WideAnglePanoramaModule
                             mUI.showAlertDialog(
                                     mDialogTitle, mDialogPanoramaFailedString,
                                     mDialogOkString, new Runnable() {
-                                @Override
-                                public void run() {
-                                    resetToPreviewIfPossible();
-                                }
-                            });
+                                        @Override
+                                        public void run() {
+                                            resetToPreviewIfPossible();
+                                        }
+                                    });
                         }
                         clearMosaicFrameProcessorIfNeeded();
                         break;
@@ -346,6 +346,10 @@ public class WideAnglePanoramaModule
                 }
             }
         };
+    }
+
+    public void reinit() {
+        mActivity.showGrid(null);
     }
 
     @Override
@@ -415,7 +419,7 @@ public class WideAnglePanoramaModule
     }
 
     private boolean findBestPreviewSize(List<Size> supportedSizes, boolean need4To3,
-            boolean needSmaller) {
+                                        boolean needSmaller) {
         int pixelsDiff = DEFAULT_CAPTURE_PIXELS;
         boolean hasFound = false;
         for (Size size : supportedSizes) {
@@ -450,7 +454,7 @@ public class WideAnglePanoramaModule
             }
         }
         Log.d(TAG, "camera preview h = "
-                    + mCameraPreviewHeight + " , w = " + mCameraPreviewWidth);
+                + mCameraPreviewHeight + " , w = " + mCameraPreviewWidth);
         parameters.setPreviewSize(mCameraPreviewWidth, mCameraPreviewHeight);
 
         List<int[]> frameRates = parameters.getSupportedPreviewFpsRange();
@@ -467,13 +471,13 @@ public class WideAnglePanoramaModule
         } else {
             // Use the default focus mode and log a message
             Log.w(TAG, "Cannot set the focus mode to " + Parameters.FOCUS_MODE_CONTINUOUS_PICTURE +
-                  " becuase the mode is not supported.");
+                    " becuase the mode is not supported.");
         }
 
         parameters.set(CameraUtil.RECORDING_HINT, CameraUtil.FALSE);
 
         mHorizontalViewAngle = parameters.getHorizontalViewAngle();
-        mVerticalViewAngle =  parameters.getVerticalViewAngle();
+        mVerticalViewAngle = parameters.getVerticalViewAngle();
     }
 
     public int getPreviewBufSize() {
@@ -530,10 +534,10 @@ public class WideAnglePanoramaModule
     public void onPreviewUILayoutChange(int l, int t, int r, int b) {
         Log.d(TAG, "layout change: " + (r - l) + "/" + (b - t));
         boolean capturePending = false;
-        if (mCaptureState == CAPTURE_STATE_MOSAIC){
+        if (mCaptureState == CAPTURE_STATE_MOSAIC) {
             capturePending = true;
         }
-        int width = r -l;
+        int width = r - l;
         int height = b - t;
         if (mPreviewUIWidth != width || mPreviewUIHeight != height
                 || mCameraState != PREVIEW_ACTIVE) {
@@ -541,11 +545,11 @@ public class WideAnglePanoramaModule
             mPreviewUIHeight = b - t;
             configMosaicPreview();
         }
-        if (capturePending == true){
+        if (capturePending == true) {
             mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!mPaused){
+                    if (!mPaused) {
                         mMainHandler.removeMessages(MSG_RESET_TO_PREVIEW);
                         startCapture();
                     }
@@ -572,7 +576,7 @@ public class WideAnglePanoramaModule
         } else {
             // Use the default focus mode and log a message
             Log.w(TAG, "Cannot set the focus mode to " + Parameters.FOCUS_MODE_FIXED +
-                  " becuase the mode is not supported.");
+                    " becuase the mode is not supported.");
         }
         parameters.setAutoExposureLock(true);
         parameters.setAutoWhiteBalanceLock(true);
@@ -587,7 +591,7 @@ public class WideAnglePanoramaModule
         mMosaicFrameProcessor.setProgressListener(new MosaicFrameProcessor.ProgressListener() {
             @Override
             public void onProgress(boolean isFinished, float panningRateX, float panningRateY,
-                    float progressX, float progressY) {
+                                   float progressX, float progressY) {
                 float accumulatedHorizontalAngle = progressX * mHorizontalViewAngle;
                 float accumulatedVerticalAngle = progressY * mVerticalViewAngle;
                 boolean isRotated = !(mDeviceOrientationAtCapture == mDeviceOrientation);
@@ -637,7 +641,7 @@ public class WideAnglePanoramaModule
         } else {
             // Use the default focus mode and log a message
             Log.w(TAG, "Cannot set the focus mode to " + Parameters.FOCUS_MODE_CONTINUOUS_PICTURE +
-                  " becuase the mode is not supported.");
+                    " becuase the mode is not supported.");
         }
         configureCamera(parameters);
 
@@ -683,7 +687,7 @@ public class WideAnglePanoramaModule
         switch (mCaptureState) {
             case CAPTURE_STATE_VIEWFINDER:
                 final long storageSpaceBytes = mActivity.getStorageSpaceBytes();
-                if(storageSpaceBytes <= Storage.LOW_STORAGE_THRESHOLD_BYTES) {
+                if (storageSpaceBytes <= Storage.LOW_STORAGE_THRESHOLD_BYTES) {
                     Log.w(TAG, "Low storage warning: " + storageSpaceBytes);
                     return;
                 }
@@ -755,9 +759,11 @@ public class WideAnglePanoramaModule
         return orientation;
     }
 
-    /** The orientation of the camera image. The value is the angle that the camera
-     *  image needs to be rotated clockwise so it shows correctly on the display
-     *  in its natural orientation. It should be 0, 90, 180, or 270.*/
+    /**
+     * The orientation of the camera image. The value is the angle that the camera
+     * image needs to be rotated clockwise so it shows correctly on the display
+     * in its natural orientation. It should be 0, 90, 180, or 270.
+     */
     public int getCameraOrientation() {
         return mCameraOrientation;
     }
@@ -853,7 +859,7 @@ public class WideAnglePanoramaModule
             String filename = PanoUtil.createName(
                     mActivity.getResources().getString(R.string.pano_file_name_format), mTimeTaken);
             String filepath = Storage.generateFilepath(filename,
-                              PhotoModule.PIXEL_FORMAT_JPEG);
+                    PhotoModule.PIXEL_FORMAT_JPEG);
 
             UsageStatistics.onEvent(UsageStatistics.COMPONENT_PANORAMA,
                     UsageStatistics.ACTION_CAPTURE_DONE, null, 0,
@@ -930,11 +936,11 @@ public class WideAnglePanoramaModule
     @Override
     public void enableRecordingLocation(boolean enable) {
         String value = (enable ? RecordLocationPreference.VALUE_ON
-                        : RecordLocationPreference.VALUE_OFF);
+                : RecordLocationPreference.VALUE_OFF);
         if (mPreferences != null) {
             mPreferences.edit()
-                .putString(CameraSettings.KEY_RECORD_LOCATION, value)
-                .apply();
+                    .putString(CameraSettings.KEY_RECORD_LOCATION, value)
+                    .apply();
         }
 
         mLocationManager.recordLocation(enable);
@@ -1055,16 +1061,16 @@ public class WideAnglePanoramaModule
         } else {
             // Camera must be initialized before MosaicFrameProcessor is
             // initialized. The preview size has to be decided by camera device.
-            if (! mMosaicFrameProcessorInitialized) {
+            if (!mMosaicFrameProcessorInitialized) {
                 initMosaicFrameProcessorIfNeeded();
             }
             Point size = mUI.getPreviewAreaSize();
             mPreviewUIWidth = size.x;
             mPreviewUIHeight = size.y;
             configMosaicPreview();
-            mMainHandler.post(new Runnable(){
+            mMainHandler.post(new Runnable() {
                 @Override
-                public void run(){
+                public void run() {
                     mActivity.updateStorageSpaceAndHint();
                 }
             });
@@ -1087,8 +1093,8 @@ public class WideAnglePanoramaModule
      *
      * @param highRes flag to indicate whether we want to get a high-res version.
      * @return a MosaicJpeg with its isValid flag set to true if successful; null if the generation
-     *         process is cancelled; and a MosaicJpeg with its isValid flag set to false if there
-     *         is an error in generating the final mosaic.
+     * process is cancelled; and a MosaicJpeg with its isValid flag set to false if there
+     * is an error in generating the final mosaic.
      */
     public MosaicJpeg generateFinalMosaic(boolean highRes) {
         int mosaicReturnCode = mMosaicFrameProcessor.createMosaic(highRes);
@@ -1164,7 +1170,7 @@ public class WideAnglePanoramaModule
             mCameraDevice.setDisplayOrientation(0);
 
             if (mCameraTexture != null)
-            mCameraTexture.setOnFrameAvailableListener(this);
+                mCameraTexture.setOnFrameAvailableListener(this);
             mCameraDevice.setPreviewTexture(mCameraTexture);
         }
         mCameraDevice.startPreview();
@@ -1188,10 +1194,6 @@ public class WideAnglePanoramaModule
         // If panorama is generating low res or high res mosaic, ignore back
         // key. So the activity will not be destroyed.
         if (mThreadRunning) return true;
-
-        if (mUI.hideSwitcherPopup())
-            return true;
-
         return false;
     }
 
@@ -1253,7 +1255,8 @@ public class WideAnglePanoramaModule
     }
 
     @Override
-    public void onDestroy() {}
+    public void onDestroy() {
+    }
 
     @Override
     public void installIntentFilter() {
@@ -1289,10 +1292,6 @@ public class WideAnglePanoramaModule
     @Override
     public boolean updateStorageHintOnResume() {
         return false;
-    }
-
-    @Override
-    public void onShowSwitcherPopup() {
     }
 
     @Override

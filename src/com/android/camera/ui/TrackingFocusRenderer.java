@@ -144,9 +144,9 @@ public class TrackingFocusRenderer extends OverlayRenderer implements FocusIndic
                 return null;
             }
             mStatus = STATUS_TRACKING;
-            int x = (mUI.getDisplaySize().y-1-mInY);
+            int x = mUI.getScreenY() - 1 - mInY;
             int y = mInX;
-            int bottomMargin = mUI.getDisplaySize().y - mSurfaceDim.bottom;
+            int bottomMargin = mUI.getScreenY() - mSurfaceDim.bottom;
             x = (int)((x - bottomMargin)*((float)width/mSurfaceDim.height()));
             y = (int)((y - mSurfaceDim.left)*((float)height/mSurfaceDim.width()));
 

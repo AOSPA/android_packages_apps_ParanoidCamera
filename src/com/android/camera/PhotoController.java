@@ -19,7 +19,7 @@ package com.android.camera;
 import android.graphics.Rect;
 import android.view.View;
 
-import com.android.camera.ShutterButton.OnShutterButtonListener;
+import com.android.camera.ui.ShutterButton.OnShutterButtonListener;
 
 
 public interface PhotoController extends OnShutterButtonListener {
