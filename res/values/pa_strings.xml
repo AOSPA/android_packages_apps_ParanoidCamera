@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-   Copyright 2016-2017 The ParanoidAndroid Project
+   Copyright 2016-2017 Paranoid Android
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -16,10 +16,16 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Grid -->
-    <string name="pref_grid_title">Grid</string>
-    <string name="pref_grid_default" translatable="false">off</string>
+    <string name="pref_camera_grid_title">Grid</string>
+    <string name="pref_camera_grid_default" translatable="false">off</string>
 
     <!-- Anti-shake -->
     <string name="pref_camera_antishake_title">Anti-shake</string>
     <string name="pref_camera_antishake_default" translatable="false">off</string>
+
+    <string name="video">Video</string>
+    <string name="photo">Photo</string>
+    <string name="panorama">Panorama</string>
+    <string name="photosphere">Photo Sphere</string>
+    <string name="gcam">High Quality</string>
 </resources>
