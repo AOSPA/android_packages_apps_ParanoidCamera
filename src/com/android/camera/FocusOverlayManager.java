@@ -113,8 +113,7 @@ public class FocusOverlayManager {
     }
 
     private Point mDispSize;
-    private int mBottomMargin;
-    private int mTopMargin;
+    private int mCameraControlHeight;
 
     public interface Listener {
         public void autoFocus();
@@ -159,15 +158,14 @@ public class FocusOverlayManager {
         mUI = ui;
         mDispSize = new Point();
         activity.getWindowManager().getDefaultDisplay().getRealSize(mDispSize);
-        Context context = CameraApp.getContext();
-        mBottomMargin =
-            context.getResources().getDimensionPixelSize(R.dimen.preview_bottom_margin);
-        mTopMargin =
-            context.getResources().getDimensionPixelSize(R.dimen.preview_top_margin);
     }
 
     public void setPhotoUI(FocusUI ui) {
         mUI = ui;
+    }
+
+    public void setCameraControlHeight(int height) {
+        mCameraControlHeight = height;
     }
 
     public void setParameters(Parameters parameters) {
@@ -405,8 +403,9 @@ public class FocusOverlayManager {
                     mState == STATE_SUCCESS || mState == STATE_FAIL)) {
             cancelAutoFocus();
         }
-        if (mPreviewRect.width() == 0 || mPreviewRect.height() == 0 ||
-            (y > (mDispSize.y - mBottomMargin) || y < mTopMargin)) {
+        if (mPreviewRect.width() == 0
+                || mPreviewRect.height() == 0
+                || y > mDispSize.y - mCameraControlHeight) {
             return;
         }
         // Initialize variables.
