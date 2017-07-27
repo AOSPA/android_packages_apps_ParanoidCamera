@@ -17,32 +17,37 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center" >
+    android:layout_gravity="center">
+
     <FrameLayout
         android:id="@+id/preview_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical|center_horizontal" >
+        android:layout_height="match_parent">
+
         <SurfaceView
             android:id="@+id/mdp_preview_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ViewStub android:id="@+id/face_view_stub"
             android:inflatedId="@+id/face_view"
             android:layout="@layout/face_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
+
     <View
         android:id="@+id/preview_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black" />
+
     <View
         android:id="@+id/flash_overlay"
         android:layout_width="match_parent"
@@ -50,36 +55,45 @@
         android:background="@android:color/white"
         android:visibility="gone"
         android:alpha="0" />
+
     <FrameLayout android:id="@+id/preview_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         android:background="@drawable/ic_snapshot_border" />
+
     <com.android.camera.ui.RenderOverlay
         android:id="@+id/render_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <com.android.camera.ui.RotateLayout
         android:id="@+id/recording_time_rect"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_height="match_parent"
             android:layout_width="match_parent">
+
             <com.android.camera.PauseButton android:id="@+id/video_pause"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:padding="38dp"
-                android:src="@drawable/btn_pause_recording"/>
-            <include layout="@layout/viewfinder_labels_video"
+                android:src="@drawable/btn_pause_recording" />
+
+            <include
+                layout="@layout/viewfinder_labels_video"
                 android:id="@+id/labels" />
         </LinearLayout>
     </com.android.camera.ui.RotateLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView android:id="@+id/review_image"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -94,10 +108,8 @@
             android:scaleType="center"
             android:visibility="gone"
             android:layout_gravity="center"
-            android:onClick="onReviewPlayClicked"/>
+            android:onClick="onReviewPlayClicked" />
     </FrameLayout>
 
-    <include layout="@layout/camera_controls"
-        android:layout_gravity="center"
-        style="@style/CameraControls"/>
+    <include layout="@layout/camera_controls" />
 </merge>
