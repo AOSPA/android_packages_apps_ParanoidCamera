@@ -31,8 +31,4 @@
 
     <solid android:color="@color/setting_color" />
 
-    <stroke
-        android:width="1dip"
-        android:color="@color/list_divider_color" />
-
 </shape>

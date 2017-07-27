@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-   Copyright 2016-2017 The ParanoidAndroid Project
+   Copyright 2016-2017 Paranoid Android
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -18,4 +18,17 @@
 
     <!-- Grid -->
     <dimen name="grid_line_width">1dp</dimen>
+
+    <dimen name="camera_controls_bar_height">50dp</dimen>
+
+    <dimen name="module_switcher_text_size">13sp</dimen>
+    <dimen name="module_switcher_item_distance">35dp</dimen>
+
+    <dimen name="preview_gestures_swipe_threshold">25dp</dimen>
+
+    <dimen name="remaining_photos_text_size">10sp</dimen>
+
+    <dimen name="focus_circle_radius">40dp</dimen>
+    <dimen name="focus_circle_radius_offset">6dp</dimen>
+    <dimen name="focus_inner_circle_radius">13dp</dimen>
 </resources>

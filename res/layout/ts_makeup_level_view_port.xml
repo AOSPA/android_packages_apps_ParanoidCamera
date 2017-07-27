@@ -24,6 +24,4 @@
     android:layout_gravity="bottom"
     android:layout_alignParentBottom="true"
     android:alpha="0.85"
-    android:orientation="horizontal" >
-
-</LinearLayout>
+    android:orientation="horizontal" />
