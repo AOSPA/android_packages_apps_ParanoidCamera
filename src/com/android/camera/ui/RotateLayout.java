@@ -17,7 +17,6 @@
 package com.android.camera.ui;
 
 import android.content.Context;
-import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +29,11 @@ public class RotateLayout extends ViewGroup implements Rotatable {
     @SuppressWarnings("unused")
     private static final String TAG = "RotateLayout";
     private int mOrientation;
-    private Matrix mMatrix = new Matrix();
-    protected View mChild;
+    private View mChild;
+
+    public RotateLayout(Context context) {
+        this(context, null);
+    }
 
     public RotateLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -70,23 +72,22 @@ public class RotateLayout extends ViewGroup implements Rotatable {
             boolean change, int left, int top, int right, int bottom) {
         int width = right - left;
         int height = bottom - top;
-        int p = getPaddingTop();
         switch (mOrientation) {
             case 0:
             case 180:
-                mChild.layout(p, p, width - p, height - p);
+                mChild.layout(0, 0, width, height);
                 break;
             case 90:
             case 270:
-                mChild.layout(p, p, height - p, width - p);
+                mChild.layout(0, 0, height, width);
                 break;
         }
     }
 
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
-        int w = 0, h = 0, p = getPaddingTop();
-        switch(mOrientation) {
+        int w = 0, h = 0;
+        switch (mOrientation) {
             case 0:
             case 180:
                 measureChild(mChild, widthSpec, heightSpec);
@@ -100,7 +101,6 @@ public class RotateLayout extends ViewGroup implements Rotatable {
                 h = mChild.getMeasuredWidth();
                 break;
         }
-        setMeasuredDimension(w + 2 * p, h + 2 * p);
 
         switch (mOrientation) {
             case 0:
@@ -121,6 +121,18 @@ public class RotateLayout extends ViewGroup implements Rotatable {
                 break;
         }
         mChild.setRotation(-mOrientation);
+
+        if (mOrientation == 0 || mOrientation == 180) {
+            if (MeasureSpec.getMode(widthSpec) == MeasureSpec.EXACTLY) {
+                w = MeasureSpec.getSize(widthSpec);
+            }
+
+            if (MeasureSpec.getMode(heightSpec) == MeasureSpec.EXACTLY) {
+                h = MeasureSpec.getSize(heightSpec);
+            }
+        }
+
+        setMeasuredDimension(w, h);
     }
 
     @Override
@@ -135,18 +147,23 @@ public class RotateLayout extends ViewGroup implements Rotatable {
 
         if (getParent() instanceof FrameLayout) {
             int diff = (orientation - mOrientation + 360) % 360;
-            if (diff == 90) {
-                RotatableLayout.rotateCounterClockwise(this);
-            } else if (diff == 180) {
-                RotatableLayout.rotateClockwise(this);
-                RotatableLayout.rotateClockwise(this);
-            } else if (diff == 270) {
-                RotatableLayout.rotateClockwise(this);
+            switch (diff) {
+                case 90:
+                    RotatableLayout.rotateCounterClockwise(this);
+                    break;
+                case 180:
+                    RotatableLayout.rotateClockwise(this);
+                    // Don't break here
+                    // Rotate a second time
+                case 270:
+                    RotatableLayout.rotateClockwise(this);
+                    break;
             }
         }
         mOrientation = orientation;
-        if (mChild != null)
+        if (mChild != null) {
             requestLayout();
+        }
     }
 
     public int getOrientation() {

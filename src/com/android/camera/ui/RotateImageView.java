@@ -67,8 +67,8 @@ public class RotateImageView extends TwoStateImageView implements Rotatable {
     private boolean isOrientationPortrait() {
         int mapTo180Degree = (mCurrentDegree % 180);
 
-        // Assumging the devic's natural orientation is portrait and
-        // check if the current orienataion is within the landscape range
+        // Assuming the device's natural orientation is portrait and
+        // check if the current orientation is within the landscape range
         boolean isLandscape = ((mapTo180Degree > 45) &&
                                (mapTo180Degree < 135));
         if (mNaturalPortrait)

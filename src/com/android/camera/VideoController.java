@@ -18,7 +18,7 @@ package com.android.camera;
 
 import android.view.View;
 
-import com.android.camera.ShutterButton.OnShutterButtonListener;
+import com.android.camera.ui.ShutterButton.OnShutterButtonListener;
 import com.android.camera.PauseButton.OnPauseButtonListener;
 
 public interface VideoController extends OnShutterButtonListener, OnPauseButtonListener {
