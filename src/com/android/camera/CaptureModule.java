@@ -112,8 +112,8 @@ import com.android.camera.util.ApiHelper;
 import com.android.camera.util.AccessibilityUtils;
 import com.android.internal.util.MemInfoReader;
 
-import org.codeaurora.snapcam.R;
-import org.codeaurora.snapcam.filter.ClearSightImageProcessor;
+import co.paranoid.camera.R;
+import co.paranoid.camera.filter.ClearSightImageProcessor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -2958,11 +2958,6 @@ public class CaptureModule implements CameraModule, PhotoController,
     }
 
     @Override
-    public void onShowSwitcherPopup() {
-
-    }
-
-    @Override
     public void onMediaSaveServiceConnected(MediaSaveService s) {
         if (mFirstTimeInitialized) {
             s.setListener(this);
@@ -4920,7 +4915,7 @@ public class CaptureModule implements CameraModule, PhotoController,
         }
         mUI.initializeProMode(!mPaused && promode);
     }
-	
+
     boolean checkSessionAndBuilder(CameraCaptureSession session, CaptureRequest.Builder builder) {
         return session != null && builder != null;
     }

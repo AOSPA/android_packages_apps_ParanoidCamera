@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package  org.codeaurora.snapcam.filter;
+package  co.paranoid.camera.filter;
 
 import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPMeta;

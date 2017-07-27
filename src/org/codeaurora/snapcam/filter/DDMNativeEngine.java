@@ -26,7 +26,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.codeaurora.snapcam.filter;
+package co.paranoid.camera.filter;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -40,7 +40,7 @@ import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 
-import org.codeaurora.snapcam.filter.ClearSightNativeEngine.CamSystemCalibrationData;
+import co.paranoid.camera.filter.ClearSightNativeEngine.CamSystemCalibrationData;
 
 public class DDMNativeEngine {
     private static final String TAG = "DDMNativeEngine";

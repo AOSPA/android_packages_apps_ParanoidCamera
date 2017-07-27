@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.codeaurora.snapcam.wrapper;
+package co.paranoid.camera.wrapper;
 
 import java.lang.reflect.Method;
 

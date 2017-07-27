@@ -30,7 +30,7 @@ import android.widget.ListView;
 
 import com.android.camera.ListPreference;
 import com.android.camera.PreferenceGroup;
-import org.codeaurora.snapcam.R;
+import co.paranoid.camera.R;
 
 /* A popup window that contains several camera settings. */
 public class MoreSettingPopup extends AbstractSettingPopup

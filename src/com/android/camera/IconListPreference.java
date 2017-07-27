@@ -23,7 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
-import org.codeaurora.snapcam.R;
+import co.paranoid.camera.R;
 
 /** A {@code ListPreference} where each entry has a corresponding icon. */
 public class IconListPreference extends ListPreference {
@@ -73,7 +73,7 @@ public class IconListPreference extends ListPreference {
     }
 
     public boolean getUseSingleIcon() {
-        return mUseSingleIcon;
+        return mSingleIconId != 0;
     }
 
     public void setIconIds(int[] iconIds) {
@@ -86,10 +86,6 @@ public class IconListPreference extends ListPreference {
 
     public void setThumbnailIds(int[] thumbnailIds) {
         mThumbnailIds = thumbnailIds;
-    }
-
-    public void setUseSingleIcon(boolean useSingle) {
-        mUseSingleIcon = useSingle;
     }
 
     private int[] getIds(Resources res, int iconsRes) {

@@ -28,7 +28,7 @@ import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
 
 import com.android.camera.ListPreference;
-import org.codeaurora.snapcam.R;
+import co.paranoid.camera.R;
 
 /**
  * This is a popup window that allows users to specify a countdown timer

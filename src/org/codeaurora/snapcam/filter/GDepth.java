@@ -26,7 +26,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.codeaurora.snapcam.filter;
+package co.paranoid.camera.filter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
