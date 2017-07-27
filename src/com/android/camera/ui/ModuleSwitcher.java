@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2017 Paranoid Android
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,108 +17,76 @@
 package com.android.camera.ui;
 
 import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Activity;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.util.SparseArray;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.widget.FrameLayout.LayoutParams;
-import android.widget.LinearLayout;
-import android.widget.ImageView;
 
-import com.android.camera.util.CameraUtil;
-import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PhotoSphereHelper;
-import com.android.camera.util.UsageStatistics;
+
 import org.codeaurora.snapcam.R;
 
-public class ModuleSwitcher extends RotateImageView
-        implements OnTouchListener {
+public class ModuleSwitcher extends View {
 
-    @SuppressWarnings("unused")
-    private static final String TAG = "CAM_Switcher";
-    private static final int SWITCHER_POPUP_ANIM_DURATION = 200;
-
-    public static final int PHOTO_MODULE_INDEX = 0;
-    public static final int VIDEO_MODULE_INDEX = 1;
+    public static final int VIDEO_MODULE_INDEX = 0;
+    public static final int PHOTO_MODULE_INDEX = 1;
     public static final int WIDE_ANGLE_PANO_MODULE_INDEX = 2;
     public static final int LIGHTCYCLE_MODULE_INDEX = 3;
     public static final int GCAM_MODULE_INDEX = 4;
     public static final int CAPTURE_MODULE_INDEX = 5;
     public static final int PANOCAPTURE_MODULE_INDEX = 6;
 
-    private boolean mTouchEnabled = true;
-    private boolean mIsVisible = true;
-
     private static final int[] DRAW_IDS = {
-            R.drawable.ic_switch_camera,
-            R.drawable.ic_switch_video,
-            R.drawable.ic_switch_pan,
-            R.drawable.ic_switch_photosphere,
-            R.drawable.ic_switch_gcam,
+            R.string.video,
+            R.string.photo,
+            R.string.panorama,
+            R.string.photosphere,
+            R.string.gcam,
     };
 
     public interface ModuleSwitchListener {
         public void onModuleSelected(int i);
-
-        public void onShowSwitcherPopup();
     }
 
-    private ModuleSwitchListener mListener;
+    private SparseArray<String> mItems = new SparseArray<>();
     private int mCurrentIndex;
-    private int[] mModuleIds;
-    private int[] mDrawIds;
-    private int mItemSize;
-    private View mPopup;
-    private View mParent;
-    private boolean mShowingPopup;
-    private boolean mNeedsAnimationSetup;
-    private Drawable mIndicator;
+    private ModuleSwitchListener mListener;
 
-    private float mTranslationX = 0;
-    private float mTranslationY = 0;
+    private final Paint mPaint;
+    private final int mDistance;
+    private final int mIndexTextColor;
+    private final int mTextColor;
+    private final GestureDetector mGestureDetector;
 
-    private AnimatorListener mHideAnimationListener;
-    private AnimatorListener mShowAnimationListener;
+    private int mOffsetX;
+    private boolean mAnimating;
+    private int mDownTouchX;
 
     public ModuleSwitcher(Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
     public ModuleSwitcher(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs, 0);
     }
 
-    private void init(Context context) {
-        mItemSize = context.getResources().getDimensionPixelSize(R.dimen.switcher_size);
-        mIndicator = context.getResources().getDrawable(R.drawable.ic_switcher_menu_indicator);
-        initializeDrawables(context);
-    }
+    public ModuleSwitcher(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
 
-    public void initializeDrawables(Context context) {
-        int numDrawIds = DRAW_IDS.length;
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.module_switcher_text_size));
 
-        if (!PhotoSphereHelper.hasLightCycleCapture(context)) {
-            --numDrawIds;
-        }
+        mDistance = getResources().getDimensionPixelSize(R.dimen.module_switcher_item_distance);
+        mIndexTextColor = getResources().getColor(R.color.module_switcher_index);
+        mTextColor = getResources().getColor(R.color.module_switcher_item);
 
-        // Always decrement one because of GCam.
-        --numDrawIds;
-
-        int[] drawids = new int[numDrawIds];
-        int[] moduleids = new int[numDrawIds];
-        int ix = 0;
         for (int i = 0; i < DRAW_IDS.length; i++) {
             if (i == LIGHTCYCLE_MODULE_INDEX && !PhotoSphereHelper.hasLightCycleCapture(context)) {
                 continue; // not enabled, so don't add to UI
@@ -126,312 +94,246 @@ public class ModuleSwitcher extends RotateImageView
             if (i == GCAM_MODULE_INDEX) {
                 continue; // don't add to UI
             }
-            moduleids[ix] = i;
-            drawids[ix++] = DRAW_IDS[i];
+            mItems.put(i, context.getString(DRAW_IDS[i]).toUpperCase());
         }
-        setIds(moduleids, drawids);
-    }
 
-    public void setIds(int[] moduleids, int[] drawids) {
-        mDrawIds = drawids;
-        mModuleIds = moduleids;
+        setClickable(true);
+
+        mGestureDetector = new GestureDetector(context,
+                new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapConfirmed(MotionEvent e) {
+                        float x = e.getX();
+                        int centerX = getMeasuredWidth() / 2;
+                        String currentIndex = mItems.get(mCurrentIndex);
+                        Rect textBounds = new Rect();
+                        mPaint.getTextBounds(currentIndex, 0, currentIndex.length(), textBounds);
+                        int textCenterWidth = textBounds.width() / 2;
+                        if (x < centerX - textCenterWidth) {
+                            left();
+                        } else if (x > centerX + textCenterWidth) {
+                            right();
+                        }
+                        return true;
+                    }
+                });
     }
 
     public void setCurrentIndex(int i) {
-        mCurrentIndex = i;
+        if (i == PANOCAPTURE_MODULE_INDEX) return;
         if (i == GCAM_MODULE_INDEX) {
-          setImageResource(R.drawable.ic_switch_camera);
-        } if (i== PANOCAPTURE_MODULE_INDEX) {
-            return;
+            i = PHOTO_MODULE_INDEX;
+        }
+        mOffsetX = 0;
+        mCurrentIndex = i;
+        invalidate();
+    }
+
+    public void setSwitchListener(ModuleSwitchListener listener) {
+        mListener = listener;
+    }
+
+    private float getScaleX(char c, int x, int width) {
+        return getScaleX(String.valueOf(c), x, width);
+    }
+
+    private float getScaleX(String text, int x, int width) {
+        mPaint.setTextScaleX(1);
+        float distance = mDistance * 1.5f;
+        float textWidth = mPaint.measureText(text);
+        float blockWidth = distance / 6f;
+        if (x < distance) {
+            return (3 + x / blockWidth) / 10f;
+        } else if (x + textWidth > width - distance) {
+            return (7 - (x - width + distance) / blockWidth) / 10f;
+        }
+        return 1;
+    }
+
+    private void drawText(Canvas canvas, String text, int x, int y, int width) {
+        char[] chars = text.toCharArray();
+        int previousX = x;
+
+        Rect textBounds = new Rect();
+        mPaint.getTextBounds(text, 0, text.length(), textBounds);
+        if (x < width / 2f) {
+            previousX += textBounds.width();
+            for (int i = chars.length - 1; i >= 0; i--) {
+                String c = String.valueOf(chars[i]);
+                float scaleX = getScaleX(c,
+                        (int) Math.floor(previousX - mPaint.measureText(c)), width);
+                mPaint.setTextScaleX(scaleX);
+                mPaint.setAlpha(Math.round(255 * scaleX));
+
+                int cX = (int) Math.floor(previousX - mPaint.measureText(c));
+                canvas.drawText(c, cX, y, mPaint);
+                previousX = cX;
+            }
         } else {
-          setImageResource(mDrawIds[i]);
+            for (char c : chars) {
+                float scaleX = getScaleX(c, previousX, width);
+                mPaint.setTextScaleX(scaleX);
+                mPaint.setAlpha(Math.round(255 * scaleX));
+                canvas.drawText(String.valueOf(c), previousX, y, mPaint);
+                previousX += mPaint.measureText(String.valueOf(c));
+            }
         }
-    }
-
-    public void setSwitchListener(ModuleSwitchListener l) {
-        mListener = l;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent m) {
-        if (mTouchEnabled) {
-            return super.dispatchTouchEvent(m);
-        } else {
-            setBackground(null);
-            return false;
-        }
-    }
-
-    public void enableTouch(boolean enable) {
-        mTouchEnabled = enable;
-    }
-
-    public void showPopup() {
-        showSwitcher();
-        mListener.onShowSwitcherPopup();
-    }
-
-    private void onModuleSelected(int ix) {
-        hidePopup();
-        if ((ix != mCurrentIndex) && (mListener != null)) {
-            UsageStatistics.onEvent("CameraModeSwitch", null, null);
-            UsageStatistics.setPendingTransitionCause(
-                    UsageStatistics.TRANSITION_MENU_TAP);
-            setCurrentIndex(ix);
-            mListener.onModuleSelected(mModuleIds[ix]);
-        }
+        mPaint.setTextScaleX(1);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mIndicator.setBounds(getDrawable().getBounds());
-        mIndicator.draw(canvas);
+
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+
+        String currentIndex = mItems.get(mCurrentIndex);
+
+        Rect textBounds = new Rect();
+        mPaint.getTextBounds(currentIndex, 0, currentIndex.length(), textBounds);
+
+        int currentIndexX = Math.round(width / 2f - textBounds.width() / 2f + textBounds.left) + mOffsetX;
+        int currentIndexY = Math.round(height / 2f + textBounds.height() / 2f - textBounds.bottom);
+
+        mPaint.setColor(mIndexTextColor);
+        drawText(canvas, currentIndex, currentIndexX, currentIndexY, width);
+
+        mPaint.setColor(mTextColor);
+
+        int leftPreviousX = currentIndexX;
+        int rightPreviousX = currentIndexX + textBounds.width();
+
+        for (int i = mCurrentIndex - 1; i >= 0; i--) {
+            String item = mItems.get(i);
+            if (item == null) continue;
+            mPaint.getTextBounds(item, 0, item.length(), textBounds);
+
+            int x = leftPreviousX - mDistance - textBounds.width();
+            leftPreviousX = x;
+            drawText(canvas, item, x, currentIndexY, width);
+        }
+
+        for (int i = mCurrentIndex + 1; i < DRAW_IDS.length; i++) {
+            String item = mItems.get(i);
+            if (item == null) continue;
+            mPaint.getTextBounds(item, 0, item.length(), textBounds);
+
+            int x = rightPreviousX + mDistance;
+            rightPreviousX = x + textBounds.width();
+            drawText(canvas, item, x, currentIndexY, width);
+        }
     }
 
-    private void initPopup() {
-        mParent = LayoutInflater.from(getContext()).inflate(R.layout.switcher_popup,
-                (ViewGroup) getParent());
-        LinearLayout content = (LinearLayout) mParent.findViewById(R.id.content);
-        mPopup = content;
-        // Set the gravity of the popup, so that it shows up at the right
-        // position
-        // on screen
-        LayoutParams lp = ((LayoutParams) mPopup.getLayoutParams());
-        lp.gravity = ((LayoutParams) mParent.findViewById(R.id.camera_switcher)
-                .getLayoutParams()).gravity;
-        mPopup.setLayoutParams(lp);
+    private float getDiff(String item) {
+        String currentIndex = mItems.get(mCurrentIndex);
 
-        mPopup.setVisibility(View.INVISIBLE);
-        mNeedsAnimationSetup = true;
-        for (int i = mDrawIds.length - 1; i >= 0; i--) {
-            RotateImageView item = new RotateImageView(getContext());
-            item.setImageResource(mDrawIds[i]);
-            item.setScaleType(ImageView.ScaleType.CENTER);
-            item.setBackgroundResource(R.drawable.bg_pressed);
-            final int index = i;
-            item.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (showsPopup()) {
-                        onModuleSelected(index);
-                    }
-                }
-            });
-            switch (mDrawIds[i]) {
-                case R.drawable.ic_switch_camera:
-                    item.setContentDescription(getContext().getResources().getString(
-                            R.string.accessibility_switch_to_camera));
-                    break;
-                case R.drawable.ic_switch_video:
-                    item.setContentDescription(getContext().getResources().getString(
-                            R.string.accessibility_switch_to_video));
-                    break;
-                case R.drawable.ic_switch_pan:
-                    item.setContentDescription(getContext().getResources().getString(
-                            R.string.accessibility_switch_to_panorama));
-                    break;
-                case R.drawable.ic_switch_photosphere:
-                    item.setContentDescription(getContext().getResources().getString(
-                            R.string.accessibility_switch_to_photo_sphere));
-                    break;
-                case R.drawable.ic_switch_gcam:
-                    item.setContentDescription(getContext().getResources().getString(
-                            R.string.accessibility_switch_to_gcam));
-                    break;
-                default:
-                    break;
+        Rect textBounds = new Rect();
+        mPaint.setTextScaleX(1);
+        mPaint.getTextBounds(item, 0, item.length(), textBounds);
+        float newIndexWidth = textBounds.width();
+        mPaint.getTextBounds(currentIndex, 0, currentIndex.length(), textBounds);
+        float indexWidth = textBounds.width();
+
+        return newIndexWidth / 2f + mDistance + indexWidth / 2f;
+    }
+
+    public void left() {
+        if (mAnimating) return;
+        String item = null;
+        int index = 0;
+        for (int i = mCurrentIndex - 1; i >= 0; i--) {
+            String value = mItems.get(i);
+            if (value != null) {
+                item = value;
+                index = i;
+                break;
             }
-            content.addView(item, new LinearLayout.LayoutParams(mItemSize, mItemSize));
         }
-        mPopup.measure(MeasureSpec.makeMeasureSpec(mParent.getWidth(), MeasureSpec.AT_MOST),
-                MeasureSpec.makeMeasureSpec(mParent.getHeight(), MeasureSpec.AT_MOST));
+        if (item == null) return;
+        move(getDiff(item), index);
     }
 
-    public boolean showsPopup() {
-        return mShowingPopup;
-    }
-
-    public boolean isInsidePopup(MotionEvent evt) {
-        if (!showsPopup()) {
-            return false;
+    public void right() {
+        if (mAnimating) return;
+        String item = null;
+        int index = 0;
+        for (int i = mCurrentIndex + 1; i < DRAW_IDS.length; i++) {
+            String value = mItems.get(i);
+            if (value != null) {
+                item = value;
+                index = i;
+                break;
+            }
         }
-        int topLeft[] = new int[2];
-        mPopup.getLocationOnScreen(topLeft);
-        int left = topLeft[0];
-        int top = topLeft[1];
-        int bottom = top + mPopup.getHeight();
-        int right = left + mPopup.getWidth();
-        return evt.getX() >= left && evt.getX() < right
-                && evt.getY() >= top && evt.getY() < bottom;
-    }
-
-    private void hidePopup() {
-        mShowingPopup = false;
-        setVisibility(View.VISIBLE);
-        if (mPopup != null && !animateHidePopup()) {
-            mPopup.setVisibility(View.INVISIBLE);
-        }
-        mParent.setOnTouchListener(null);
-    }
-
-    public void setSwitcherVisibility(boolean isVisible) {
-        mIsVisible = isVisible;
-    }
-
-    public void removePopup() {
-        mShowingPopup = false;
-        if (mIsVisible) {
-            setVisibility(View.VISIBLE);
-        }
-        if (mPopup != null) {
-            ((ViewGroup) mParent).removeView(mPopup);
-            mPopup = null;
-        }
-        setAlpha(1f);
+        if (item == null) return;
+        move(-getDiff(item), index);
     }
 
     @Override
-    public void onConfigurationChanged(Configuration config) {
-        if (showsPopup()) {
-            ((ViewGroup) mParent).removeView(mPopup);
-            mPopup = null;
-            initPopup();
-            mPopup.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void showSwitcher() {
-        mShowingPopup = true;
-        if (mPopup == null) {
-            initPopup();
-        }
-        layoutPopup();
-        mPopup.setVisibility(View.VISIBLE);
-        if (!animateShowPopup()) {
-            setVisibility(View.INVISIBLE);
-        }
-        mParent.setOnTouchListener(this);
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        closePopup();
+    public boolean onTouchEvent(MotionEvent event) {
+        if (!isClickable()) return super.onTouchEvent(event);
+        mGestureDetector.onTouchEvent(event);
         return true;
     }
 
-    public void closePopup() {
-        if (showsPopup()) {
-            hidePopup();
-        }
-    }
+    private void move(float diff, final int index) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, (int) Math.ceil(diff));
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                mOffsetX = (int) valueAnimator.getAnimatedValue();
+                invalidate();
+            }
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                mAnimating = true;
+            }
 
-    @Override
-    public void setOrientation(int degree, boolean animate) {
-        super.setOrientation(degree, animate);
-        ViewGroup content = (ViewGroup) mPopup;
-        if (content == null) {
-            return;
-        }
-        for (int i = 0; i < content.getChildCount(); i++) {
-            RotateImageView iv = (RotateImageView) content.getChildAt(i);
-            iv.setOrientation(degree, animate);
-        }
-    }
-
-    private void layoutPopup() {
-        int orientation = CameraUtil.getDisplayRotation((Activity) getContext());
-        int w = mPopup.getMeasuredWidth();
-        int h = mPopup.getMeasuredHeight();
-        if (orientation == 0) {
-            mPopup.layout(getRight() - w, getBottom() - h, getRight(), getBottom());
-            mTranslationX = 0;
-            mTranslationY = h / 3;
-        } else if (orientation == 90) {
-            mTranslationX = w / 3;
-            mTranslationY = -h / 3;
-            mPopup.layout(getRight() - w, getTop(), getRight(), getTop() + h);
-        } else if (orientation == 180) {
-            mTranslationX = -w / 3;
-            mTranslationY = -h / 3;
-            mPopup.layout(getLeft(), getTop(), getLeft() + w, getTop() + h);
-        } else {
-            mTranslationX = -w / 3;
-            mTranslationY = h - getHeight();
-            mPopup.layout(getLeft(), getBottom() - h, getLeft() + w, getBottom());
-        }
-    }
-
-    @Override
-    public void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        if (mPopup != null) {
-            layoutPopup();
-        }
-    }
-
-    private void popupAnimationSetup() {
-        layoutPopup();
-        mPopup.setScaleX(0.3f);
-        mPopup.setScaleY(0.3f);
-        mPopup.setTranslationX(mTranslationX);
-        mPopup.setTranslationY(mTranslationY);
-        mNeedsAnimationSetup = false;
-    }
-
-    private boolean animateHidePopup() {
-        if (mHideAnimationListener == null) {
-            mHideAnimationListener = new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    // Verify that we weren't canceled
-                    if (!showsPopup() && mPopup != null) {
-                        mPopup.setVisibility(View.INVISIBLE);
-                        ((ViewGroup) mParent).removeView(mPopup);
-                        mPopup = null;
-                    }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                setCurrentIndex(index);
+                mAnimating = false;
+                if (mListener != null) {
+                    mListener.onModuleSelected(index);
                 }
-            };
-        }
-        mPopup.animate()
-                .alpha(0f)
-                .scaleX(0.3f).scaleY(0.3f)
-                .translationX(mTranslationX)
-                .translationY(mTranslationY)
-                .setDuration(SWITCHER_POPUP_ANIM_DURATION)
-                .setListener(mHideAnimationListener);
-        animate().alpha(1f).setDuration(SWITCHER_POPUP_ANIM_DURATION)
-                .setListener(null);
-        return true;
+            }
+        });
+        valueAnimator.start();
     }
 
-    private boolean animateShowPopup() {
-        if (mNeedsAnimationSetup) {
-            popupAnimationSetup();
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int itemsWidth = 0;
+        int itemsMaxHeight = 0;
+
+        Rect textBounds = new Rect();
+        for (int i = 0; i < mItems.size(); i++) {
+            String item = mItems.valueAt(i);
+            mPaint.getTextBounds(item, 0, item.length(), textBounds);
+            itemsWidth += textBounds.width();
+            if (textBounds.height() > itemsMaxHeight) {
+                itemsMaxHeight = textBounds.height();
+            }
         }
-        if (mShowAnimationListener == null) {
-            mShowAnimationListener = new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    // Verify that we weren't canceled
-                    if (showsPopup()) {
-                        setVisibility(View.INVISIBLE);
-                        // request layout to make sure popup is laid out
-                        // correctly on ICS
-                        mPopup.requestLayout();
-                    }
-                }
-            };
+
+        itemsWidth += (mItems.size() - 1) * mDistance;
+        int itemsHeight = Math.round(itemsMaxHeight * 2.5f);
+
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            itemsWidth = MeasureSpec.getSize(widthMeasureSpec);
         }
-        mPopup.animate()
-                .alpha(1f)
-                .scaleX(1f).scaleY(1f)
-                .translationX(0)
-                .translationY(0)
-                .setDuration(SWITCHER_POPUP_ANIM_DURATION)
-                .setListener(null);
-        animate().alpha(0f).setDuration(SWITCHER_POPUP_ANIM_DURATION)
-                .setListener(mShowAnimationListener);
-        return true;
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+            itemsHeight = MeasureSpec.getSize(heightMeasureSpec);
+        }
+
+        setMeasuredDimension(itemsWidth, itemsHeight);
     }
+
 }
