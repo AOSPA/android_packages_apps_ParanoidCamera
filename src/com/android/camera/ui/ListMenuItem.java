@@ -22,7 +22,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -40,7 +40,7 @@ import co.paranoidandroid.camera.R;
  * Other setting popup window includes several InLineSettingItem items with
  * different types if possible.
  */
-public class ListMenuItem extends RelativeLayout {
+public class ListMenuItem extends LinearLayout {
     private static final String TAG = "ListMenuItem";
     private Listener mListener;
     protected ListPreference mPreference;
@@ -51,8 +51,12 @@ public class ListMenuItem extends RelativeLayout {
     private TextView mEntry;
     private ImageView mIcon;
 
-    static public interface Listener {
+    public interface Listener {
         public void onSettingChanged(ListPreference pref);
+    }
+
+    public ListMenuItem(Context context) {
+        this(context, null);
     }
 
     public ListMenuItem(Context context, AttributeSet attrs) {
@@ -62,12 +66,13 @@ public class ListMenuItem extends RelativeLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
+        mTitle = ((TextView) findViewById(R.id.title));
         mEntry = (TextView) findViewById(R.id.current_setting);
         mIcon = (ImageView) findViewById(R.id.list_image);
     }
 
     protected void setTitle(ListPreference preference) {
-        mTitle = ((TextView) findViewById(R.id.title));
         mTitle.setText(preference.getTitle());
     }
 
@@ -76,13 +81,11 @@ public class ListMenuItem extends RelativeLayout {
             int resId = ((IconListPreference) preference).getSingleIcon();
             mIcon.setImageResource(resId);
         }
-
     }
 
     public void initialize(ListPreference preference) {
         setTitle(preference);
-        if (preference == null)
-            return;
+        if (preference == null) return;
         setIcon(preference);
         mPreference = preference;
         reloadPreference();
@@ -140,45 +143,23 @@ public class ListMenuItem extends RelativeLayout {
     @Override
     public void setEnabled(boolean enable) {
         super.setEnabled(enable);
-        if (enable)
-            setAlpha(1f);
-        else
-            setAlpha(0.3f);
+        setAlpha(enable ? 1f : 0.3f);
         if (mTitle != null) {
             mTitle.setEnabled(enable);
-            if (enable)
-                setAlpha(1f);
-            else
-                setAlpha(0.3f);
         }
         if (mEntry != null) {
             mEntry.setEnabled(enable);
-            if (enable)
-                setAlpha(1f);
-            else
-                setAlpha(0.3f);
         }
     }
 
     public void setEnabled(boolean enable, String value) {
         super.setEnabled(enable);
-        if (enable)
-            setAlpha(1f);
-        else
-            setAlpha(0.3f);
+        setAlpha(enable ? 1f : 0.3f);
         if (mTitle != null) {
             mTitle.setEnabled(enable);
-            if (enable)
-                setAlpha(1f);
-            else
-                setAlpha(0.3f);
         }
         if (mEntry != null) {
             mEntry.setEnabled(enable);
-            if (enable)
-                setAlpha(1f);
-            else
-                setAlpha(0.3f);
         }
     }
 }

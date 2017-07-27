@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2013 The Android Open Source Project
+     Copyright (C) 2017 Paranoid Android
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,31 +15,34 @@
      limitations under the License.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/camera_root_frame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
+
     <com.android.camera.ui.CameraRootView
         android:id="@+id/camera_photo_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
     </com.android.camera.ui.CameraRootView>
+
     <com.android.camera.ui.CameraRootView
         android:id="@+id/camera_video_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
     </com.android.camera.ui.CameraRootView>
+
     <com.android.camera.ui.CameraRootView
         android:id="@+id/camera_pano_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
     </com.android.camera.ui.CameraRootView>
+
     <com.android.camera.ui.CameraRootView
         android:id="@+id/camera_capture_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
     </com.android.camera.ui.CameraRootView>
 
-    <com.android.camera.GridView
+    <com.android.camera.ui.GridView
         android:id="@+id/grid_lines"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -68,6 +68,7 @@ public class CameraSettings {
     public static final String KEY_VIDEOCAMERA_FLASH_MODE = "pref_camera_video_flashmode_key";
     public static final String KEY_WHITE_BALANCE = "pref_camera_whitebalance_key";
     public static final String KEY_SCENE_MODE = "pref_camera_scenemode_key";
+    public static final String KEY_GRID = "pref_camera_grid_key";
     public static final String KEY_EXPOSURE = "pref_camera_exposure_key";
     public static final String KEY_TIMER = "pref_camera_timer_key";
     public static final String KEY_TIMER_SOUND_EFFECTS = "pref_camera_timer_sound_key";
@@ -135,8 +136,6 @@ public class CameraSettings {
     public static final String KEY_BOKEH_MODE = "pref_camera_bokeh_mode_key";
     public static final String KEY_BOKEH_MPO = "pref_camera_bokeh_mpo_key";
     public static final String KEY_BOKEH_BLUR_VALUE = "pref_camera_bokeh_blur_degree_key";
-
-    public static final String KEY_GRID = "pref_grid";
 
     private static final String KEY_QC_SUPPORTED_AE_BRACKETING_MODES = "ae-bracket-hdr-values";
     private static final String KEY_QC_SUPPORTED_AF_BRACKETING_MODES = "af-bracket-values";
@@ -272,8 +271,6 @@ public class CameraSettings {
     public static final String KEY_TS_MAKEUP_LEVEL_CLEAN   = "pref_camera_tsmakeup_clean";
 
     public static final String KEY_REFOCUS_PROMPT = "refocus-prompt";
-
-    public static final String KEY_SHOW_MENU_HELP = "help_menu";
 
     public static final String KEY_REQUEST_PERMISSION  = "request_permission";
 
@@ -823,7 +820,7 @@ public class CameraSettings {
             if (!isBokehMPOSupported(mParameters)) {
                 removePreference(group, bokehMpo.getKey());
             }
-	}
+        }
 
         // Remove leading ISO from iso-values
         boolean isoValuesUseNumbers = mContext.getResources().getBoolean(R.bool.iso_values_use_numbers);
@@ -982,8 +979,7 @@ public class CameraSettings {
         ListPreference focusMode = group.findPreference(KEY_FOCUS_MODE);
         IconListPreference exposure =
                 (IconListPreference) group.findPreference(KEY_EXPOSURE);
-        IconListPreference cameraIdPref =
-                (IconListPreference) group.findPreference(KEY_CAMERA_ID);
+        ListPreference cameraIdPref = group.findPreference(KEY_CAMERA_ID);
         ListPreference videoFlashMode =
                 group.findPreference(KEY_VIDEOCAMERA_FLASH_MODE);
         ListPreference videoEffect = group.findPreference(KEY_VIDEO_EFFECT);
@@ -1164,14 +1160,13 @@ public class CameraSettings {
             labels[i - minValue] = explabel + " " + builder.toString();
             icons[i - minValue] = iconIds.getResourceId(3 + i, 0);
         }
-        exposure.setUseSingleIcon(true);
         exposure.setEntries(entries);
         exposure.setLabels(labels);
         exposure.setEntryValues(entryValues);
     }
 
     private void buildCameraId(
-            PreferenceGroup group, IconListPreference preference) {
+            PreferenceGroup group, ListPreference preference) {
         int numOfCameras = mCameraInfo.length;
         if (numOfCameras < 2) {
             removePreference(group, preference.getKey());
@@ -1184,7 +1179,7 @@ public class CameraSettings {
 
         CharSequence[] entryValues = new CharSequence[numOfCameras];
         for (int i = 0; i < numOfCameras; ++i) {
-            entryValues[i] = "" + i;
+            entryValues[i] = String.valueOf(i);
         }
         preference.setEntryValues(entryValues);
     }
