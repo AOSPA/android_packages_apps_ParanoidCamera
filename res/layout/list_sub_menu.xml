@@ -30,10 +30,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:alpha="0.85"
-    android:background="@drawable/list_border"
-    android:divider="@color/list_divider_color"
-    android:dividerHeight="1dp"
+    android:divider="@null"
     android:listSelector="@drawable/list_selector"
-    android:scrollbars="none" >
-
-</com.android.camera.ui.ListSubMenu>
+    android:background="@color/popup_background"
+    android:scrollbars="none" />

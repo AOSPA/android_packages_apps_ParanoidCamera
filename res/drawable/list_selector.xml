@@ -29,6 +29,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/setting_color_light" android:state_pressed="true"/>
-    <item android:drawable="@android:color/transparent"/>
 
 </selector>

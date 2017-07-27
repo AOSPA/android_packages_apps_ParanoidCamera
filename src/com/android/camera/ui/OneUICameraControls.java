@@ -71,10 +71,7 @@ public class OneUICameraControls extends RotatableLayout {
     private static final int WIDTH_GRID = 5;
     private static final int HEIGHT_GRID = 7;
     private View[] mViews;
-    private boolean mHideRemainingPhoto = false;
-    private LinearLayout mRemainingPhotos;
-    private TextView mRemainingPhotosText;
-    private int mCurrentRemaining = -1;
+    private RemainingPhotos mRemainingPhotos;
     private int mOrientation;
 
     private static int mTop = 0;
@@ -156,8 +153,7 @@ public class OneUICameraControls extends RotatableLayout {
         mPreview = findViewById(R.id.preview_thumb);
         mSceneModeSwitcher = findViewById(R.id.scene_mode_switcher);
         mFilterModeSwitcher = findViewById(R.id.filter_mode_switcher);
-        mRemainingPhotos = (LinearLayout) findViewById(R.id.remaining_photos);
-        mRemainingPhotosText = (TextView) findViewById(R.id.remaining_photos_text);
+        mRemainingPhotos = (RemainingPhotos) findViewById(R.id.remaining_photos);
         mCancelButton = findViewById(R.id.cancel_button);
         mProModeLayout = (ViewGroup) findViewById(R.id.pro_mode_layout);
         mProModeCloseButton = findViewById(R.id.promode_close_button);
@@ -263,7 +259,6 @@ public class OneUICameraControls extends RotatableLayout {
         t = 0;
 
         setLocation(r - l, b - t);
-        layoutRemaingPhotos();
         initializeProMode(mProModeOn);
 
     }
@@ -439,51 +434,19 @@ public class OneUICameraControls extends RotatableLayout {
         }
     }
 
-    private void layoutRemaingPhotos() {
-        int rl = mPreview.getLeft();
-        int rt = mPreview.getTop();
-        int rr = mPreview.getRight();
-        int rb = mPreview.getBottom();
-        int w = mRemainingPhotos.getMeasuredWidth();
-        int h = mRemainingPhotos.getMeasuredHeight();
-        int m = getResources().getDimensionPixelSize(R.dimen.remaining_photos_margin);
-
-        int hc = (rl + rr) / 2;
-        int vc = (rt + rb) / 2 - m;
-        if (mOrientation == 90 || mOrientation == 270) {
-            vc -= w / 2;
-        }
-        if (hc < w / 2) {
-            mRemainingPhotos.layout(0, vc - h / 2, w, vc + h / 2);
-        } else {
-            mRemainingPhotos.layout(hc - w / 2, vc - h / 2, hc + w / 2, vc + h / 2);
-        }
-        mRemainingPhotos.setRotation(-mOrientation);
-    }
-
     public void updateRemainingPhotos(int remaining) {
         long remainingStorage = Storage.getAvailableSpace() - Storage.LOW_STORAGE_THRESHOLD_BYTES;
-        if ((remaining < 0 && remainingStorage <= 0) || mHideRemainingPhoto) {
-            mRemainingPhotos.setVisibility(View.GONE);
+        if (remaining < 0 && remainingStorage <= 0) {
+            mRemainingPhotos.setVisibility(View.INVISIBLE);
         } else {
-            for (int i = mRemainingPhotos.getChildCount() - 1; i >= 0; --i) {
-                mRemainingPhotos.getChildAt(i).setVisibility(View.VISIBLE);
-            }
-            if (remaining < LOW_REMAINING_PHOTOS) {
-                mRemainingPhotosText.setText("<" + LOW_REMAINING_PHOTOS + " ");
-            } else if (remaining >= HIGH_REMAINING_PHOTOS) {
-                mRemainingPhotosText.setText(">" + HIGH_REMAINING_PHOTOS);
-            } else {
-                mRemainingPhotosText.setText(remaining + " ");
-            }
+            mRemainingPhotos.setRemaining(remaining);
         }
-        mCurrentRemaining = remaining;
     }
 
     public void showRefocusToast(boolean show) {
         mRefocusToast.setVisibility(show ? View.VISIBLE : View.GONE);
-        if ((mCurrentRemaining > 0) && !mHideRemainingPhoto) {
-            mRemainingPhotos.setVisibility(show ? View.GONE : View.VISIBLE);
+        if (mRemainingPhotos.getRemaining() > 0) {
+            mRemainingPhotos.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
         }
     }
 
@@ -492,7 +455,8 @@ public class OneUICameraControls extends RotatableLayout {
         View[] views = {
                 mSceneModeSwitcher, mFilterModeSwitcher, mFrontBackSwitcher,
                 mTsMakeupSwitcher, mFlashButton, mPreview, mMute, mShutter, mVideoShutter,
-                mMakeupSeekBarLowText, mMakeupSeekBarHighText, mPauseButton, mExitBestPhotpMode
+                mMakeupSeekBarLowText, mMakeupSeekBarHighText, mPauseButton, mExitBestPhotpMode,
+                mRemainingPhotos
         };
 
         for (View v : views) {
@@ -505,7 +469,6 @@ public class OneUICameraControls extends RotatableLayout {
         mWhiteBalanceRotateLayout.setOrientation(orientation, animation);
         mIsoRotateLayout.setOrientation(orientation, animation);
         mProMode.setOrientation(orientation);
-        layoutRemaingPhotos();
     }
 
     private class ArrowTextView extends TextView {

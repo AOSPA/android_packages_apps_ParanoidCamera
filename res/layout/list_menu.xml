@@ -28,9 +28,8 @@
 -->
 <com.android.camera.ui.ListMenu xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/big_setting_popup_window_width"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:divider="@null"
     android:alpha="0.85"
     android:background="@color/popup_background"
-    android:scrollbars="none" >
-
-</com.android.camera.ui.ListMenu>
+    android:scrollbars="none" />

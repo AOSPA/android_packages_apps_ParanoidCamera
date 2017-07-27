@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2017 Paranoid Android
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="256.0"
+    android:viewportWidth="256.0">
+    <path
+        android:fillColor="@color/shutter_inner_circle"
+        android:pathData="M128,128m-80.2,0a80.2,80.2 0,1 1,160.4 0a80.2,80.2 0,1 1,-160.4 0" />
+    <path
+        android:fillColor="@color/shutter_outer_ring"
+        android:pathData="M128,226.8c-54.5,0 -98.8,-44.3 -98.8,-98.8S73.5,29.2 128,29.2s98.8,44.3 98.8,98.8S182.5,226.8 128,226.8zM128,37.3C78,37.3 37.3,78 37.3,128S78,218.7 128,218.7s90.7,-40.7 90.7,-90.7S178,37.3 128,37.3z" />
+</vector>

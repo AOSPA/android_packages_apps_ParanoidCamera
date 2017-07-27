@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-   Copyright 2017 The ParanoidAndroid Project
+   Copyright 2017 Paranoid Android
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -25,5 +25,10 @@
     <array name="pref_switch_entries" translatable="false">
         <item>@string/setting_off</item>
         <item>@string/setting_on</item>
+    </array>
+
+    <array name="pref_camera_grid_icons" translatable="false">
+        <item>@drawable/ic_grid_enable</item>
+        <item>@drawable/ic_grid_enable</item>
     </array>
 </resources>

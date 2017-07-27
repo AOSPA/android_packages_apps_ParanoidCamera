@@ -63,8 +63,6 @@ public interface CameraModule {
 
     public void onOrientationChanged(int orientation);
 
-    public void onShowSwitcherPopup();
-
     public void onMediaSaveServiceConnected(MediaSaveService s);
 
     public boolean arePreviewControlsVisible();

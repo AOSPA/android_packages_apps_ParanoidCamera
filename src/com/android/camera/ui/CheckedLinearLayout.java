@@ -19,11 +19,11 @@ package com.android.camera.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
-public class CheckedLinearLayout extends RelativeLayout implements Checkable {
+public class CheckedLinearLayout extends LinearLayout implements Checkable {
     private static final int[] CHECKED_STATE_SET = {
-        android.R.attr.state_checked
+            android.R.attr.state_checked
     };
     private boolean mChecked;
 
