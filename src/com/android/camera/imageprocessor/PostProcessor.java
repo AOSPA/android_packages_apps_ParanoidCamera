@@ -1099,7 +1099,7 @@ public class PostProcessor{
                         mActivity.getMediaSaveService().addImage(
                                     bytes, title, date, null, resultImage.outRoi.width(), resultImage.outRoi.height(),
                                     mOrientation, null, mediaSavedListener, contentResolver, "jpeg");
-                            mController.updateThumbnailJpegData(bytes);
+                        mController.updateThumbnailJpegData(bytes);
                     }
                 }
             }
@@ -1108,7 +1108,7 @@ public class PostProcessor{
 
     public TotalCaptureResult waitForMetaData(int index) {
         int timeout = 10; //100ms
-    	while(timeout > 0) {
+        while(timeout > 0) {
             if (mTotalCaptureResultList.size() > index) {
                     return mTotalCaptureResultList.get(index);
             }
