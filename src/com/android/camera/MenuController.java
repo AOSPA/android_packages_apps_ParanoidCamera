@@ -27,25 +27,20 @@ import java.util.Map;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.android.camera.CameraPreference.OnPreferenceChangedListener;
-import com.android.camera.ui.RotateImageView;
 
 public class MenuController {
 
     private static String TAG = "CAM_menucontrol";
 
-    protected static final int MODE_PHOTO = 0;
-    protected static final int MODE_VIDEO = 1;
-
     protected Activity mActivity;
     protected PreferenceGroup mPreferenceGroup;
     protected OnPreferenceChangedListener mListener;
-    protected List<IconListPreference> mPreferences;
-    protected Map<IconListPreference, View> mPreferenceMap;
-    private Map<IconListPreference, String> mOverrides;
+    protected List<ListPreference> mPreferences;
+    private Map<ListPreference, View> mPreferenceMap;
+    private Map<ListPreference, String> mOverrides;
 
     public void setListener(OnPreferenceChangedListener listener) {
         mListener = listener;
@@ -53,9 +48,9 @@ public class MenuController {
 
     public MenuController(Activity activity) {
         mActivity = activity;
-        mPreferences = new ArrayList<IconListPreference>();
-        mPreferenceMap = new HashMap<IconListPreference, View>();
-        mOverrides = new HashMap<IconListPreference, String>();
+        mPreferences = new ArrayList<>();
+        mPreferenceMap = new HashMap<>();
+        mOverrides = new HashMap<>();
     }
 
     public void initialize(PreferenceGroup group) {
@@ -73,7 +68,7 @@ public class MenuController {
 
     protected void setCameraId(int cameraId) {
         ListPreference pref = mPreferenceGroup.findPreference(CameraSettings.KEY_CAMERA_ID);
-        pref.setValue("" + cameraId);
+        pref.setValue(String.valueOf(cameraId));
     }
 
     public void setPreferenceGroup(PreferenceGroup group) {
@@ -82,15 +77,16 @@ public class MenuController {
 
     public void reloadPreferences() {
         mPreferenceGroup.reloadValue();
-        for (IconListPreference pref : mPreferences) {
-            reloadPreference(pref);
+        for (ListPreference pref : mPreferences) {
+            if (pref instanceof IconListPreference) {
+                reloadPreference((IconListPreference) pref);
+            }
         }
     }
 
     protected void reloadPreference(IconListPreference pref) {
         View switcher = mPreferenceMap.get(pref);
-        if (switcher == null)
-            return;
+        if (switcher == null || pref.getUseSingleIcon()) return;
         String overrideValue = mOverrides.get(pref);
         int index;
         if (overrideValue == null) {
@@ -105,7 +101,6 @@ public class MenuController {
             }
         }
         ((ImageView) switcher).setImageResource(pref.getLargeIconIds()[index]);
-
     }
 
     // Scene mode may override other camera settings (ex: flash mode).
@@ -113,12 +108,12 @@ public class MenuController {
         if (keyvalues.length % 2 != 0) {
             throw new IllegalArgumentException();
         }
-        for (IconListPreference pref : mPreferences) {
+        for (ListPreference pref : mPreferences) {
             override(pref, keyvalues);
         }
     }
 
-    private void override(IconListPreference pref, final String... keyvalues) {
+    private void override(ListPreference pref, final String... keyvalues) {
         mOverrides.remove(pref);
         for (int i = 0; i < keyvalues.length; i += 2) {
             String key = keyvalues[i];
@@ -128,6 +123,51 @@ public class MenuController {
                 break;
             }
         }
-        reloadPreference(pref);
+        if (pref instanceof IconListPreference) {
+            reloadPreference((IconListPreference) pref);
+        }
     }
+
+    protected void initSwitchItem(final String prefKey, View switcher) {
+        final ListPreference pref = mPreferenceGroup.findPreference(prefKey);
+        if (pref == null) return;
+
+        if (pref instanceof IconListPreference) {
+            IconListPreference iconPref = (IconListPreference) pref;
+            int[] iconIds = iconPref.getLargeIconIds();
+            int resid;
+            int index = iconPref.findIndexOfValue(iconPref.getValue());
+            if (!iconPref.getUseSingleIcon() && iconIds != null) {
+                // Each entry has a corresponding icon.
+                resid = iconIds[index];
+            } else {
+                // The preference only has a single icon to represent it.
+                resid = iconPref.getSingleIcon();
+            }
+            ((ImageView) switcher).setImageResource(resid);
+        }
+        switcher.setVisibility(View.VISIBLE);
+        mPreferences.add(pref);
+        mPreferenceMap.put(pref, switcher);
+        switcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = pref.findIndexOfValue(pref.getValue());
+                CharSequence[] values = pref.getEntryValues();
+                index = (index + 1) % values.length;
+                pref.setValueIndex(index);
+                if (pref instanceof IconListPreference) {
+                    IconListPreference iconPref = (IconListPreference) pref;
+                    if (!iconPref.getUseSingleIcon()) {
+                        ((ImageView) v).setImageResource(iconPref.getLargeIconIds()[index]);
+                    }
+                }
+                if (prefKey.equals(CameraSettings.KEY_CAMERA_ID)) {
+                    mListener.onCameraPickerClicked(index);
+                }
+                onSettingChanged(pref);
+            }
+        });
+    }
+
 }

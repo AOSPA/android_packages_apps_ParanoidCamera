@@ -3033,11 +3033,6 @@ public class CaptureModule implements CameraModule, PhotoController,
     }
 
     @Override
-    public void onShowSwitcherPopup() {
-
-    }
-
-    @Override
     public void onMediaSaveServiceConnected(MediaSaveService s) {
         if (mFirstTimeInitialized) {
             s.setListener(this);
@@ -4991,7 +4986,7 @@ public class CaptureModule implements CameraModule, PhotoController,
         }
         mUI.initializeProMode(!mPaused && promode);
     }
-	
+
     boolean checkSessionAndBuilder(CameraCaptureSession session, CaptureRequest.Builder builder) {
         return session != null && builder != null;
     }
