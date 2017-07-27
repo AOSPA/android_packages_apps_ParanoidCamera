@@ -17,6 +17,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.android.camera.PanoProgressBar
         android:id="@+id/pano_saving_progress_bar"
         android:src="@drawable/ic_pan_progression"
