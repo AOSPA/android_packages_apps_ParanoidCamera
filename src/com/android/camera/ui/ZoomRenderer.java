@@ -56,8 +56,7 @@ public class ZoomRenderer extends OverlayRenderer
     private float mZoomMaxValue;
 
     private Point mDispSize;
-    private int mBottomMargin;
-    private int mTopMargin;
+    private int mCameraControlHeight;
 
     public interface OnZoomChangedListener {
         void onZoomStart();
@@ -83,10 +82,6 @@ public class ZoomRenderer extends OverlayRenderer
         mMinCircle = res.getDimensionPixelSize(R.dimen.zoom_ring_min);
         mTextBounds = new Rect();
         setVisible(false);
-        mBottomMargin =
-            ctx.getResources().getDimensionPixelSize(R.dimen.preview_bottom_margin);
-        mTopMargin =
-            ctx.getResources().getDimensionPixelSize(R.dimen.preview_top_margin);
         mDispSize = new Point();
         Activity activity = (Activity) ctx;
         activity.getWindowManager().getDefaultDisplay().getRealSize(mDispSize);
@@ -126,12 +121,16 @@ public class ZoomRenderer extends OverlayRenderer
         mListener = listener;
     }
 
+    public void setCameraControlHeight(int height) {
+        mCameraControlHeight = height;
+    }
+
     @Override
     public void layout(int l, int t, int r, int b) {
         l = 0;
-        t = mTopMargin;
+        t = 0;
         r = mDispSize.x;
-        b = mDispSize.y - mBottomMargin;
+        b = mDispSize.y - mCameraControlHeight;
         super.layout(l, t, r, b);
         mCenterX = (r - l) / 2;
         mCenterY = ((b - t) / 2) + t;

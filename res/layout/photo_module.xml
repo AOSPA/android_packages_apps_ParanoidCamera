@@ -24,27 +24,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center" >
+
     <include layout="@layout/count_down_to_capture" />
+
     <include layout="@layout/selfie_flash_view" />
+
     <FrameLayout
         android:id="@+id/preview_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical|center_horizontal" >
+        android:layout_height="match_parent">
         <SurfaceView
             android:id="@+id/mdp_preview_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
+
     <View
         android:id="@+id/preview_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black" />
+
     <RelativeLayout android:id="@+id/linear"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:id="@+id/progress"
@@ -68,6 +73,7 @@
             android:layout_marginTop="50dip"
             android:layout_marginLeft="15dip" />
     </RelativeLayout>
+
     <com.android.camera.ui.RotateImageView
         android:id="@+id/review_image"
         android:layout_width="match_parent"
@@ -86,32 +92,33 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ViewStub android:id="@+id/face_view_stub"
-        android:inflatedId="@+id/face_view"
-        android:layout="@layout/face_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+
+        <ViewStub android:id="@+id/face_view_stub"
+            android:inflatedId="@+id/face_view"
+            android:layout="@layout/face_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
     </FrameLayout>
+
     <com.android.camera.ui.RenderOverlay
         android:id="@+id/render_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <include layout="@layout/camera_controls"
-        android:layout_gravity="center"
-        style="@style/CameraControls"/>
-    <include layout="@layout/menu_help"
-        android:layout_gravity="center"
-        style="@style/CameraControls"/>
+
+    <include layout="@layout/camera_controls" />
+
     <RelativeLayout
         android:id="@+id/id_tsmakeup_level_layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
+
     <FrameLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_gravity="bottom">
+
         <SeekBar
             android:id="@+id/blur_degree_bar"
             android:orientation="horizontal"

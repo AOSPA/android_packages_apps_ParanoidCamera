@@ -20,26 +20,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|center_horizontal">
+
         <com.android.camera.ui.AutoFitSurfaceView
             android:id="@+id/mdp_preview_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
+
     <com.android.camera.ui.PanoCaptureProcessView
         android:id="@+id/preview_process_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <include
-        layout="@layout/scene_mode_label"/>
+        layout="@layout/scene_mode_label" />
 
     <include
-        style="@style/CameraControls"
         layout="@layout/camera_controls"
         android:layout_gravity="center" />
 </merge>

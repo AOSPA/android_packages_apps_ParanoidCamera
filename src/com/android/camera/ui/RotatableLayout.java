@@ -44,27 +44,22 @@ public class RotatableLayout extends FrameLayout {
     private int mPrevRotation = UNKOWN_ORIENTATION;
     private boolean mIsDefaultToPortrait = false;
 
-    public RotatableLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
+    public RotatableLayout(Context context) {
+        this(context, null);
     }
 
     public RotatableLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
-    public RotatableLayout(Context context) {
-        super(context);
-        init();
-    }
-
-    private void init() {
+    public RotatableLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         mInitialOrientation = getResources().getConfiguration().orientation;
     }
 
     @Override
     public void onAttachedToWindow() {
+        super.onAttachedToWindow();
         // Before the first time this view is attached to window, device rotation
         // will not trigger onConfigurationChanged callback. So in the first run
         // we need to rotate the view if necessary. After that, onConfigurationChanged
@@ -129,6 +124,7 @@ public class RotatableLayout extends FrameLayout {
 
     @Override
     public void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
         if (visibility == View.VISIBLE) {
             // Make sure when coming back from onPause, the layout is rotated correctly
             checkLayoutFlip();

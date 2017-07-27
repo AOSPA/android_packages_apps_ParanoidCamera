@@ -73,7 +73,7 @@ public class IconListPreference extends ListPreference {
     }
 
     public boolean getUseSingleIcon() {
-        return mUseSingleIcon;
+        return mSingleIconId != 0;
     }
 
     public void setIconIds(int[] iconIds) {
@@ -86,10 +86,6 @@ public class IconListPreference extends ListPreference {
 
     public void setThumbnailIds(int[] thumbnailIds) {
         mThumbnailIds = thumbnailIds;
-    }
-
-    public void setUseSingleIcon(boolean useSingle) {
-        mUseSingleIcon = useSingle;
     }
 
     private int[] getIds(Resources res, int iconsRes) {

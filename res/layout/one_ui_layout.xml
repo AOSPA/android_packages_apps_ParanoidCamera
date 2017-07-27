@@ -38,7 +38,7 @@
         android:src="@drawable/ic_unmuted_button"
         android:visibility="gone" />
 
-    <com.android.camera.ShutterButton
+    <com.android.camera.ui.ShutterButton
         android:id="@+id/shutter_button"
         android:layout_width="@dimen/one_ui_bottom_large"
         android:layout_height="@dimen/one_ui_bottom_large"
@@ -146,13 +146,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/remaining_photos_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/remaining_sheets"
             android:visibility="gone" />
     </LinearLayout>
 
