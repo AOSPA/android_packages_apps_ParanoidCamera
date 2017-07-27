@@ -412,16 +412,6 @@
         <item>@string/pref_camera_id_label_front</item>
     </array>
 
-    <array name="camera_id_icons" translatable="false">
-        <item>@drawable/ic_switch_back</item>
-        <item>@drawable/ic_switch_front</item>
-    </array>
-
-    <array name="camera_id_largeicons" translatable="false">
-        <item>@drawable/ic_switch_back</item>
-        <item>@drawable/ic_switch_front</item>
-    </array>
-
     <string-array name="pref_video_effect_entries" translatable="false">
         <item>@string/effect_none</item>
         <item>@string/effect_goofy_face_squeeze</item>
