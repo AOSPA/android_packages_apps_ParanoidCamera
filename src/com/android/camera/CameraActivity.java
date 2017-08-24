@@ -67,6 +67,7 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -1471,6 +1472,11 @@ public class CameraActivity extends Activity
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
+
+        if (TextUtils.isEmpty(SystemProperties.get("ro.pa.version"))) {
+            finishAffinity();
+            return;
+        }
 
         final boolean useHal3 = getResources().getBoolean(R.bool.config_use_hal3);
         CameraManagerFactory.getAndroidCameraManager().setHal3(useHal3);
