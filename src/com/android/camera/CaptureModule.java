@@ -1737,7 +1737,17 @@ public class CaptureModule implements CameraModule, PhotoController,
         CameraManager manager = (CameraManager) mActivity.getSystemService(Context.CAMERA_SERVICE);
         try {
             String[] cameraIdList = manager.getCameraIdList();
-            for (int i = 0; i < cameraIdList.length; i++) {
+            int cameraIdListLength = cameraIdList.length;
+
+            if (cameraIdListLength > MAX_NUM_CAM)
+                Log.w(TAG, "Number of available cameras (" + cameraIdListLength + ") exceeds "
+                        + "max supported cameras (" + MAX_NUM_CAM + ")");
+
+            for (int i = 0; i < cameraIdListLength; i++) {
+                if (i >= MAX_NUM_CAM) {
+                    Log.w(TAG, "Skipping set up for camera with id " + i);
+                    break;
+                }
                 String cameraId = cameraIdList[i];
 
                 CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
