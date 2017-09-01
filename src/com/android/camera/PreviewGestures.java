@@ -26,6 +26,11 @@ import com.android.camera.ui.RenderOverlay;
 import com.android.camera.ui.TrackingFocusRenderer;
 import com.android.camera.ui.ZoomRenderer;
 
+<<<<<<< HEAD
+=======
+import co.paranoidandroid.camera.R;
+
+>>>>>>> 2f8160e... Rebrand to PA camera
 /* PreviewGestures disambiguates touch events received on RenderOverlay
  * and dispatch them to the proper recipient (i.e. zoom renderer or pie renderer).
  * Touch events on CameraControls will be handled by framework.
