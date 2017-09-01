@@ -24,7 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 /**
  * The on-screen indicators of the pie menu button. They show the camera
