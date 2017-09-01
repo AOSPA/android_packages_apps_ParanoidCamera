@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import org.codeaurora.snapcam.R;
 import com.android.camera.CameraActivity;
 import com.android.camera.ui.ModuleSwitcher;
@@ -45,6 +46,11 @@ import com.android.camera.ShutterButton;
 import com.android.camera.Storage;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.TsMakeupManager;
+=======
+import com.android.camera.Storage;
+
+import co.paranoidandroid.camera.R;
+>>>>>>> 2f8160e... Rebrand to PA camera
 
 public class CameraControls extends RotatableLayout {
 
