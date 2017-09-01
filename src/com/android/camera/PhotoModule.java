@@ -88,7 +88,7 @@ import com.android.camera.util.CameraUtil;
 import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PersistUtil;
 import com.android.camera.util.UsageStatistics;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 import org.codeaurora.snapcam.wrapper.ParametersWrapper;
 import org.codeaurora.snapcam.wrapper.CameraInfoWrapper;
 import org.codeaurora.snapcam.filter.GDepth;
