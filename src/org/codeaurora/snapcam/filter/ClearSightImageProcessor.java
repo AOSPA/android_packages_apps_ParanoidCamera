@@ -40,9 +40,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.codeaurora.snapcam.filter.ClearSightNativeEngine.CamSystemCalibrationData;
-import org.codeaurora.snapcam.filter.ClearSightNativeEngine.ClearsightImage;
-import org.codeaurora.snapcam.filter.DDMNativeEngine;
+import co.paranoidandroid.camera.ClearSightNativeEngine.CamSystemCalibrationData;
+import co.paranoidandroid.camera.filter.ClearSightNativeEngine.ClearsightImage;
+import co.paranoidandroid.camera.filter.DDMNativeEngine;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -81,7 +81,13 @@ import com.android.camera.ui.SelfieFlashView;
 import com.android.camera.ui.ZoomRenderer;
 import com.android.camera.util.CameraUtil;
 
+<<<<<<< HEAD
 public class PhotoUI implements PieListener,
+=======
+import co.paranoidandroid.camera.R;
+
+public class PhotoUI extends CameraUI implements PieListener,
+>>>>>>> 2f8160e... Rebrand to PA camera
         PreviewGestures.SingleTapListener,
         FocusUI,
         SurfaceHolder.Callback,
