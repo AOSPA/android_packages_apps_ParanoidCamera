@@ -59,8 +59,12 @@ import com.android.camera.ui.ModuleSwitcher;
 import com.android.camera.ui.RotateLayout;
 import com.android.camera.ui.RotateImageView;
 import com.android.camera.ui.RotateTextToast;
+<<<<<<< HEAD
 import org.codeaurora.snapcam.R;
 import android.widget.HorizontalScrollView;
+=======
+import co.paranoidandroid.camera.R;
+>>>>>>> 2f8160e... Rebrand to PA camera
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.Display;

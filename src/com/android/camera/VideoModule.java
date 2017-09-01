@@ -70,8 +70,13 @@ import com.android.camera.util.AccessibilityUtils;
 import com.android.camera.util.ApiHelper;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.UsageStatistics;
+<<<<<<< HEAD
 import org.codeaurora.snapcam.R;
 import com.android.camera.PhotoModule;
+=======
+import co.paranoidandroid.camera.R;
+
+>>>>>>> 2f8160e... Rebrand to PA camera
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;

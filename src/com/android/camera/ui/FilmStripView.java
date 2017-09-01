@@ -48,7 +48,7 @@ import com.android.camera.ui.RenderOverlay;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.PhotoSphereHelper.PanoramaViewHelper;
 import com.android.camera.util.UsageStatistics;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import java.util.Arrays;
 

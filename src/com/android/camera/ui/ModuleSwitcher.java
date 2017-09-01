@@ -38,8 +38,13 @@ import android.widget.ImageView;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PhotoSphereHelper;
+<<<<<<< HEAD
 import com.android.camera.util.UsageStatistics;
 import org.codeaurora.snapcam.R;
+=======
+
+import co.paranoidandroid.camera.R;
+>>>>>>> 2f8160e... Rebrand to PA camera
 
 public class ModuleSwitcher extends RotateImageView
         implements OnTouchListener {
