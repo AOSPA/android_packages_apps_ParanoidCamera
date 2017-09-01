@@ -25,7 +25,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.android.camera.util.PhotoSphereHelper;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 /**
  * A wrapper class for in-progress data. Data that's still being processed

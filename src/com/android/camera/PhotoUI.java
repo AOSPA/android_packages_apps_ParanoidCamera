@@ -19,7 +19,7 @@ package com.android.camera;
 
 import java.util.List;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
