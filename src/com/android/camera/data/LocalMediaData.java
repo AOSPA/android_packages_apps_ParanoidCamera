@@ -35,7 +35,7 @@ import android.widget.ImageView;
 import com.android.camera.ui.FilmStripView;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.PhotoSphereHelper;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;

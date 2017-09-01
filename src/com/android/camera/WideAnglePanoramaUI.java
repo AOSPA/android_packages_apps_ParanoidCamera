@@ -54,7 +54,7 @@ import com.android.camera.ui.RotateImageView;
 import com.android.camera.ui.RotateLayout;
 import com.android.camera.ui.RotateTextToast;
 import com.android.camera.util.CameraUtil;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 /**
  * The UI of {@link WideAnglePanoramaModule}.
