@@ -40,7 +40,7 @@ import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 
-import org.codeaurora.snapcam.filter.ClearSightNativeEngine.CamSystemCalibrationData;
+import co.paranoidandroid.camera.filter.ClearSightNativeEngine.CamSystemCalibrationData;
 
 public class DDMNativeEngine {
     private static final String TAG = "DDMNativeEngine";
