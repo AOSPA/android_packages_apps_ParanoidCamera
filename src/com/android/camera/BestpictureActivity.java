@@ -64,7 +64,7 @@ import com.android.camera.ui.RotateTextToast;
 import com.android.camera.ui.RotateImageView;
 import com.android.camera.util.CameraUtil;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import java.io.File;
 import java.io.FileInputStream;
