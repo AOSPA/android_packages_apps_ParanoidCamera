@@ -62,7 +62,13 @@ import com.android.camera.ui.RotateTextToast;
 import com.android.camera.ui.ZoomRenderer;
 import com.android.camera.util.CameraUtil;
 
+<<<<<<< HEAD
 public class VideoUI implements PieRenderer.PieListener,
+=======
+import co.paranoidandroid.camera.R;
+
+public class VideoUI extends CameraUI implements PieRenderer.PieListener,
+>>>>>>> 2f8160e... Rebrand to PA camera
         PreviewGestures.SingleTapListener,
         CameraRootView.MyDisplayListener,
         SurfaceHolder.Callback,
