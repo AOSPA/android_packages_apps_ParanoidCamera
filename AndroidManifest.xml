@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.codeaurora.snapcam">
+    package="co.paranoidandroid.camera">
 
     <uses-sdk
         android:minSdkVersion="23"
         android:targetSdkVersion="23" />
 
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" ></uses-permission>
     <uses-permission android:name="android.permission.SET_ORIENTATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
