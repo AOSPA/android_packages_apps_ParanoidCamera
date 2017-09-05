@@ -43,8 +43,8 @@ import com.android.camera.mpo.MpoImageData;
 import com.android.camera.mpo.MpoInterface;
 import com.android.camera.util.XmpUtil;
 
-import org.codeaurora.snapcam.filter.GDepth;
-import org.codeaurora.snapcam.filter.GImage;
+import co.paranoidandroid.camera.filter.GDepth;
+import co.paranoidandroid.camera.filter.GImage;
 
 import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPMeta;

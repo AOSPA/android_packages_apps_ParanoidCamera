@@ -52,7 +52,7 @@ import com.android.camera.ui.ListSubMenu;
 import com.android.camera.ui.ListMenu;
 import com.android.camera.ui.RotateLayout;
 import com.android.camera.ui.RotateTextToast;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.Display;
