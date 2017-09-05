@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.android.camera.IconListPreference;
 import com.android.camera.ListPreference;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import java.text.NumberFormat;
 import java.util.Locale;
