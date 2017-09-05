@@ -25,7 +25,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 public class RemainingPhotos extends View implements Rotatable {
 

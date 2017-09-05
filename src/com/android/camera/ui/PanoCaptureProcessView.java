@@ -62,7 +62,7 @@ import com.android.camera.PanoCaptureModule;
 import com.android.camera.exif.ExifInterface;
 import com.android.camera.util.CameraUtil;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

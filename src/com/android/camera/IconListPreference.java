@@ -23,7 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 /** A {@code ListPreference} where each entry has a corresponding icon. */
 public class IconListPreference extends ListPreference {

@@ -35,7 +35,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.camera.util.CameraUtil;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 
 public class BestPictureActionDialogLayout extends RelativeLayout implements View.OnClickListener {

@@ -27,7 +27,7 @@ import com.android.camera.ui.RenderOverlay;
 import com.android.camera.ui.TrackingFocusRenderer;
 import com.android.camera.ui.ZoomRenderer;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 /* PreviewGestures disambiguates touch events received on RenderOverlay
  * and dispatch them to the proper recipient (i.e. zoom renderer or pie renderer).

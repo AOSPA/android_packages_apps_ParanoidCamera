@@ -54,14 +54,14 @@ import com.android.camera.ui.ListMenu;
 import com.android.camera.ui.RotateLayout;
 import com.android.camera.ui.RotateTextToast;
 
-import org.codeaurora.snapcam.R;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.Display;
 import com.android.camera.util.CameraUtil;
 
-import org.codeaurora.snapcam.R;
 import org.codeaurora.snapcam.wrapper.ParametersWrapper;
+
+import co.paranoidandroid.camera.R;
 
 public class PhotoMenu extends MenuController
         implements ListMenu.Listener,
