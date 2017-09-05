@@ -46,7 +46,7 @@ import android.widget.TextView;
 import com.android.camera.ui.*;
 import com.android.camera.util.CameraUtil;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 public class PanoCaptureUI extends CameraUI implements
         LocationManager.Listener,
