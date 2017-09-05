@@ -89,7 +89,7 @@ import com.android.camera.util.CameraUtil;
 import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PersistUtil;
 import com.android.camera.util.UsageStatistics;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import android.widget.EditText;
 import android.app.AlertDialog;

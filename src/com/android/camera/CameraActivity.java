@@ -116,7 +116,7 @@ import com.android.camera.util.IntentHelper;
 import com.android.camera.util.PersistUtil;
 import com.android.camera.util.PhotoSphereHelper.PanoramaViewHelper;
 import com.android.camera.util.UsageStatistics;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.MemoryCategory;
@@ -1910,7 +1910,7 @@ public class CameraActivity extends Activity
         // as Android doesn’t have any default intent to share the state.
         // if the led flash light is open, turn it off
         Log.d(TAG, "send the turn off Flashlight broadcast");
-        Intent intent = new Intent("org.codeaurora.snapcam.action.CLOSE_FLASHLIGHT");
+        Intent intent = new Intent("co.paranoidandroid.camera.action.CLOSE_FLASHLIGHT");
         intent.putExtra("camera_led", true);
         sendBroadcast(intent);
     }
