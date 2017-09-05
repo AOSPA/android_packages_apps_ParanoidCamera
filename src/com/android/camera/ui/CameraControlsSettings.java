@@ -21,7 +21,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 public class CameraControlsSettings extends ViewGroup implements Rotatable {
 
