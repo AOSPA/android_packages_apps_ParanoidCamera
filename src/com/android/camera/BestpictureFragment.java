@@ -35,7 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 public class BestpictureFragment extends Fragment {
     public static final String PARAM_IMAGE_NUM = "image_num";

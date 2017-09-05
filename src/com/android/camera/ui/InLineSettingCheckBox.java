@@ -24,7 +24,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.android.camera.ListPreference;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 /* A check box setting control which turns on/off the setting. */
 public class InLineSettingCheckBox extends InLineSettingItem {

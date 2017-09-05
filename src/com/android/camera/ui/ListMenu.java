@@ -34,7 +34,7 @@ import com.android.camera.ListPreference;
 import com.android.camera.PreferenceGroup;
 import com.android.camera.SettingsManager;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import java.util.ArrayList;
 import java.util.List;

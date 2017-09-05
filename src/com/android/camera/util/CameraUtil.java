@@ -63,7 +63,7 @@ import com.android.camera.CameraSettings;
 import com.android.camera.ui.RotateTextToast;
 import com.android.camera.util.IntentHelper;
 
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 
 import java.io.Closeable;
 import java.io.IOException;

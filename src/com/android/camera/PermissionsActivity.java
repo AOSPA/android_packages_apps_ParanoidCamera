@@ -10,7 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import org.codeaurora.snapcam.R;
+import co.paranoidandroid.camera.R;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
 
