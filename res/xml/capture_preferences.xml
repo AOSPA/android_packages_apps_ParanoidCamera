@@ -35,7 +35,7 @@
         camera:entries="@array/pref_camera2_flashmode_entries"
         camera:entryValues="@array/pref_camera2_flashmode_entryvalues"
         camera:key="pref_camera2_flashmode_key"
-        camera:singleIcon="@drawable/ic_settings_flash"
+        camera:singleIcon="@drawable/flash_on"
         camera:title="@string/pref_camera_flashmode_title"/>
 
     <IconListPreference
@@ -249,7 +249,7 @@
         camera:entryValues="@array/pref_camera2_video_flashmode_entryvalues"
         camera:icons="@array/video_flashmode_icons"
         camera:key="pref_camera2_video_flashmode_key"
-        camera:singleIcon="@drawable/ic_settings_flash"
+        camera:singleIcon="@drawable/flash_on"
         camera:title="@string/pref_camera_flashmode_title" />
 
     <ListPreference
@@ -287,7 +287,7 @@
         camera:entries="@array/pref_selfie_flash_entries"
         camera:entryValues="@array/pref_selfie_flash_entryvalues"
         camera:key="pref_selfie_flash_key"
-        camera:singleIcon="@drawable/ic_settings_flash"
+        camera:singleIcon="@drawable/flash_on"
         camera:title="@string/pref_selfie_flash_title" />
 
     <ListPreference

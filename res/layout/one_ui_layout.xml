@@ -29,7 +29,7 @@
     <com.android.camera.ui.FlashToggleButton
         android:id="@+id/flash_button"
         style="@style/OneUIMenuButton"
-        android:src="@drawable/flash" />
+        android:src="@drawable/flash_on" />
 
     <com.android.camera.ui.RotateImageView
         android:id="@+id/mute_button"
