@@ -66,7 +66,7 @@
         camera:title="@string/pref_camera_flashmode_title"
         camera:icons="@array/video_flashmode_icons"
         camera:largeIcons="@array/video_flashmode_largeicons"
-        camera:singleIcon="@drawable/ic_settings_flash"
+        camera:singleIcon="@drawable/flash_on"
         camera:entries="@array/pref_camera_video_flashmode_entries"
         camera:labelList="@array/pref_camera_video_flashmode_labels"
         camera:entryValues="@array/pref_camera_video_flashmode_entryvalues" />
@@ -78,7 +78,7 @@
         camera:largeIcons="@array/whitebalance_largeicons"
         camera:entries="@array/pref_camera_whitebalance_entries"
         camera:labelList="@array/pref_camera_whitebalance_labels"
-        camera:singleIcon="@drawable/ic_settings_lightsource"
+        camera:singleIcon="@drawable/fluorescent"
         camera:entryValues="@array/pref_camera_whitebalance_entryvalues" />
     <ListPreference
         camera:key="pref_camera_id_key"
@@ -99,7 +99,7 @@
         camera:defaultValue="@string/pref_camera_recordlocation_default"
         camera:title="@string/pref_camera_recordlocation_title"
         camera:icons="@array/camera_recordlocation_icons"
-        camera:singleIcon="@drawable/ic_settings_location"
+        camera:singleIcon="@drawable/ic_location"
         camera:largeIcons="@array/camera_recordlocation_largeicons"
         camera:entries="@array/pref_camera_recordlocation_entries"
         camera:entryValues="@array/pref_camera_recordlocation_entryvalues" />

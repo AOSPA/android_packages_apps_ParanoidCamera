@@ -41,8 +41,8 @@ import co.paranoidandroid.camera.R;
 
 public class FlashToggleButton extends RotateImageView {
     private SettingsManager mSettingsManager;
-    private int[] cameraFlashIcon = {R.drawable.flash_off, R.drawable.flash_auto, R.drawable.flash};
-    private int[] videoFlashIcon = {R.drawable.flash_off, R.drawable.flash};
+    private int[] cameraFlashIcon = {R.drawable.flash_off, R.drawable.flash_auto, R.drawable.flash_on};
+    private int[] videoFlashIcon = {R.drawable.flash_off, R.drawable.flash_on};
     private int mIndex;
     private boolean mIsVideoFlash;
 

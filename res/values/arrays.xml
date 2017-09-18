@@ -210,15 +210,15 @@
     </string-array>
 
     <array name="camera_flashmode_icons" translatable="false">
-        <item>@drawable/ic_flash_off_holo_light</item>
-        <item>@drawable/ic_flash_auto_holo_light</item>
-        <item>@drawable/ic_flash_on_holo_light</item>
+        <item>@drawable/flash_off</item>
+        <item>@drawable/flash_auto</item>
+        <item>@drawable/flash_on</item>
     </array>
 
     <array name="camera_flashmode_largeicons" translatable="false">
-        <item>@drawable/ic_flash_off_holo_light</item>
-        <item>@drawable/ic_flash_auto_holo_light</item>
-        <item>@drawable/ic_flash_on_holo_light</item>
+        <item>@drawable/flash_off</item>
+        <item>@drawable/flash_auto</item>
+        <item>@drawable/flash_on</item>
     </array>
 
     <!-- Videocamera Preferences flash mode dialog box entries -->
@@ -238,13 +238,13 @@
     </string-array>
 
     <array name="video_flashmode_icons" translatable="false">
-        <item>@drawable/ic_flash_off_holo_light</item>
-        <item>@drawable/ic_flash_on_holo_light</item>
+        <item>@drawable/flash_off</item>
+        <item>@drawable/flash_on</item>
     </array>
 
     <array name="video_flashmode_largeicons" translatable="false">
-        <item>@drawable/ic_flash_off_holo_light</item>
-        <item>@drawable/ic_flash_on_holo_light</item>
+        <item>@drawable/flash_off</item>
+        <item>@drawable/flash_on</item>
     </array>
 
     <string-array name="pref_camera_recordlocation_entryvalues" translatable="false">
@@ -299,7 +299,7 @@
 
     <array name="whitebalance_icons" translatable="false">
         <item>@drawable/ic_wb_incandescent</item>
-        <item>@drawable/ic_wb_fluorescent</item>
+        <item>@drawable/fluorescent</item>
         <item>@drawable/ic_wb_auto</item>
         <item>@drawable/ic_wb_sunlight</item>
         <item>@drawable/ic_wb_cloudy</item>
@@ -307,7 +307,7 @@
 
     <array name="whitebalance_largeicons" translatable="false">
         <item>@drawable/ic_wb_incandescent</item>
-        <item>@drawable/ic_wb_fluorescent</item>
+        <item>@drawable/fluorescent</item>
         <item>@drawable/ic_wb_auto</item>
         <item>@drawable/ic_wb_sunlight</item>
         <item>@drawable/ic_wb_cloudy</item>
@@ -315,7 +315,7 @@
 
     <array name="camera_wb_indicators" translatable="false">
         <item>@drawable/ic_indicator_wb_tungsten</item>
-        <item>@drawable/ic_indicator_wb_fluorescent</item>
+        <item>@drawable/fluorescent</item>
         <item>@drawable/ic_indicator_wb_off</item>
         <item>@drawable/ic_indicator_wb_daylight</item>
         <item>@drawable/ic_indicator_wb_cloudy</item>

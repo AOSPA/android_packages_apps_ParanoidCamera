@@ -46,7 +46,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <ImageView android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/delete_best"
-            android:src="@drawable/x"
+            android:src="@drawable/ic_menu_cancel_holo_light"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"/>
