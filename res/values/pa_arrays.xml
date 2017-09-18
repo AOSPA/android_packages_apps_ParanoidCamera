@@ -28,7 +28,7 @@
     </array>
 
     <array name="pref_camera_grid_icons" translatable="false">
-        <item>@drawable/ic_grid_enable</item>
+        <item>@drawable/ic_grid_disabled</item>
         <item>@drawable/ic_grid_enable</item>
     </array>
 </resources>
