@@ -26,7 +26,7 @@
             camera:entries="@array/pref_camera_flashmode_entries"
             camera:entryValues="@array/pref_camera_flashmode_entryvalues"
             camera:labelList="@array/pref_camera_flashmode_labels"
-            camera:singleIcon="@drawable/ic_settings_flash" />
+            camera:singleIcon="@drawable/flash_on" />
     <IconListPreference
             camera:key="pref_camera_exposure_key"
             camera:defaultValue="@string/pref_exposure_default"
@@ -248,7 +248,7 @@
             camera:defaultValue="@string/pref_selfie_flash_default"
             camera:entries="@array/pref_selfie_flash_entries"
             camera:entryValues="@array/pref_selfie_flash_entryvalues"
-            camera:singleIcon="@drawable/ic_settings_flash"
+            camera:singleIcon="@drawable/flash_on"
             camera:title="@string/pref_selfie_flash_title" />
     <IconListPreference
             camera:key="pref_camera_facedetection_key"
