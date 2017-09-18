@@ -126,7 +126,7 @@
     <com.android.camera.ui.RotateImageView
         android:id="@+id/filter_mode_switcher"
         style="@style/OneUIMenuButton"
-        android:src="@drawable/filters" />
+        android:src="@drawable/ic_settings_filter" />
 
     <com.android.camera.ui.RotateImageView
         android:id="@+id/ts_makeup_switcher"
