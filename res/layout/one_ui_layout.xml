@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (c) 2016-2017 The Linux Foundation. All rights reserved.
      Not a Contribution.
-
      Copyright (C) 2013 The Android Open Source Project
-
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
           http://www.apache.org/licenses/LICENSE-2.0
-
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +25,7 @@
     <com.android.camera.ui.FlashToggleButton
         android:id="@+id/flash_button"
         style="@style/OneUIMenuButton"
-        android:src="@drawable/flash" />
+        android:src="@drawable/flash_on" />
 
     <com.android.camera.ui.RotateImageView
         android:id="@+id/mute_button"
@@ -106,7 +102,7 @@
         android:focusable="true"
         android:layout_gravity="top|left"
         android:scaleType="fitCenter"
-        android:src="@drawable/x"
+        android:src="@drawable/ic_menu_cancel_holo_light"
         android:visibility="gone"/>
 
     <com.android.camera.ui.RotateImageView
@@ -155,7 +151,7 @@
         android:id="@+id/promode_close_button"
         android:layout_height="20dp"
         android:layout_width="20dp"
-        android:src="@drawable/icon_x" />
+        android:src="@drawable/ic_menu_cancel_holo_light" />
 
     <LinearLayout
         android:layout_width="match_parent"

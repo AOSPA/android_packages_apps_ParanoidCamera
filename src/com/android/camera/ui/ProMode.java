@@ -60,7 +60,7 @@ public class ProMode extends View {
     private static final int BLUE = 0xff4693fb;
     private static final int SELECTED_DOT_SIZE = 20;
     private static final int DOT_SIZE = 10;
-    private static final int[] wbIcons = {R.drawable.auto, R.drawable.incandecent,
+    private static final int[] wbIcons = {R.drawable.auto, R.drawable.ic_wb_incandescent,
             R.drawable.fluorescent, R.drawable.sunlight, R.drawable.cloudy};
     private static final int[] wbIconsBlue = {R.drawable.auto_blue, R.drawable.incandecent_blue,
             R.drawable.fluorescent_blue, R.drawable.sunlight_blue, R.drawable.cloudy_blue};

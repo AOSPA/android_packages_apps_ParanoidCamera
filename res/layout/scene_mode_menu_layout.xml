@@ -40,7 +40,7 @@
         android:layout_alignParentTop="true"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/x" />
+        android:src="@drawable/ic_menu_cancel_holo_light" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -65,5 +65,5 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/settings" />
+        android:src="@drawable/ic_settings" />
 </RelativeLayout>

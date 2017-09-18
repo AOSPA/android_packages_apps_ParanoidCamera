@@ -298,14 +298,14 @@
     <array name="pref_camera2_whitebalance_icons" translatable="false">
         <item>@drawable/ic_wb_auto</item>
         <item>@drawable/ic_wb_incandescent</item>
-        <item>@drawable/ic_wb_fluorescent</item>
+        <item>@drawable/fluorescent</item>
         <item>@drawable/ic_wb_sunlight</item>
         <item>@drawable/ic_wb_cloudy</item>
     </array>
 
     <array name="pref_camera2_whitebalance_largeicons" translatable="false">
         <item>@drawable/ic_wb_incandescent</item>
-        <item>@drawable/ic_wb_fluorescent</item>
+        <item>@drawable/fluorescent</item>
         <item>@drawable/ic_wb_auto</item>
         <item>@drawable/ic_wb_sunlight</item>
         <item>@drawable/ic_wb_cloudy</item>
@@ -407,13 +407,13 @@
     </string-array>
 
     <array name="pref_camera2_flashmode_icons" translatable="false">
-        <item>@drawable/ic_flash_off_holo_light</item>
-        <item>@drawable/ic_flash_on_holo_light</item>
+        <item>@drawable/flash_off</item>
+        <item>@drawable/flash_on</item>
     </array>
 
     <array name="pref_camera2_flashmode_largeicons" translatable="false">
-        <item>@drawable/ic_flash_off_holo_light</item>
-        <item>@drawable/ic_flash_on_holo_light</item>
+        <item>@drawable/flash_off</item>
+        <item>@drawable/flash_on</item>
     </array>
 
     <!-- Camera Preference save path entries -->
