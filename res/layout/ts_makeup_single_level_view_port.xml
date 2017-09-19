@@ -29,7 +29,8 @@
         android:id="@+id/seekbar_makeup_level"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dip"
+        android:progressTint="@android:color/white" 
+        android:thumbTint="@android:color/white"
         android:visibility="gone" />
 
     <LinearLayout
