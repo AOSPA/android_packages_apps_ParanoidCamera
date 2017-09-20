@@ -535,7 +535,7 @@ public class OneUICameraControls extends RotatableLayout {
 
     private void resetProModeIcons() {
         mExposureIcon.setImageResource(R.drawable.icon_exposure);
-        mManualIcon.setImageResource(R.drawable.icon_manual);
+        mManualIcon.setImageResource(R.drawable.promode);
         mWhiteBalanceIcon.setImageResource(R.drawable.icon_white_balance);
         mIsoIcon.setImageResource(R.drawable.icon_iso);
     }

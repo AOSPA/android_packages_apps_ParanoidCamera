@@ -31,7 +31,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:visibility="invisible">
+    android:visibility="invisible"
+    android:baselineAligned="false">
 
     <com.android.camera.ui.RotateLayout
         android:id="@+id/exposure_rotate_layout"
@@ -79,7 +80,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:src="@drawable/icon_manual" />
+                android:src="@drawable/promode" />
 
             <TextView
                 android:id="@+id/manual_value"
