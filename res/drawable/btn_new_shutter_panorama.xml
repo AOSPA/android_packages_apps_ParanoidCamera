@@ -27,7 +27,7 @@
      IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/shutter_panorama_dim" />
-    <item android:drawable="@drawable/shutter_panorama" />
+    <item android:state_pressed="true" android:drawable="@drawable/ic_shutter_button_pressed" />
+    <item android:drawable="@drawable/ic_shutter_button" />
 </selector>
 

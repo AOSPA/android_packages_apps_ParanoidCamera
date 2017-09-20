@@ -712,7 +712,7 @@ public class CaptureUI extends CameraUI implements FocusOverlayManager.FocusUI,
             } else {
                 mFlashButton.init(true);
             }
-            mVideoButton.setImageResource(R.drawable.video_stop);
+            mVideoButton.setImageResource(R.drawable.shutter_button_video_stop);
             mRecordingTimeView.setText("");
             mRecordingTimeRect.setVisibility(View.VISIBLE);
             mMuteButton.setVisibility(View.VISIBLE);
