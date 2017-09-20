@@ -31,7 +31,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:visibility="invisible">
+    android:visibility="invisible"
+    android:baselineAligned="false">
 
     <com.android.camera.ui.RotateLayout
         android:id="@+id/exposure_rotate_layout"
