@@ -16,52 +16,23 @@
 <resources>
     <color name="default_background">#000</color>
 
-    <!-- configuration for album set page -->
-    <color name="albumset_background">#1A1A1A</color>
-    <color name="albumset_placeholder">#333</color>
-    <color name="albumset_label_background">#EE414143</color>
-    <color name="albumset_label_title">#FBFBFB</color>
-    <color name="albumset_label_count">#A9ABAD</color>
-
-    <!-- configuration for album page -->
-    <color name="album_background">#1A1A1A</color>
-    <color name="album_placeholder">#333</color>
-
     <!-- configuration for photo page -->
-    <color name="photo_background">#1A1A1A</color>
     <color name="photo_placeholder">#333</color>
 
-    <!-- configuration for manage cache page -->
-    <color name="cache_background">#1A1A1A</color>
-    <color name="cache_placeholder">#333</color>
-
-    <color name="bitmap_screennail_placeholder">#333</color>
-
-    <color name="slideshow_background">#1A1A1A</color>
-
     <color name="button_dark_transparent_background">#6000</color>
-
-    <color name="ingest_highlight_semitransparent">#8833b5e5</color>
-    <color name="ingest_date_tile_text">#33b5e5</color>
 
     <!-- Camera resources below -->
 
     <color name="recording_time_elapsed_text">#FFFFFFFF</color>
     <color name="recording_time_remaining_text">#FFFF0033</color>
     <color name="on_viewfinder_label_background_color">#77333333</color>
-    <color name="review_control_pressed_color">#FF33B5E5</color>
-    <color name="review_control_pressed_fan_color">#3F33B5E5</color>
     <color name="review_background">#FF000000</color>
-    <color name="icon_disabled_color">#DD777777</color>
-    <color name="time_lapse_arc">#FFC5C5C5</color>
-    <color name="indicator_background">#40000000</color>
     <color name="popup_title_color">#ff33b5e5</color>
     <color name="popup_background">#ff282828</color>
     <color name="pano_progress_empty">#FF2E2E2E</color>
     <color name="pano_progress_done">#ffffff</color>
     <color name="pano_progress_indication">#ffffff</color>
     <color name="pano_progress_indication_fast">#9a7f45</color>
-    <color name="mode_selection_border">#33B5E5</color>
     <color name="holo_blue_light">#ff33b5e5</color>
     <color name="bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
     <color name="bright_foreground_holo_dark">#fff3f3f3</color>
