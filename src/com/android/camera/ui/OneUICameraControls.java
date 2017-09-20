@@ -19,18 +19,15 @@
 
 package com.android.camera.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Display;
 import android.widget.ImageView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -90,11 +87,19 @@ public class OneUICameraControls extends RotatableLayout {
 
     private int mIntentMode = CaptureModule.INTENT_MODE_NORMAL;
     private ProMode mProMode;
+    private ImageView mExposureIcon;
+    private ImageView mManualIcon;
+    private ImageView mWhiteBalanceIcon;
+    private ImageView mIsoIcon;
     private TextView mExposureText;
     private TextView mManualText;
     private TextView mWhiteBalanceText;
     private TextView mIsoText;
     private boolean mProModeOn = false;
+    private LinearLayout mExposureLayout;
+    private LinearLayout mManualLayout;
+    private LinearLayout mWhiteBalanceLayout;
+    private LinearLayout mIsoLayout;
     private RotateLayout mExposureRotateLayout;
     private RotateLayout mManualRotateLayout;
     private RotateLayout mWhiteBalanceRotateLayout;
@@ -115,11 +120,6 @@ public class OneUICameraControls extends RotatableLayout {
         mTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
         mBottom = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         mVisible = true;
-
-        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        mWidth = size.x;
     }
 
     public OneUICameraControls(Context context) {
@@ -158,6 +158,10 @@ public class OneUICameraControls extends RotatableLayout {
         mProModeLayout = (ViewGroup) findViewById(R.id.pro_mode_layout);
         mProModeCloseButton = findViewById(R.id.promode_close_button);
 
+        mExposureIcon = (ImageView) findViewById(R.id.exposure);
+        mManualIcon = (ImageView) findViewById(R.id.manual);
+        mWhiteBalanceIcon = (ImageView) findViewById(R.id.white_balance);
+        mIsoIcon = (ImageView) findViewById(R.id.iso);
         mExposureText = (TextView) findViewById(R.id.exposure_value);
         mManualText = (TextView) findViewById(R.id.manual_value);
         mWhiteBalanceText = (TextView) findViewById(R.id.white_balance_value);
@@ -165,12 +169,17 @@ public class OneUICameraControls extends RotatableLayout {
         mProMode = (ProMode) findViewById(R.id.promode_slider);
         mProMode.initialize(this);
 
+        mExposureLayout = (LinearLayout) findViewById(R.id.exposure_layout);
+        mManualLayout = (LinearLayout) findViewById(R.id.manual_layout);
+        mWhiteBalanceLayout = (LinearLayout) findViewById(R.id.white_balance_layout);
+        mIsoLayout = (LinearLayout) findViewById(R.id.iso_layout);
+
         mExposureRotateLayout = (RotateLayout) findViewById(R.id.exposure_rotate_layout);
         mManualRotateLayout = (RotateLayout) findViewById(R.id.manual_rotate_layout);
         mWhiteBalanceRotateLayout = (RotateLayout) findViewById(R.id.white_balance_rotate_layout);
         mIsoRotateLayout = (RotateLayout) findViewById(R.id.iso_rotate_layout);
 
-        mExposureText.setOnClickListener(new OnClickListener() {
+        mExposureLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetProModeIcons();
@@ -178,12 +187,12 @@ public class OneUICameraControls extends RotatableLayout {
                 if (mode == ProMode.EXPOSURE_MODE) {
                     mProMode.setMode(ProMode.NO_MODE);
                 } else {
-                    mExposureText.setSelected(true);
+                    mExposureIcon.setImageResource(R.drawable.icon_exposure_blue);
                     mProMode.setMode(ProMode.EXPOSURE_MODE);
                 }
             }
         });
-        mManualText.setOnClickListener(new OnClickListener() {
+        mManualLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetProModeIcons();
@@ -191,12 +200,12 @@ public class OneUICameraControls extends RotatableLayout {
                 if (mode == ProMode.MANUAL_MODE) {
                     mProMode.setMode(ProMode.NO_MODE);
                 } else {
-                    mManualText.setSelected(true);
+                    mManualIcon.setImageResource(R.drawable.promode);
                     mProMode.setMode(ProMode.MANUAL_MODE);
                 }
             }
         });
-        mWhiteBalanceText.setOnClickListener(new OnClickListener() {
+        mWhiteBalanceLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetProModeIcons();
@@ -204,12 +213,12 @@ public class OneUICameraControls extends RotatableLayout {
                 if (mode == ProMode.WHITE_BALANCE_MODE) {
                     mProMode.setMode(ProMode.NO_MODE);
                 } else {
-                    mWhiteBalanceText.setSelected(true);
+                    mWhiteBalanceIcon.setImageResource(R.drawable.icon_white_balance_blue);
                     mProMode.setMode(ProMode.WHITE_BALANCE_MODE);
                 }
             }
         });
-        mIsoText.setOnClickListener(new OnClickListener() {
+        mIsoLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetProModeIcons();
@@ -217,7 +226,7 @@ public class OneUICameraControls extends RotatableLayout {
                 if (mode == ProMode.ISO_MODE) {
                     mProMode.setMode(ProMode.NO_MODE);
                 } else {
-                    mIsoText.setSelected(true);
+                    mIsoIcon.setImageResource(R.drawable.icon_iso_blue);
                     mProMode.setMode(ProMode.ISO_MODE);
                 }
             }
@@ -235,7 +244,6 @@ public class OneUICameraControls extends RotatableLayout {
         if(!BeautificationFilter.isSupportedStatic()) {
             mTsMakeupSwitcher.setEnabled(false);
         }
-        setProModeParameters();
     }
 
     @Override
@@ -247,7 +255,12 @@ public class OneUICameraControls extends RotatableLayout {
         if(mMakeupSeekBar != null) {
             mMakeupSeekBar.setMinimumWidth(mWidth/2);
         }
-        setProModeParameters();
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(mWidth/ 4,mWidth/4);
+        mExposureLayout.setLayoutParams(lp);
+        mManualLayout.setLayoutParams(lp);
+        mWhiteBalanceLayout.setLayoutParams(lp);
+        mIsoLayout.setLayoutParams(lp);
+
     }
 
     @Override
@@ -260,7 +273,6 @@ public class OneUICameraControls extends RotatableLayout {
 
         setLocation(r - l, b - t);
         initializeProMode(mProModeOn);
-
     }
 
     public boolean isControlRegion(int x, int y) {
@@ -517,26 +529,18 @@ public class OneUICameraControls extends RotatableLayout {
     public void setProMode(boolean promode) {
         mProModeOn = promode;
         initializeProMode(mProModeOn);
-        mProMode.reinit();
         resetProModeIcons();
+        mProMode.reinit();
     }
 
     private void resetProModeIcons() {
-        mExposureText.setSelected(false);
-        mManualText.setSelected(false);
-        mWhiteBalanceText.setSelected(false);
-        mIsoText.setSelected(false);
+        mExposureIcon.setImageResource(R.drawable.icon_exposure);
+        mManualIcon.setImageResource(R.drawable.promode);
+        mWhiteBalanceIcon.setImageResource(R.drawable.icon_white_balance);
+        mIsoIcon.setImageResource(R.drawable.icon_iso);
     }
 
-    private void setProModeParameters() {
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(mWidth/ 4, mWidth/ 4);
-        mExposureText.setLayoutParams(lp);
-        mManualText.setLayoutParams(lp);
-        mWhiteBalanceText.setLayoutParams(lp);
-        mIsoText.setLayoutParams(lp);
-    }
-
-    private void initializeProMode(boolean promode) {
+    public void initializeProMode(boolean promode) {
         if (!promode) {
             mProMode.setMode(ProMode.NO_MODE);
             mProModeLayout.setVisibility(INVISIBLE);

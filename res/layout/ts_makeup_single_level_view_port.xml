@@ -38,7 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/tsmakeup_mode_level_size"
         android:layout_gravity="center"
-        android:gravity="center" >
+        android:gravity="center"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/id_layout_makeup_back"

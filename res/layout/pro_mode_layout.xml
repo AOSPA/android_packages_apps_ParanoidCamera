@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="true"
-            android:drawableTop="@drawable/promode_manual"
+            android:drawableTop="@drawable/promode"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_weight="1" />
