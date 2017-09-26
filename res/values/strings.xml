@@ -21,9 +21,9 @@
     <!-- The label for the Video Camera activity. [CHAR LIMIT=16] -->
     <string name="video_camera_label">Camcorder</string>
     <!-- Used to format short video duration in Details dialog. minutes:seconds e.g. 00:30 -->
-    <string name="details_ms">%1$02d:%2$02d</string>
+    <string name="details_ms" translatable="false">%1$02d:%2$02d</string>
     <!-- Used to format video duration in Details dialog. hours:minutes:seconds e.g. 0:21:30 -->
-    <string name="details_hms">%1$d:%2$02d:%3$02d</string>
+    <string name="details_hms" translatable="false">%1$d:%2$02d:%3$02d</string>
 
     <!-- Displayed in the title of the dialog for things to do with a picture
              that is to be "set as" (e.g. set as contact photo or set as wallpaper) -->
