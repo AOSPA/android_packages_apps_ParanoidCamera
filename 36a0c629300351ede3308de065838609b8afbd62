@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89b344f8_e0099278",
+        "filename": "res/values/pa_arrays.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2017-09-28T00:14:59Z",
+      "side": 1,
+      "message": "use pref_switch_entries instead of creating a new array",
+      "revId": "36a0c629300351ede3308de065838609b8afbd62",
+      "serverId": "3162e3d8-d894-470e-abd9-724f7b0effad",
+      "unresolved": false
+    }
+  ]
+}
