@@ -45,7 +45,7 @@
         <activity
             android:name="com.android.camera.CameraActivity"
             android:clearTaskOnLaunch="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="screenSize|keyboardHidden"
             android:icon="@mipmap/ic_launcher_camera"
             android:label="@string/snapcam_app_name"
             android:launchMode="singleTask"
