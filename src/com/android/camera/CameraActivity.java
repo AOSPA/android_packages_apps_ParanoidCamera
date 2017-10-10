@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -76,6 +77,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -246,6 +248,7 @@ public class CameraActivity extends Activity
     private FrameLayout mPreviewContentLayout;
     private boolean mPaused = true;
     private boolean mForceReleaseCamera = false;
+    private boolean mRedrawing = false;
 
     private Uri[] mNfcPushUris = new Uri[1];
 
@@ -1478,6 +1481,18 @@ public class CameraActivity extends Activity
             return;
         }
 
+        // Do not draw UI until rotation animation has finished
+        final int orientation = getScreenOrientation();
+        if (orientation != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT &&
+            orientation != ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT) {
+            mRedrawing = true;
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            return;
+        }
+        if (mRedrawing) {
+            mRedrawing = false;
+        }
+
         final boolean useHal3 = getResources().getBoolean(R.bool.config_use_hal3);
         CameraManagerFactory.getAndroidCameraManager().setHal3(useHal3);
 
@@ -1679,6 +1694,29 @@ public class CameraActivity extends Activity
         }
     }
 
+    private int getScreenOrientation() {
+        final int rotation = getWindowManager().getDefaultDisplay().getRotation();
+        final int orientation = getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_270) {
+                return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+            } else {
+                return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+            }
+        }
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
+                return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            } else {
+                return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+            }
+        }
+
+        return ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+    }
+
     private void setRotationAnimation() {
         int rotationAnimation = WindowManager.LayoutParams.ROTATION_ANIMATION_ROTATE;
         rotationAnimation = WindowManager.LayoutParams.ROTATION_ANIMATION_CROSSFADE;
@@ -1730,7 +1768,7 @@ public class CameraActivity extends Activity
 
     @Override
     public void onPause() {
-        if (mSecureCamera && !hasCriticalPermissions()) {
+        if (mSecureCamera && !hasCriticalPermissions() || mRedrawing) {
             super.onPause();
             return;
         }
@@ -1772,7 +1810,7 @@ public class CameraActivity extends Activity
     public void onWindowFocusChanged(boolean focus) {
         // Hide action bar first since we are in full screen mode first, and
         // switch the system UI to lights-out mode.
-        if (focus) this.setSystemBarsVisibility(false);
+        if (focus && !mRedrawing) this.setSystemBarsVisibility(false);
     }
 
     /**
@@ -1820,6 +1858,10 @@ public class CameraActivity extends Activity
 
     @Override
     public void onResume() {
+        if (mRedrawing) {
+            super.onResume();
+            return;
+        }
         if (mSecureCamera && !hasCriticalPermissions()) {
             super.onResume();
             showOpenCameraErrorDialog();
@@ -1883,20 +1925,24 @@ public class CameraActivity extends Activity
     @Override
     public void onStart() {
         super.onStart();
-        if (mSecureCamera && !hasCriticalPermissions()) {
+        if (mSecureCamera && !hasCriticalPermissions() || mRedrawing) {
             return;
         }
         bindMediaSaveService();
-        mPanoramaViewHelper.onStart();
+        if (mPanoramaViewHelper != null) {
+            mPanoramaViewHelper.onStart();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mSecureCamera && !hasCriticalPermissions()) {
+        if (mSecureCamera && !hasCriticalPermissions() || mRedrawing) {
             return;
         }
-        mPanoramaViewHelper.onStop();
+        if (mPanoramaViewHelper != null) {
+            mPanoramaViewHelper.onStop();
+        }
         unbindMediaSaveService();
     }
 
