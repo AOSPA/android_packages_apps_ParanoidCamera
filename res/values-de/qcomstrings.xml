@@ -35,9 +35,9 @@
   <!-- Default Power mode.. -->
   <!-- Default auto exposure setting. Do not translate. -->
   <!-- Settings screen, Select auto exposure title -->
-  <string name="pref_camera_autoexposure_title">Auto-Belichtungs Modus auswählen</string>
+  <string name="pref_camera_autoexposure_title">Auto-Belichtungsmodus auswählen</string>
   <!-- Settings screen, auto exposure dialog radio button choices -->
-  <string name="pref_camera_autoexposure_entry_frameaverage">Bild Durchschnitt</string>
+  <string name="pref_camera_autoexposure_entry_frameaverage">Bildrate</string>
   <string name="pref_camera_autoexposure_entry_centerweighted">Mittenbetont</string>
   <string name="pref_camera_autoexposure_entry_spotmetering">Spotmessung</string>
   <!-- Auto exposure entry values. Do not translate. -->
@@ -88,7 +88,7 @@
   <string name="pref_camera_advanced_features_title">Erweiterte Funktionen</string>
   <!-- Settings screen, Selectable Zone Af dialog radio button choices -->
   <string name="pref_camera_advanced_feature_entry_none">Keine</string>
-  <string name="pref_camera_advanced_feature_entry_stillmore">Still More</string>
+  <string name="pref_camera_advanced_feature_entry_stillmore">Noch mehr</string>
   <!-- Auto exposure entry values. Do not translate. -->
   <!-- Manual exposure control entry values -->
   <string name="pref_camera_manual_exp_title">Manuelle Belichtung</string>

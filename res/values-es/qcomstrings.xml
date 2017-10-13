@@ -259,6 +259,8 @@ Grabación en altos FPS no admite la resolución seleccionada     </string>
   <!-- Settings screen, Anti Banding entries -->
   <!-- Default color effect setting. -->
   <!-- Settings screen, Select Color effect title -->
+  <string name="pref_camera_coloreffect_title">Nivel de efecto de color</string>
+  <string name="pref_camera_filter_mode_title">Modo de efecto de color</string>
   <!-- Settings screen, Color effect dialog radio button choices -->
   <string name="pref_camera_coloreffect_entry_negative">Negativo</string>
   <!-- Color effect that overexposes and reverses some of the tones. -->
@@ -365,7 +367,10 @@ Grabación en altos FPS no admite la resolución seleccionada     </string>
   <!-- Settings screen, setting title text for Auto HDR-->
   <string name="pref_camera_auto_hdr_title">AUTO HDR</string>
   <!-- Settings screen, Auto HDR location dialog choices -->
+  <string name="pref_camera_auto_hdr_entry_enable">Activado</string>
+  <string name="pref_camera_auto_hdr_entry_disable">Desactivado</string>
   <!-- toast message for storage location switch -->
+  <string name="on_switch_save_path_to_sdcard">El espacio de almacenamiento interno no es suficiente, se cambió la ubicación de almacenamiento a la tarjeta SD</string>
   <!-- Settings screen, Selectable HDR mode title -->
   <!-- Settings screen, Selectable HDR mode radio button choices -->
   <!-- HDR mode entry values. Do not translate. -->
@@ -381,6 +386,22 @@ Grabación en altos FPS no admite la resolución seleccionada     </string>
   <!-- Continous shot enable message -->
   <!-- Advance features enable message -->
   <!-- The alas of CameraActivity for gesture operation -->
+  <string name="text_tsmakeup_alert_continue">Continuar</string>
+  <string name="text_tsmakeup_alert_quit">Salir</string>
+  <string name="all_in_focus">Todo en foco</string>
+  <string name="refocus_toast">Para volver a enfocar la última foto, pulsa aquí</string>
+  <string name="refocus_prompt_message">Con UbiFocus, la cámara tomará 5 fotos, cada vez que pulses el disparador. Las 5 fotos se combinarán en una foto, donde todo estará enfocado. Puedes volver a enfocar, después de tomar la fotografía.</string>
+  <string name="camera_thermal_shutdown">Teléfono sobrecalentado, cerrando cámara.</string>
+  <string name="camera_server_died">El servidor multimedia se ha cerrado, cerrando cámara.</string>
+  <string name="camera_unknown_error">Error desconocido, cerrando cámara.</string>
+  <string name="mute_button_desc">Botón de silencio</string>
+  <string name="pref_camera2_camera2_title" translatable="true">Modo Cámara2</string>
+  <string name="pref_camera2_camera2_entry_enable" translatable="true">Activado</string>
+  <string name="pref_camera2_camera2_entry_disable" translatable="true">Desactivado</string>
+  <string name="pref_camera2_mono_only_title" translatable="true">Sólo monocromo</string>
+  <string name="pref_camera2_mono_preview_title" translatable="true">Previsualización Monocromo</string>
+  <string name="pref_camera2_mono_preview_entry_on" translatable="true">Activado</string>
+  <string name="pref_camera2_mono_preview_entry_off" translatable="true">Desactivado</string>
   <string name="pref_camera2_makeup_title" translatable="true">Maquillaje</string>
   <string name="pref_camera2_noise_reduction_title" translatable="true">Reducción de ruido</string>
   <string name="pref_camera2_noise_reduction_entry_off" translatable="true">Apagado</string>
@@ -426,6 +447,8 @@ Grabación en altos FPS no admite la resolución seleccionada     </string>
   <string name="pref_camera2_scene_mode_hdr_instructional_content" translatable="true">Cuando estás en condiciones de iluminación mixtas tales como poca luz y contraluz escenas seleccione \"HDR\" para mejores fotografías posibles.</string>
   <string name="pref_camera2_scene_mode_best_photo_instructional_content" translatable="true">Le permite tomar una ráfaga de 10 fotos, y usted puede elegir la (s) mejor.</string>
   <string name="pref_camera2_scene_mode_chroma_flash_instructional_content" translatable="true">Con ChromaFlash, se optimizará la iluminación en tus fotos flashes para todas las personas y los objetos de tus fotos. Esta característica sólo se aplica a la cámara trasera.</string>
+  <string name="pref_camera2_scene_mode_tracking_focus_instructional_content" translatable="true">Permite seguimiento y enfoque de un objeto o persona seleccionada mientras esté tomando fotos o videos. Para comenzar, coloque el rectángulo de foco en una persona u objeto que desee seguir.</string>
+  <string name="pref_camera2_not_show_again">No mostrar de nuevo</string>
   <!-- Default Zoom setting. -->
   <string name="pref_camera_zoom_title">Zoom</string>
   <!-- Settings menu, Zoom choices -->

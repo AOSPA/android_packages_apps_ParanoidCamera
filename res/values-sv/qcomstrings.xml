@@ -204,24 +204,49 @@ Hög FPS stöds inte för vald upplösning     </string>
   <!-- The messsage shown if user selects a snapshot resolution lower than the current video size. -->
   <string name="snapshot_lower_than_video">Storleken på videostillbilden är mindre än videostorleken, med tak vid videostorlek. Var god välj en upplösning som är högre eller lika med nuvarande videostorlek. </string>
   <!-- The messsage shown if user selects a snapshot resolution in low power mode. -->
+  <string name="snapshotsize_low_powermode">Vi stöder inte fotoupplösning i Strömsparläge. Videostorleksögonblicksbild tas. Vänligen välj Prestanda-läge för fotostorlek.    </string>
   <!-- The messsage shown if user tries to take snapshot during D1/QCIF resolution. -->
+  <string name="snapshot_qcif_and_d1">Endast stillbilder med Videostorlek stöds med denna upplösning. </string>
   <!-- Default hfr setting. Do not translate. -->
   <!-- Settings screen, Select hfr title -->
+  <string name="pref_camera_hfr_title">Video Hög FrameRate</string>
   <!-- Settings screen, hfr radio button choices -->
+  <string name="pref_camera_hfr_entry_off">Av</string>
+  <string name="pref_camera_hfr_entry_2x">Slowmotion 60</string>
+  <string name="pref_camera_hfr_entry_3x">Slowmotion 90</string>
+  <string name="pref_camera_hfr_entry_4x">Slowmotion 120</string>
+  <string name="pref_camera_hfr_entry_8x">Slowmotion 240</string>
+  <string name="pref_camera_hfr_entry_hsr_60">Hög FPS 60</string>
+  <string name="pref_camera_hfr_entry_hsr_90">Hög FPS 90</string>
+  <string name="pref_camera_hfr_entry_hsr_120">Hög FPS 120</string>
+  <string name="pref_camera_hfr_entry_hsr_240">Hög FPS 240</string>
   <!-- Slow Motion entry values. Do not translate. -->
   <!-- Default noise reduction setting. Do not translate. -->
   <!-- Settings screen, Select See More title -->
+  <string name="pref_camera_noise_reduction_title">Brusreducering</string>
   <!-- Settings screen, see more radio button choices -->
+  <string name="pref_camera_noise_reduction_entry_off">Av</string>
+  <string name="pref_camera_noise_reduction_entry_fast">Snabb</string>
+  <string name="pref_camera_noise_reduction_entry_high_quality">Hög Kvalité</string>
   <!-- see more entry values. Do not translate. -->
   <!-- Default see more setting. Do not translate. -->
   <!-- Settings screen, Select See More title -->
+  <string name="pref_camera_see_more_title">Se Mer</string>
   <!-- Settings screen, see more radio button choices -->
+  <string name="pref_camera_see_more_entry_off">Av</string>
+  <string name="pref_camera_see_more_entry_on">På</string>
   <!-- see more entry values. Do not translate. -->
   <!-- Denoise Settings screen, setting title text -->
+  <string name="pref_camera_denoise_title">Wavelet Denoise-läge</string>
   <!-- Denoise Settings screen, Record location dialog choices -->
+  <string name="pref_camera_denoise_entry_off">Av</string>
+  <string name="pref_camera_denoise_entry_on">På</string>
   <!-- Default iso setting. Do not translate. -->
   <!-- Settings screen, Select Iso title -->
+  <string name="pref_camera_iso_title">ISO</string>
   <!-- Settings screen, ISO dialog radio button choices -->
+  <string name="pref_camera_iso_entry_auto">Auto</string>
+  <string name="pref_camera_iso_entry_isodeblur">ISO Auto(HJR)</string>
   <string name="pref_camera_iso_entry_iso100">ISO100</string>
   <string name="pref_camera_iso_entry_iso200">ISO200</string>
   <string name="pref_camera_iso_entry_iso400">ISO400</string>
@@ -229,6 +254,7 @@ Hög FPS stöds inte för vald upplösning     </string>
   <string name="pref_camera_iso_entry_iso1600">ISO1600</string>
   <!-- ISO entry values. Do not translate. -->
   <!-- Settings screen, Anti Banding title -->
+  <string name="pref_camera_antibanding_title">Anti-Banding</string>
   <!-- Default Anti Banding setting. -->
   <string name="pref_camera_antibanding_default">auto</string>
   <!-- Settings screen, Anti Banding entries -->
@@ -249,7 +275,9 @@ Hög FPS stöds inte för vald upplösning     </string>
   <string name="pref_camera_coloreffect_entry_negative">Negativ</string>
   <!-- Color effect that overexposes and reverses some of the tones. -->
   <string name="pref_camera_coloreffect_entry_solarize">Solarize</string>
+  <string name="pref_camera_coloreffect_entry_posterize">Färgreduktion</string>
   <string name="pref_camera_coloreffect_entry_aqua">Vatten</string>
+  <string name="pref_camera_coloreffect_entry_emboss">Relief</string>
   <string name="pref_camera_coloreffect_entry_sketch">Skissa</string>
   <string name="pref_camera_coloreffect_entry_neon">Neon</string>
   <string name="pref_camera_coloreffect_entry_pastel">Pastell</string>
@@ -306,23 +334,36 @@ Hög FPS stöds inte för vald upplösning     </string>
   <string name="pref_camera_saturation_entry_level7">Nivå 7</string>
   <string name="pref_camera_saturation_entry_level8">Nivå 8</string>
   <string name="pref_camera_saturation_entry_level9">Nivå 9</string>
+  <string name="pref_camera_saturation_entry_level10">Nivå 10</string>
   <!-- Default sharpness setting. Do not translate. -->
   <!-- Settings screen, Select sharpness title -->
+  <string name="pref_camera_sharpness_title">Skärpa</string>
   <!-- Default contrast setting. Do not translate. -->
   <!-- Settings screen, Select contrast title -->
+  <string name="pref_camera_contrast_title">Kontrast</string>
   <!-- Default saturation setting. Do not translate. -->
   <!-- Settings screen, Select saturation title -->
+  <string name="pref_camera_saturation_title">Mättnad</string>
   <!-- Default picture quality setting. See
          pref_camera_jpegquality_entryvalues for possible values -->
   <!-- Default Picture format setting. Do not translate. -->
   <!-- Settings screen, Select Picture format title -->
+  <string name="pref_camera_picture_format_title">Välj Bildformat</string>
   <!-- Settings screen, picture format dialog radio button choices -->
+  <string name="pref_camera_picture_format_entry_jpeg">Jpeg</string>
+  <string name="pref_camera_picture_format_entry_raw">Raw</string>
   <!-- Picture format entry values. Do not translate. -->
   <!-- Settings screen, Picture quality title -->
+  <string name="pref_camera_jpegquality_title">Bildkvalitet</string>
   <!-- Settings screen, Picture quality dialog radio button choices -->
+  <string name="pref_camera_jpegquality_entry_0">Låg</string>
+  <string name="pref_camera_jpegquality_entry_1">Standard</string>
+  <string name="pref_camera_jpegquality_entry_2">Hög</string>
   <!-- Default auto histogram setting. Do not translate. -->
   <!-- Settings screen, Select Histogram title -->
+  <string name="pref_camera_histogram_title">Histogram</string>
   <!-- Settings screen, Histogram radio button choices -->
+  <string name="pref_camera_histogram_entry_enable">Aktivera</string>
   <string name="pref_camera_histogram_entry_disable">Inaktivera</string>
   <!-- Histogram entry values. Do not translate. -->
   <string name="pref_camera_focusmode_entry_normal">Normal</string>
@@ -463,8 +504,17 @@ Kontinuerlig bildtagning stöds inte när avancerade funktioner är aktiverade</
   <string name="pref_camera2_shutter_sound_value_on" translatable="true">på</string>
   <string name="pref_camera2_shutter_sound_value_off" translatable="true">av</string>
   <string name="pref_camera2_shutter_sound_entry_on" translatable="true">På</string>
+  <string name="pref_camera2_shutter_sound_entry_off" translatable="true">Av</string>
   <string name="pref_camera2_shutter_sound_title" translatable="true">Slutarljud</string>
+  <string name="pref_camera2_timer_entry_off" translatable="true">Av</string>
   <string name="pref_camera2_timer_entry_2sec" translatable="true">2 sekunder</string>
+  <string name="pref_camera2_timer_entry_5sec" translatable="true">5 sekunder</string>
+  <string name="pref_camera2_timer_entry_10sec" translatable="true">10 sekunder</string>
+  <string name="pref_camera2_saveraw_title">Spara med RAW-format</string>
+  <string name="panocapture_direction_is_not_determined" translatable="true">Flytta konstant i en riktning.</string>
+  <string name="panocapture_intro" translatable="true">Tryck på kamerknapp för att starta.</string>
+  <string name="panocapture_direction_is_changed" translatable="true">Riktningen ändras. Stoppar nu...</string>
+  <string name="makeup_ui_title" translatable="true">Vänligen välj styrka för försköning.</string>
   <string name="makeup_ui_ok_button" translatable="true">OK</string>
   <string name="makeup_seekbar_low" translatable="true">låg</string>
   <string name="makeup_seekbar_high" translatable="true">hög</string>
@@ -473,8 +523,22 @@ Kontinuerlig bildtagning stöds inte när avancerade funktioner är aktiverade</
   <string name="perf_camera2_preferences_category_photo" translatable="true">Stillbildskamera</string>
   <string name="perf_camera2_preferences_category_video" translatable="true">Videokamera</string>
   <string name="perf_camera2_preferences_category_system" translatable="true">System</string>
+  <string name="pref_camera2_scene_mode_dual_camera_instructional_content" translatable="true">I dubbla kamera-läge blir bilderna tydligare. Du kan också använda bakgrundseffekter, genom att redigera dina dubbla kamerabilder i Galleriet.</string>
+  <string name="pref_camera2_scene_mode_ubi_focus_instructional_content" translatable="true">Med UbiFocus, kameran tar fem bilder och kombinera dem till en bild,där allt är i fokus. Du kan välja att återfokusera, efter du tar bilden.</string>
+  <string name="pref_camera2_scene_mode_opti_zoom_instructional_content" translatable="true">Använd Optizoom när du vill zooma in för en tydlig bild.Du kan zooma innan eller efter tagen bild.</string>
+  <string name="pref_camera2_scene_mode_sports_instructional_content" translatable="true">Sportläget hjälper dig ta bättre sport- eller actionfoto.\n\nFörbättrar dina bilder, men har ingen effekt vid videoinspelning.</string>
+  <string name="pref_camera2_scene_mode_hdr_instructional_content" translatable="true">När du är i blandad belysning såsom mörka och bakbelysta motiv välj \"HDR\" för bästa möjliga bilder.</string>
+  <string name="pref_camera2_scene_mode_best_photo_instructional_content" translatable="true">Tillåter dig ta en serie med 10 foton, och du kan välja den/de bästa.</string>
+  <string name="pref_camera2_scene_mode_chroma_flash_instructional_content" translatable="true">Med ChromaFlash optimeras belysningen i ditt foto med blixt för alla personer och objekt i dina bilder.Denna funktion gäller endast för den bakåtriktade kameran.</string>
+  <string name="pref_camera2_scene_mode_sharp_photo_instructional_content" translatable="true">Skarp-foto minskar oskärpa som är orsakad av rörelse i scenen eller handrörelse.</string>
+  <string name="pref_camera2_scene_mode_tracking_focus_instructional_content" translatable="true">Du kan spåra och fokusera en vald person eller objekt medan du tar bilder eller videor. För att starta, placera fokusrektangeln på en person eller ett objekt som du vill spåra.</string>
+  <string name="pref_camera2_scene_mode_time_lapse_instructional_content" translatable="true">Med Time-lapse, kan du förvandla en lång videoinspelning till några sekunder av video.Denna effekt gäller videor, men inte foto.</string>
+  <string name="pref_camera2_scene_mode_panorama_instructional_content" translatable="true">Tillåter du att panorera vänster eller höger för att ta ett brett landskapsfoto. Du kan också panorera uppåt eller nedåt för att ta alla foton.</string>
+  <string name="pref_camera2_scene_mode_blur_buster_instructional_content" translatable="true">BlurBuster minskar oskärpa från skakiga händer.Det kan vara bra när du tar foton på svåra ställen.</string>
+  <string name="pref_camera2_scene_mode_pro_instructional_content" translatable="true">Med Pro-läge, kan du manuellt styra inställningar för ISO,Exponering, Vitbalans och Fokus. Det får enkel tillgång till alla dessa avancerade inställningar</string>
   <string name="pref_camera2_not_show_again">Visa inte igen</string>
   <string name="pref_camera2_scene_mode_instructional_ok" translatable="true">OK</string>
+  <string name="pref_camera2_instant_aec_title" translatable="true">Omedelbar AEC</string>
   <string name="pref_camera2_instant_aec_entry_disable" translatable="true">Inaktivera</string>
   <string name="pref_camera2_instant_aec_entry_aggressive" translatable="true">Aggressiv AEC</string>
   <string name="pref_camera2_instant_aec_entry_fast" translatable="true">Snabb AEC</string>
@@ -490,6 +554,7 @@ Kontinuerlig bildtagning stöds inte när avancerade funktioner är aktiverade</
   <string name="pref_camera2_saturation_level_entry_8" translatable="true">Nivå 8</string>
   <string name="pref_camera2_saturation_level_entry_9" translatable="true">Nivå 9</string>
   <string name="pref_camera2_saturation_level_entry_10" translatable="true">Nivå 10</string>
+  <string name="pref_camera2_anti_banding_level_title" translatable="true">Anti-bandingnivå</string>
   <string name="pref_camera2_anti_banding_level_entry_off" translatable="true">Av</string>
   <string name="pref_camera2_anti_banding_level_entry_50hz" translatable="true">50Hz</string>
   <string name="pref_camera2_anti_banding_level_entry_60hz" translatable="true">60Hz</string>
@@ -497,6 +562,7 @@ Kontinuerlig bildtagning stöds inte när avancerade funktioner är aktiverade</
   <string name="pref_camera2_histogram_title" translatable="true">Histogram</string>
   <string name="pref_camera2_histogram_entry_enable" translatable="true">Aktivera</string>
   <string name="pref_camera2_histogram_entry_disable" translatable="true">Inaktivera</string>
+  <string name="pref_camera2_hdr_title" translatable="true">HDR &amp; Icke-HDR</string>
   <string name="pref_camera2_hdr_entry_enable" translatable="true">Aktivera</string>
   <string name="pref_camera2_hdr_entry_disable" translatable="true">Inaktivera</string>
   <string name="pref_camera2_auto_hdr_title" translatable="true">AUTO-HDR</string>
@@ -508,6 +574,7 @@ Kontinuerlig bildtagning stöds inte när avancerade funktioner är aktiverade</
   <string name="pref_camera_bokeh_mpo_title" translatable="true">Bokeh-läge MPO</string>
   <string name="pref_camera_bokeh_mpo_entry_enable" translatable="true">Aktivera</string>
   <string name="pref_camera_bokeh_mpo_entry_disable" translatable="true">Inaktivera</string>
+  <string name="pref_camera_bokeh_blur_degree_title" translatable="true">Bokeh-oskärpevärde</string>
   <!-- Default Zoom setting. -->
   <string name="pref_camera_zoom_title">Zoom</string>
   <!-- Settings menu, Zoom choices -->
