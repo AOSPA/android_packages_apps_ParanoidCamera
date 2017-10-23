@@ -1527,12 +1527,16 @@ public class PhotoModule
             final String isoPref = mPreferences.getString(
                     CameraSettings.KEY_ISO,
                     mActivity.getString(R.string.pref_camera_iso_default));
-
             final boolean isManualIso = !isoPref.equals("auto");
+
+            final String antishakePref = mPreferences.getString(
+                    CameraSettings.KEY_ANTISHAKE,
+                    mActivity.getString(R.string.pref_camera_antishake_default));
+            final boolean isAntishake = antishakePref.equals("on");
 
             if ((info.facing == CameraInfo.CAMERA_FACING_BACK && backCameraRestartPreviewOnPictureTaken)
                     || (info.facing == CameraInfo.CAMERA_FACING_FRONT && frontCameraRestartPreviewOnPictureTaken)
-                    || (isManualIso && manualIsoRestartPreviewOnPictureTaken)) {
+                    || (manualIsoRestartPreviewOnPictureTaken && (isManualIso || isAntishake))) {
                 needRestartPreview = true;
             }
 
