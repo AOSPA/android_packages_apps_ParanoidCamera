@@ -2059,6 +2059,11 @@ public class PhotoModule
         String colorEffect = mActivity.getString(R.string.
                 pref_camera_coloreffect_default);
         String exposureCompensation = CameraSettings.EXPOSURE_DEFAULT_VALUE;
+        String antiShake = mActivity.getString(R.string.
+                pref_camera_antishake_default);
+        String iso = mActivity.getString(R.string.
+                pref_camera_iso_default);
+
         if (mManual3AEnabled > 0) {
             overrideCameraSettings(flashMode, null, null,
                     exposureCompensation, touchAfAec,
@@ -2067,7 +2072,8 @@ public class PhotoModule
                     Integer.toString(ParametersWrapper.getContrast(mParameters)),
                     Integer.toString(ParametersWrapper.getSharpness(mParameters)),
                     colorEffect,
-                    mSceneMode, redeyeReduction, aeBracketing);
+                    mSceneMode, redeyeReduction, aeBracketing,
+                    antiShake, iso);
             mUI.overrideSettings(CameraSettings.KEY_LONGSHOT,
                     mActivity.getString(R.string.setting_off_value));
         } else {
@@ -2077,7 +2083,8 @@ public class PhotoModule
             overrideCameraSettings(null, null, null,
                     null, touchAfAec, null,
                     null, null, null, null,
-                    null, null, null);
+                    null, null, null, null,
+                    null);
             mUI.overrideSettings(CameraSettings.KEY_LONGSHOT, null);
         }
 
@@ -2085,8 +2092,7 @@ public class PhotoModule
         final String isoManual = CameraSettings.KEY_MANUAL_ISO;
         if (isoMode.equals(isoManual)) {
             final String isoPref = mPreferences.getString(
-                    CameraSettings.KEY_ISO,
-                    mActivity.getString(R.string.pref_camera_iso_default));
+                    CameraSettings.KEY_ISO, iso);
             mUI.overrideSettings(CameraSettings.KEY_ISO, isoPref);
         }
         if ((mManual3AEnabled & MANUAL_WB) != 0) {
@@ -2194,7 +2200,8 @@ public class PhotoModule
             overrideCameraSettings(null, null, focusMode,
                     exposureCompensation, touchAfAec, null,
                     null, null, null, colorEffect,
-                    sceneMode, redeyeReduction, aeBracketing);
+                    sceneMode, redeyeReduction, aeBracketing,
+                    null, null);
             disableLongShot = true;
         }
 
@@ -2203,6 +2210,8 @@ public class PhotoModule
         if (!Parameters.SCENE_MODE_AUTO.equals(mSceneMode)) {
             flashMode = Parameters.FLASH_MODE_OFF;
             String whiteBalance = Parameters.WHITE_BALANCE_AUTO;
+            String antiShake = mActivity.getString(R.string.pref_camera_antishake_default);
+            String iso = mActivity.getString(R.string.pref_camera_iso_default);
             focusMode = mFocusManager.getFocusMode();
             colorEffect = mParameters.getColorEffect();
             String defaultEffect = mActivity.getString(R.string.pref_camera_coloreffect_default);
@@ -2230,13 +2239,15 @@ public class PhotoModule
                     Integer.toString(ParametersWrapper.getContrast(mParameters)),
                     Integer.toString(ParametersWrapper.getSharpness(mParameters)),
                     colorEffect,
-                    sceneMode, redeyeReduction, aeBracketing);
+                    sceneMode, redeyeReduction, aeBracketing,
+                    antiShake, iso);
         } else if (mFocusManager.isZslEnabled()) {
             focusMode = mParameters.getFocusMode();
             overrideCameraSettings(null, null, focusMode,
                     exposureCompensation, touchAfAec, null,
                     null, null, null, colorEffect,
-                    sceneMode, redeyeReduction, aeBracketing);
+                    sceneMode, redeyeReduction, aeBracketing,
+                    null, null);
         } else {
             if (mManual3AEnabled > 0) {
                 updateCommonManual3ASettings();
@@ -2244,7 +2255,8 @@ public class PhotoModule
                 overrideCameraSettings(null, null, focusMode,
                         exposureCompensation, touchAfAec, null,
                         null, null, null, colorEffect,
-                        sceneMode, redeyeReduction, aeBracketing);
+                        sceneMode, redeyeReduction, aeBracketing,
+                        null, null);
             }
         }
         /* Disable focus if aebracket is ON */
@@ -2340,7 +2352,8 @@ public class PhotoModule
                                         final String autoExposure, final String saturation,
                                         final String contrast, final String sharpness,
                                         final String coloreffect, final String sceneMode,
-                                        final String redeyeReduction, final String aeBracketing) {
+                                        final String redeyeReduction, final String aeBracketing,
+                                        final String antiShake, final String iso) {
         mUI.overrideSettings(
                 CameraSettings.KEY_FLASH_MODE, flashMode,
                 CameraSettings.KEY_WHITE_BALANCE, whiteBalance,
@@ -2354,7 +2367,9 @@ public class PhotoModule
                 CameraSettings.KEY_COLOR_EFFECT, coloreffect,
                 CameraSettings.KEY_SCENE_MODE, sceneMode,
                 CameraSettings.KEY_REDEYE_REDUCTION, redeyeReduction,
-                CameraSettings.KEY_AE_BRACKET_HDR, aeBracketing);
+                CameraSettings.KEY_AE_BRACKET_HDR, aeBracketing,
+                CameraSettings.KEY_ANTISHAKE, antiShake,
+                CameraSettings.KEY_ISO, iso);
     }
 
     private void loadCameraPreferences() {
