@@ -21,6 +21,7 @@ import android.animation.Animator.AnimatorListener;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -457,7 +458,8 @@ public class VideoMenu extends MenuController
             rotation = (rotation + 90) % 360;
         }
         WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
+        Point point = new Point();
+        wm.getDefaultDisplay().getRealSize(point);
         CharSequence[] entries = pref.getEntries();
 
         Resources r = mActivity.getResources();
@@ -499,7 +501,7 @@ public class VideoMenu extends MenuController
             params = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, size);
             previewMenuLayout.setLayoutParams(params);
             ((ViewGroup) mUI.getRootView()).addView(previewMenuLayout);
-            previewMenuLayout.setY(display.getHeight() - size);
+            previewMenuLayout.setY(point.y - size);
         }
         basic.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));

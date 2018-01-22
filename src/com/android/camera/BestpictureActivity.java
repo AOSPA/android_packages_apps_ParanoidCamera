@@ -181,7 +181,7 @@ public class BestpictureActivity extends FragmentActivity {
         setContentView(R.layout.bestpicture_editor);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        display.getRealSize(size);
         mWidth = size.x/4;
         mHeight = size.y/4;
         mNamedImages = new PhotoModule.NamedImages();
