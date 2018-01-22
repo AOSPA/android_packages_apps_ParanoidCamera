@@ -466,7 +466,7 @@ public class CameraUtil {
     public static boolean isDefaultToPortrait(Activity activity) {
         Display currentDisplay = activity.getWindowManager().getDefaultDisplay();
         Point displaySize = new Point();
-        currentDisplay.getSize(displaySize);
+        currentDisplay.getRealSize(displaySize);
         int orientation = currentDisplay.getRotation();
         int naturalWidth, naturalHeight;
         if (orientation == Surface.ROTATION_0 || orientation == Surface.ROTATION_180) {
@@ -516,7 +516,7 @@ public class CameraUtil {
     }
 
     private static Point getDefaultDisplaySize(Activity activity, Point size) {
-        activity.getWindowManager().getDefaultDisplay().getSize(size);
+        activity.getWindowManager().getDefaultDisplay().getRealSize(size);
         //cap the display resolution given to getOptimalPreviewSize if the below properties
         //are set. For example if the properties are set as below :
         //adb shell setprop camera.display.umax 1920x1080
