@@ -182,7 +182,7 @@ public class RefocusActivity extends Activity {
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        display.getRealSize(size);
         mWidth = size.x;
         mHeight = size.y;
 

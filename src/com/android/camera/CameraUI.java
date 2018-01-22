@@ -96,33 +96,34 @@ public abstract class CameraUI implements
         return (int) (mScreenSize.y - (float) mScreenSize.x * 4f / 3f);
     }
 
-    protected FrameLayout.LayoutParams getSurfaceSizeParams(float camAspectRatio) {
+    FrameLayout.LayoutParams getSurfaceSizeParams(float camAspectRatio, int width, int height) {
         float screenX = getScreenX(), screenY = getScreenY();
-        float width, height;
+        float surfaceWidth, surfaceHeight;
         int gravity = 0, bottomMargin = 0;
 
         float screenRatio = screenY / screenX;
         if (screenRatio > camAspectRatio) {
-            width = screenX;
-            height = screenX * camAspectRatio;
+            surfaceWidth = screenX;
+            surfaceHeight = screenX * camAspectRatio;
             bottomMargin = mControlHeight;
             if (camAspectRatio == 1) {
                 gravity = Gravity.BOTTOM;
             }
-            mCameraControls.setTransparency(false);
         } else if (screenRatio < camAspectRatio) {
-            width = screenY / camAspectRatio;
-            height = screenY;
+            surfaceWidth = screenY / camAspectRatio;
+            surfaceHeight = screenY;
             gravity = Gravity.CENTER_HORIZONTAL;
-            mCameraControls.setTransparency(true);
         } else {
-            width = screenX;
-            height = screenY;
+            surfaceWidth = screenX;
+            surfaceHeight = screenY;
+        }
+
+        if (height > screenY - calculateBottomMargin(screenRatio)) {
             mCameraControls.setTransparency(true);
         }
 
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                (int) width, (int) height, gravity);
+                (int) surfaceWidth, (int) surfaceHeight, gravity);
         lp.bottomMargin = bottomMargin;
         return lp;
     }

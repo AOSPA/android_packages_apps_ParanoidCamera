@@ -19,7 +19,6 @@ package com.android.camera;
 import java.util.List;
 
 import android.content.res.Configuration;
-import android.filterfw.core.Frame;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -92,8 +91,8 @@ public class VideoUI extends CameraUI implements PieRenderer.PieListener,
     private LinearLayout mPreviewMenuLayout;
 
     private View mPreviewCover;
-    private int mMaxPreviewWidth = 0;
-    private int mMaxPreviewHeight = 0;
+    private int mPreviewWidth = 0;
+    private int mPreviewHeight = 0;
     private float mAspectRatio = 4f / 3f;
     private boolean mAspectRatioResize;
     private final AnimationManager mAnimationManager;
@@ -143,10 +142,6 @@ public class VideoUI extends CameraUI implements PieRenderer.PieListener,
             popupDismissed();
             showUI();
             // mVideoMenu.popupDismissed(topLevelOnly);
-
-            // Switch back into fullscreen/lights-out mode after popup
-            // is dimissed.
-            getActivity().setSystemBarsVisibility(false);
         }
 
         @Override
@@ -173,33 +168,11 @@ public class VideoUI extends CameraUI implements PieRenderer.PieListener,
             public void onLayoutChange(View v, int left, int top, int right,
                                        int bottom, int oldLeft, int oldTop, int oldRight,
                                        int oldBottom) {
-                int width = right - left;
-                int height = bottom - top;
-
                 tryToCloseSubList();
-                if (mMaxPreviewWidth == 0 && mMaxPreviewHeight == 0) {
-                    mMaxPreviewWidth = width;
-                    mMaxPreviewHeight = height;
-                }
 
-                int orientation = activity.getResources().getConfiguration().orientation;
-                if ((orientation == Configuration.ORIENTATION_PORTRAIT && width > height)
-                        || (orientation == Configuration.ORIENTATION_LANDSCAPE && width < height)) {
-                    // The screen has rotated; swap SurfaceView width & height
-                    // to ensure correct preview
-                    int oldWidth = width;
-                    width = height;
-                    height = oldWidth;
-                    Log.d(TAG, "Swapping SurfaceView width & height dimensions");
-                    if (mMaxPreviewWidth != 0 && mMaxPreviewHeight != 0) {
-                        int temp = mMaxPreviewWidth;
-                        mMaxPreviewWidth = mMaxPreviewHeight;
-                        mMaxPreviewHeight = temp;
-                    }
-                }
                 if (mOrientationResize != mPrevOrientationResize
                         || mAspectRatioResize) {
-                    layoutPreview(mAspectRatio);
+                    layoutPreview(mAspectRatio, mPreviewWidth, mPreviewHeight);
                     mAspectRatioResize = false;
                 }
             }
@@ -321,16 +294,19 @@ public class VideoUI extends CameraUI implements PieRenderer.PieListener,
             ratio = 1 / ratio;
         }
 
+        mPreviewWidth = width;
+        mPreviewHeight = height;
+
         if (ratio != mAspectRatio) {
             mAspectRatioResize = true;
             mAspectRatio = ratio;
         }
 
-        layoutPreview(ratio);
+        layoutPreview(ratio, width, height);
     }
 
-    public void layoutPreview(float camAspectRatio) {
-        FrameLayout.LayoutParams lp = getSurfaceSizeParams(camAspectRatio);
+    public void layoutPreview(float camAspectRatio, int width, int height) {
+        FrameLayout.LayoutParams lp = getSurfaceSizeParams(camAspectRatio, width, height);
 
         if (mSurfaceTextureUncroppedWidth != lp.width ||
                 mSurfaceTextureUncroppedHeight != lp.height) {
@@ -540,22 +516,6 @@ public class VideoUI extends CameraUI implements PieRenderer.PieListener,
         mOnScreenIndicators.updateFlashOnScreenIndicator(param.getFlashMode());
         boolean location = RecordLocationPreference.get(prefs, CameraSettings.KEY_RECORD_LOCATION);
         mOnScreenIndicators.updateLocationIndicator(location);
-
-    }
-
-    public void setAspectRatio(double ratio) {
-        if (mOrientationResize &&
-                getActivity().getResources().getConfiguration().orientation
-                        != Configuration.ORIENTATION_PORTRAIT) {
-            ratio = 1 / ratio;
-        }
-
-        if (ratio != mAspectRatio) {
-            mAspectRatioResize = true;
-            mAspectRatio = (float) ratio;
-        }
-
-        layoutPreview((float) ratio);
     }
 
     public void showTimeLapseUI(boolean enable) {
@@ -597,7 +557,6 @@ public class VideoUI extends CameraUI implements PieRenderer.PieListener,
 
     public void cleanupListview() {
         showUI();
-        getActivity().setSystemBarsVisibility(false);
     }
 
     public void dismissLevel1() {

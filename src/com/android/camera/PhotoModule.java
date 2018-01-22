@@ -943,7 +943,7 @@ public class PhotoModule
         setPreviewFrameLayoutCameraOrientation();
         Size size = mParameters.getPreviewSize();
         Log.i(TAG, "Using preview width = " + size.width + "& height = " + size.height);
-        mUI.setAspectRatio((float) size.width / size.height);
+        mUI.setPreviewSize(size.width, size.height);
     }
 
     @Override
