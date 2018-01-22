@@ -308,7 +308,7 @@ public class PanoCaptureModule implements CameraModule, PhotoController {
             mCameraSensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
             Display display = mActivity.getWindowManager().getDefaultDisplay();
             Point ds = new Point();
-            display.getSize(ds);
+            display.getRealSize(ds);
             mOutputSize = getOutputSize(TARGET_RATIO, map.getOutputSizes(ImageFormat.YUV_420_888), ds.x, ds.y);
             mCameraId = cameraId;
         } catch (CameraAccessException e) {

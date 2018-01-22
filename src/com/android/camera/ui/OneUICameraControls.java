@@ -118,7 +118,7 @@ public class OneUICameraControls extends RotatableLayout {
 
         Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        display.getRealSize(size);
         mWidth = size.x;
     }
 

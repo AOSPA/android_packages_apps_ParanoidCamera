@@ -943,7 +943,7 @@ public class PhotoModule
         setPreviewFrameLayoutCameraOrientation();
         Size size = mParameters.getPreviewSize();
         Log.i(TAG, "Using preview width = " + size.width + "& height = " + size.height);
-        mUI.setAspectRatio((float) size.width / size.height);
+        mUI.setPreviewSize(size.width, size.height);
     }
 
     @Override
@@ -3112,7 +3112,7 @@ public class PhotoModule
                     if (mbrightness > MINIMUM_BRIGHTNESS) {
                         mbrightness -= mbrightness_step;
                         synchronized (mCameraDevice) {
-                        /* Set the "luma-adaptation" parameter */
+                            /* Set the "luma-adaptation" parameter */
                             mParameters = mCameraDevice.getParameters();
                             mParameters.set("luma-adaptation", String.valueOf(mbrightness));
                             mCameraDevice.setParameters(mParameters);
@@ -3133,7 +3133,7 @@ public class PhotoModule
                     if (mbrightness < MAXIMUM_BRIGHTNESS) {
                         mbrightness += mbrightness_step;
                         synchronized (mCameraDevice) {
-                        /* Set the "luma-adaptation" parameter */
+                            /* Set the "luma-adaptation" parameter */
                             mParameters = mCameraDevice.getParameters();
                             mParameters.set("luma-adaptation", String.valueOf(mbrightness));
                             mCameraDevice.setParameters(mParameters);

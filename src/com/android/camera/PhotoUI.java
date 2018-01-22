@@ -107,8 +107,8 @@ public class PhotoUI extends CameraUI implements PieListener,
     private int mZoomMax;
     private List<Integer> mZoomRatios;
 
-    private int mMaxPreviewWidth = 0;
-    private int mMaxPreviewHeight = 0;
+    private int mPreviewWidth = 0;
+    private int mPreviewHeight = 0;
 
     public boolean mMenuInitialized = false;
     private int mSurfaceTextureUncroppedWidth;
@@ -205,19 +205,11 @@ public class PhotoUI extends CameraUI implements PieListener,
             public void onLayoutChange(View v, int left, int top, int right,
                                        int bottom, int oldLeft, int oldTop, int oldRight,
                                        int oldBottom) {
-                int width = right - left;
-                int height = bottom - top;
-
                 tryToCloseSubList();
-
-                if (mMaxPreviewWidth == 0 && mMaxPreviewHeight == 0) {
-                    mMaxPreviewWidth = width;
-                    mMaxPreviewHeight = height;
-                }
 
                 if (mOrientationResize != mPrevOrientationResize
                         || mAspectRatioResize || !mIsLayoutInitializedAlready) {
-                    layoutPreview(mAspectRatio);
+                    layoutPreview(mAspectRatio, mPreviewWidth, mPreviewHeight);
                     mAspectRatioResize = false;
                 }
             }
@@ -234,7 +226,7 @@ public class PhotoUI extends CameraUI implements PieListener,
         RotateImageView muteButton = (RotateImageView) parent.findViewById(R.id.mute_button);
         muteButton.setVisibility(View.GONE);
 
-        mBlurDegreeProgressBar = (SeekBar)getRootView().findViewById(R.id.blur_degree_bar);
+        mBlurDegreeProgressBar = (SeekBar) getRootView().findViewById(R.id.blur_degree_bar);
         mBlurDegreeProgressBar.setMax(100);
 
         ViewStub faceViewStub = (ViewStub) getRootView()
@@ -263,25 +255,36 @@ public class PhotoUI extends CameraUI implements PieListener,
         mOrientationResize = orientation;
     }
 
-    public void setAspectRatio(float ratio) {
-        if (ratio <= 0.0) throw new IllegalArgumentException();
-
+    public void setPreviewSize(int width, int height) {
+        if (width == 0 || height == 0) {
+            Log.w(TAG, "Preview size should not be 0.");
+            return;
+        }
+        float ratio;
+        if (width > height) {
+            ratio = (float) width / height;
+        } else {
+            ratio = (float) height / width;
+        }
         if (mOrientationResize &&
                 getActivity().getResources().getConfiguration().orientation
                         != Configuration.ORIENTATION_PORTRAIT) {
             ratio = 1 / ratio;
         }
 
-        Log.d(TAG, "setAspectRatio() ratio[" + ratio + "] mAspectRatio[" + mAspectRatio + "]");
+        mPreviewWidth = width;
+        mPreviewHeight = height;
+
         if (ratio != mAspectRatio) {
             mAspectRatioResize = true;
             mAspectRatio = ratio;
         }
-        layoutPreview(ratio);
+
+        layoutPreview(ratio, width, height);
     }
 
-    public void layoutPreview(float camAspectRatio) {
-        FrameLayout.LayoutParams lp = getSurfaceSizeParams(camAspectRatio);
+    public void layoutPreview(float camAspectRatio, int width, int height) {
+        FrameLayout.LayoutParams lp = getSurfaceSizeParams(camAspectRatio, width, height);
 
         if (mSurfaceTextureUncroppedWidth != lp.width ||
                 mSurfaceTextureUncroppedHeight != lp.height) {
@@ -701,10 +704,6 @@ public class PhotoUI extends CameraUI implements PieListener,
                     // mMenu.popupDismissed(mDismissAll);
                     mDismissAll = false;
                     showUI();
-
-                    // Switch back into fullscreen/lights-out mode after popup
-                    // is dimissed.
-                    getActivity().setSystemBarsVisibility(false);
                 }
             });
         }
@@ -715,7 +714,6 @@ public class PhotoUI extends CameraUI implements PieListener,
 
     public void cleanupListview() {
         showUI();
-        getActivity().setSystemBarsVisibility(false);
     }
 
     public void dismissPopup() {
@@ -924,12 +922,12 @@ public class PhotoUI extends CameraUI implements PieListener,
     public void onPieMoved(int centerX, int centerY) {
         Size bokehCircle = mPieRenderer.getBokehFocusSize();
         int y;
-        if (centerY > mPieRenderer.getHeight()/2) {
-            y = centerY - bokehCircle.getHeight()/2 - mBlurDegreeProgressBar.getHeight();
+        if (centerY > mPieRenderer.getHeight() / 2) {
+            y = centerY - bokehCircle.getHeight() / 2 - mBlurDegreeProgressBar.getHeight();
         } else {
-            y = centerY + bokehCircle.getHeight()/2;
+            y = centerY + bokehCircle.getHeight() / 2;
         }
-        mBlurDegreeProgressBar.setX(centerX - mBlurDegreeProgressBar.getWidth() /2);
+        mBlurDegreeProgressBar.setX(centerX - mBlurDegreeProgressBar.getWidth() / 2);
         mBlurDegreeProgressBar.setY(y);
         if (mIsBokehMode && mBlurDegreeProgressBar.getVisibility() != View.VISIBLE
                 && mPieRenderer.isVisible()) {
