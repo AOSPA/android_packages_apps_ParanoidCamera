@@ -26,10 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.ImageFormat;
-import android.graphics.Matrix;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Camera.Face;
 import android.os.AsyncTask;
@@ -842,9 +839,9 @@ public class CaptureUI extends CameraUI implements FocusOverlayManager.FocusUI,
     }
 
     private int getScreenWidth() {
-        DisplayMetrics metric = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);
-        return metric.widthPixels < metric.heightPixels ? metric.widthPixels : metric.heightPixels;
+        Point point = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getRealSize(point);
+        return Math.min(point.x, point.y);
     }
 
     private void rotationSceneModeInstructionalDialog(View view, int orientation) {
@@ -919,7 +916,8 @@ public class CaptureUI extends CameraUI implements FocusOverlayManager.FocusUI,
             rotation = (rotation + 90) % 360;
         }
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
+        Point point = new Point();
+        wm.getDefaultDisplay().getRealSize(point);
         CharSequence[] entries = mSettingsManager.getEntries(SettingsManager.KEY_COLOR_EFFECT);
 
         Resources r = getActivity().getResources();
@@ -958,7 +956,7 @@ public class CaptureUI extends CameraUI implements FocusOverlayManager.FocusUI,
             params = new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, size);
             mFilterLayout.setLayoutParams(params);
             ((ViewGroup) getRootView()).addView(mFilterLayout);
-            mFilterLayout.setY(display.getHeight() - 2 * size);
+            mFilterLayout.setY(point.y - 2 * size);
         }
         gridOuterLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams
                 .MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
@@ -1139,7 +1137,6 @@ public class CaptureUI extends CameraUI implements FocusOverlayManager.FocusUI,
     public void cleanUpMenus() {
         showUI();
         updateMenus();
-        getActivity().setSystemBarsVisibility(false);
     }
 
     public void updateMenus() {
