@@ -51,28 +51,6 @@ public class CameraRootView extends FrameLayout {
         initDisplayListener();
     }
 
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        // insets include status bar, navigation bar, etc
-        // In this case, we are only concerned with the size of nav bar
-        if (mCurrentInsets.equals(insets)) {
-            // Local copy of the insets is up to date. No need to do anything.
-            return false;
-        }
-
-        if (mOffset == 0) {
-            if (insets.bottom > 0) {
-                mOffset = insets.bottom;
-            } else if (insets.right > 0) {
-                mOffset = insets.right;
-            }
-        }
-        mCurrentInsets.set(insets);
-        // Make sure onMeasure will be called to adapt to the new insets.
-        requestLayout();
-        return false;
-    }
-
     public void initDisplayListener() {
         if (ApiHelper.HAS_DISPLAY_LISTENER) {
             mDisplayListener = new DisplayListener() {
