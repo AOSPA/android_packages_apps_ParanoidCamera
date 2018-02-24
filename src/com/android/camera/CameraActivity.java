@@ -138,10 +138,10 @@ public class CameraActivity extends Activity
             "android.media.action.STILL_IMAGE_CAMERA_SECURE";
     public static final String ACTION_IMAGE_CAPTURE_SECURE =
             "android.media.action.IMAGE_CAPTURE_SECURE";
-    public static final String ACTION_TRIM_VIDEO =
+    private static final String ACTION_TRIM_VIDEO =
             "com.android.camera.action.TRIM";
-    public static final String MEDIA_ITEM_PATH = "media-item-path";
-    public static final String KEY_TOTAL_NUMBER = "total-number";
+    private static final String MEDIA_ITEM_PATH = "media-item-path";
+    private static final String KEY_TOTAL_NUMBER = "total-number";
 
     // Used to show whether Gallery was launched from Snapcam
     private static final String KEY_FROM_SNAPCAM = "from-snapcam";
@@ -150,10 +150,10 @@ public class CameraActivity extends Activity
     // should only show newly captured pictures. sSecureAlbumId does not
     // increment. This is used when switching between camera, camcorder, and
     // panorama. If the extra is not set, it is in the normal camera mode.
-    public static final String SECURE_CAMERA_EXTRA = "secure_camera";
+    private static final String SECURE_CAMERA_EXTRA = "secure_camera";
 
     // This string is used for judge start activity from screenoff or not
-    public static final String GESTURE_CAMERA_NAME = "com.android.camera.CameraGestureActivity";
+    private static final String GESTURE_CAMERA_NAME = "com.android.camera.CameraGestureActivity";
 
     private static final String AUTO_TEST_INTENT = "com.android.camera.autotest";
 
@@ -1430,7 +1430,7 @@ public class CameraActivity extends Activity
         mCameraCaptureModuleRootView = rootLayout.findViewById(R.id.camera_capture_root);
         mCameraGridView = (GridView) rootLayout.findViewById(R.id.grid_lines);
 
-        int moduleIndex = -1;
+        int moduleIndex;
         if (MediaStore.INTENT_ACTION_VIDEO_CAMERA.equals(getIntent().getAction())
                 || MediaStore.ACTION_VIDEO_CAPTURE.equals(getIntent().getAction())) {
             moduleIndex = ModuleSwitcher.VIDEO_MODULE_INDEX;
@@ -1475,13 +1475,6 @@ public class CameraActivity extends Activity
             setRotationAnimation();
         }
 
-        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                Log.i("blaaaa", "Current height: " + getWindow().getDecorView().getHeight());
-            }
-        });
-
         mMainHandler = new Handler(getMainLooper());
 
         mAboveFilmstripControlLayout =
@@ -1522,7 +1515,7 @@ public class CameraActivity extends Activity
             // Put a lock placeholder as the last image by setting its date to
             // 0.
             ImageView v = (ImageView) getLayoutInflater().inflate(
-                    R.layout.secure_album_placeholder, null);
+                    R.layout.secure_album_placeholder, null, false);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1631,8 +1624,9 @@ public class CameraActivity extends Activity
         if (mFilmStripView.checkSendToModeView(ev)) {
             result = mFilmStripView.sendToModeView(ev);
         }
-        if (result == false)
+        if (!result) {
             result = super.dispatchTouchEvent(ev);
+        }
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
             // Real deletion is postponed until the next user interaction after
             // the gesture that triggers deletion. Until real deletion is performed,
@@ -1706,20 +1700,14 @@ public class CameraActivity extends Activity
      * Non-critical permission is location.
      */
     private boolean hasCriticalPermissions() {
-        boolean hasCriticalPermission = false;
-        if (checkSelfPermission(Manifest.permission.CAMERA) ==
+        return checkSelfPermission(Manifest.permission.CAMERA) ==
                 PackageManager.PERMISSION_GRANTED &&
                 checkSelfPermission(Manifest.permission.RECORD_AUDIO) ==
                         PackageManager.PERMISSION_GRANTED &&
                 checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                         PackageManager.PERMISSION_GRANTED &&
                 checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                        PackageManager.PERMISSION_GRANTED) {
-            hasCriticalPermission = true;
-        } else {
-            hasCriticalPermission = false;
-        }
-        return hasCriticalPermission;
+                        PackageManager.PERMISSION_GRANTED;
     }
 
     private boolean isStartRequsetPermission() {
@@ -1883,10 +1871,8 @@ public class CameraActivity extends Activity
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (mFilmStripView.inCameraFullscreen() && mCurrentModule.onKeyUp(keyCode, event)) {
-            return true;
-        }
-        return super.onKeyUp(keyCode, event);
+        return (mFilmStripView.inCameraFullscreen() && mCurrentModule.onKeyUp(keyCode, event))
+                || super.onKeyUp(keyCode, event);
     }
 
     @Override

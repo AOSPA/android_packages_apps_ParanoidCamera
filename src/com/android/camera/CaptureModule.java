@@ -103,10 +103,7 @@ import com.android.camera.PhotoModule.NamedImages.NamedEntity;
 import com.android.camera.imageprocessor.filter.SharpshooterFilter;
 import com.android.camera.imageprocessor.filter.StillmoreFilter;
 import com.android.camera.imageprocessor.filter.UbifocusFilter;
-import com.android.camera.ui.CountDownView;
-import com.android.camera.ui.ModuleSwitcher;
-import com.android.camera.ui.RotateTextToast;
-import com.android.camera.ui.TrackingFocusRenderer;
+import com.android.camera.ui.*;
 import com.android.camera.util.ApiHelper;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.PersistUtil;
@@ -2601,9 +2598,7 @@ public class CaptureModule implements CameraModule, PhotoController,
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (CameraUtil.volumeKeyShutterDisable(mActivity)) {
-                    return false;
-                }
+            	return true;
             case KeyEvent.KEYCODE_FOCUS:
                 if (mFirstTimeInitialized) {
                     if (event.getRepeatCount() == 0) {
@@ -2626,9 +2621,19 @@ public class CaptureModule implements CameraModule, PhotoController,
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (mFirstTimeInitialized
-                        && !CameraUtil.volumeKeyShutterDisable(mActivity)) {
-                    onShutterButtonClick();
+                if (mFirstTimeInitialized) {
+                    if (CameraUtil.volumeKeyForZoom(mActivity)) {
+                        ZoomRenderer renderer = mUI.getZoomRenderer();
+                        if (renderer != null) {
+                            renderer.onScaleBegin(null);
+                            renderer.setScale(keyCode == KeyEvent.KEYCODE_VOLUME_UP ?
+                                    1.1f : 1f / 1.1f);
+                            mHandler.postDelayed(() ->
+                                    renderer.onScaleEnd(null), 1000);
+                        }
+                    } else {
+                        onShutterButtonClick();
+                    }
                     return true;
                 }
                 return false;
