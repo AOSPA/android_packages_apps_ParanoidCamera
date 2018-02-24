@@ -1168,15 +1168,15 @@ public class CameraUtil {
         StackTraceElement[] elems = Thread.currentThread().getStackTrace();
         // Ignore the first 3 elements.
         level = (level == 0 ? elems.length : Math.min(level + 3, elems.length));
-        String ret = new String();
+        StringBuilder ret = new StringBuilder();
         for (int i = 3; i < level; i++) {
-            ret = ret + "\t" + elems[i].toString() + '\n';
+            ret.append("\t").append(elems[i].toString()).append('\n');
         }
-        return ret;
+        return ret.toString();
     }
 
-    public static boolean volumeKeyShutterDisable(Context context) {
-        return context.getResources().getBoolean(R.bool.volume_key_shutter_disable);
+    public static boolean volumeKeyForZoom(Context context) {
+        return context.getResources().getBoolean(R.bool.volume_key_for_zoom);
     }
 
     public static int determineRatio(int width, int height) {

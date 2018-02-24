@@ -1625,6 +1625,10 @@ public class CaptureUI extends CameraUI implements FocusOverlayManager.FocusUI,
         return changed;
     }
 
+    public ZoomRenderer getZoomRenderer() {
+        return mZoomRenderer;
+    }
+
     private class ZoomChangeListener implements ZoomRenderer.OnZoomChangedListener {
         @Override
         public void onZoomValueChanged(float mZoomValue) {
