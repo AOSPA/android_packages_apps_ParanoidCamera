@@ -91,7 +91,7 @@ import com.android.camera.util.PersistUtil;
 import com.android.camera.util.VendorTagUtil;
 
 public class ClearSightImageProcessor {
-    private static final String TAG = "ClearSightImageProcessor";
+    private static final String TAG = ClearSightImageProcessor.class.getSimpleName();
 
     private static final long DEFAULT_TIMESTAMP_THRESHOLD_MS = 10;
     private static final int DEFAULT_IMAGES_TO_BURST = 4;

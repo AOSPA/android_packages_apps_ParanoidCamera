@@ -81,7 +81,8 @@
 
                 <FrameLayout
                     android:layout_width="@dimen/shutter_size"
-                    android:layout_height="match_parent">
+                    android:layout_height="@dimen/shutter_size"
+                    android:layout_gravity="center_vertical">
 
                     <com.android.camera.ui.ShutterButton
                         android:id="@+id/shutter_button"

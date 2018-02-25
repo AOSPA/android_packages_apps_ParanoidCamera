@@ -1097,7 +1097,6 @@ public class FilmStripView extends ViewGroup implements BottomControlsListener {
         if (mBottomControls == null) {
             mBottomControls = (FilmstripBottomControls) ((View) getParent())
                     .findViewById(R.id.filmstrip_bottom_controls);
-            mActivity.setOnActionBarVisibilityListener(mBottomControls);
             mBottomControls.setListener(this);
         }
 
