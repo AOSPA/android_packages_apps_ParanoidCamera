@@ -2209,14 +2209,14 @@ public class SettingsManager implements ListMenu.SettingsListener {
     }
 
     private List<String> getSupportedIso(int cameraId) {
+        CameraCharacteristics cameraCharacteristics = mCharacteristics.get(cameraId);
         List<String> supportedIso = new ArrayList<>();
-        try {
-            int[] range = mCharacteristics.get(cameraId).get(
-                    CaptureModule.ISO_AVAILABLE_MODES);
-            supportedIso.add("auto");
+        supportedIso.add("auto");
 
-            if (range != null) {
-                for (int iso : range) {
+        try {
+            int[] modes = cameraCharacteristics.get(CaptureModule.ISO_AVAILABLE_MODES);
+            if (modes != null) {
+                for (int iso : modes) {
                     for (String key : KEY_ISO_INDEX.keySet()) {
                         if (KEY_ISO_INDEX.get(key).equals(iso)) {
                             supportedIso.add(key);
@@ -2228,6 +2228,21 @@ public class SettingsManager implements ListMenu.SettingsListener {
             }
         } catch (IllegalArgumentException e) {
             Log.w(TAG, "IllegalArgumentException Supported ISO_AVAILABLE_MODES is wrong.");
+
+            Range<Integer> range = mCharacteristics.get(cameraId).get(
+                    CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE);
+            if (range != null) {
+                int max = range.getUpper();
+                int value = 50;
+                while (value <= max) {
+                    if (range.contains(value)) {
+                        supportedIso.add(String.valueOf(value));
+                    }
+                    value += 50;
+                }
+            } else {
+                Log.w(TAG, "Supported ISO range is null.");
+            }
         }
 
         return supportedIso;
