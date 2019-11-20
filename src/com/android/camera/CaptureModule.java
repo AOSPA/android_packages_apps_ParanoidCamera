@@ -1372,6 +1372,11 @@ public class CaptureModule implements CameraModule, PhotoController,
     private void updateCaptureStateMachine(int id, CaptureResult result) {
         Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
         Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
+
+        if (afState == null) {
+            return;
+        }
+
         switch (mState[id]) {
             case STATE_PREVIEW: {
                 break;
