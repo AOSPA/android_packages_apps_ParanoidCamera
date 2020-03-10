@@ -53,8 +53,8 @@ import com.android.camera.CaptureModule;
 import com.android.camera.CaptureUI;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.PersistUtil;
-import org.codeaurora.snapcam.R;
-import org.codeaurora.snapcam.wrapper.ExtendedFaceWrapper;
+import co.aospa.camera.R;
+import co.aospa.camera.wrapper.ExtendedFaceWrapper;
 
 public class TouchTrackFocusRenderer extends View implements FocusIndicator {
     protected static final String TAG = "CAM_TouchTrackFocusRenderer";
