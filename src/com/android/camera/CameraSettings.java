@@ -39,9 +39,9 @@ import com.android.camera.util.ApiHelper;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PersistUtil;
-import org.codeaurora.snapcam.R;
-import org.codeaurora.snapcam.wrapper.CamcorderProfileWrapper;
-import org.codeaurora.snapcam.wrapper.ParametersWrapper;
+import co.aospa.camera.R;
+import co.aospa.camera.wrapper.CamcorderProfileWrapper;
+import co.aospa.camera.wrapper.ParametersWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
