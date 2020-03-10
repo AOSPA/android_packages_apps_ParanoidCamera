@@ -47,7 +47,7 @@ import android.view.WindowManager;
 
 import com.android.camera.SettingsManager;
 
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 
 import java.util.Arrays;
 import java.util.HashSet;
