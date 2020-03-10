@@ -37,7 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 import com.android.camera.ui.ModuleSwitcher;
 import com.android.camera.ui.RotateImageView;
 import com.android.camera.ShutterButton;

@@ -55,7 +55,7 @@ import com.android.camera.data.Camera2ModeAdapter.OnItemClickListener;
 import com.android.camera.ui.Camera2FaceView;
 import com.android.camera.ui.CameraRootView;
 
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

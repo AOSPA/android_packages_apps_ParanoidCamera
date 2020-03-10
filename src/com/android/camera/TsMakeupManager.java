@@ -42,7 +42,7 @@ import com.android.camera.ui.RotateLayout;
 import com.android.camera.ui.RotateTextToast;
 import com.android.camera.util.CameraUtil;
 
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 
 public class TsMakeupManager implements OnSeekBarChangeListener {
     private static final String TAG = "TsMakeupManager";
