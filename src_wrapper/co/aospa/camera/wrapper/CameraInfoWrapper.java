@@ -27,42 +27,20 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package  org.codeaurora.snapcam.filter;
+package co.aospa.camera.wrapper;
 
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
+import java.util.List;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
-import android.util.Base64;
+import android.hardware.Camera.CameraInfo;
+import android.util.Log;
 
-public class GImage{
-    public final static String NAMESPACE_URL = "http://ns.google.com/photos/1.0/image/";
-    public final static String PREFIX = "GImage";
-    public final static String PROPERTY_MIME = "Mime";
-    public final static String PROPERTY_DATA = "Data";
+public class CameraInfoWrapper extends Wrapper{
+    private final static String TAG = "CameraInfo";
+    public final static int CAMERA_SUPPORT_MODE_ZSL = getFieldValue(
+            getField(CameraInfo.class, "CAMERA_SUPPORT_MODE_ZSL"), 2);
+    public static final int CAMERA_SUPPORT_MODE_NONZSL = getFieldValue(
+            getField(CameraInfo.class, "CAMERA_SUPPORT_MODE_NONZSL"), 3);
 
-    static {
-        try {
-            XMPMetaFactory.getSchemaRegistry().registerNamespace(
-                    NAMESPACE_URL, PREFIX);
-        } catch (XMPException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private  String mMime = "image/jpeg";
-    private String mData;
-
-    public GImage(byte[] data, String mime){
-        mData = Base64.encodeToString(data, Base64.DEFAULT);
-        mMime = mime;
-    }
-
-    public String getMime(){
-        return mMime;
-    }
-
-    public String getData(){
-        return mData;
-    }
 }

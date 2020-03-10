@@ -63,7 +63,7 @@ import com.android.camera.Storage;
 import com.android.camera.ui.AutoFitSurfaceView;
 import com.android.camera.ui.Camera2FaceView;
 
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

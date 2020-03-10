@@ -27,58 +27,60 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.codeaurora.snapcam.wrapper;
+package co.aospa.camera.wrapper;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
-import android.os.SystemProperties;
+import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
+import android.hardware.Camera.AutoFocusCallback;
+import android.hardware.Camera.AutoFocusMoveCallback;
+import android.hardware.Camera.ErrorCallback;
+import android.hardware.Camera.FaceDetectionListener;
+import android.hardware.Camera.OnZoomChangeListener;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.PictureCallback;
+import android.hardware.Camera.PreviewCallback;
+import android.hardware.Camera.ShutterCallback;
 import android.util.Log;
+import android.view.SurfaceHolder;
 
-public class Wrapper{
-    protected final static boolean DEBUG =
-            SystemProperties.getBoolean("persist.sys.camera.wrapper.debug", false);
-    protected final static String TAG = "Wrapper";
+public class CameraWrapper extends Wrapper{
 
-    protected static int getFieldValue(Field field, int def){
-        int value = def;
-        if ( field != null ) {
-            try {
-                value = (int) field.get(null);
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        }
-        return value;
-    }
+    private static Method method_setMetadataCb = null;
 
-    protected static String getFieldValue(Field field, String def){
-        String value = def;
-        if ( field != null ) {
-            try {
-                value = (String) field.get(null);
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        }
-        return value;
-    }
-    protected static Field getField(Class<?> classInstance, String name) {
-        Log.d(TAG, "getField:" + classInstance + " field:"+ name);
+    private static Method method_sendHistogramData = null;
+    public static final void sendHistogramData(Camera camera){
         if ( DEBUG ){
-            Log.e(TAG, "" + classInstance + " no " + name);
-            return null;
+            Log.e(TAG, "" + Camera.class + " no sendHistogramData");
+            return;
         }
-
-        Field field = null;
         try{
-            field = classInstance.getField(name);
-            Log.d(TAG, "getField:" + classInstance + " " + name);
+            if ( method_sendHistogramData == null ){
+                method_sendHistogramData = Camera.class.getMethod("sendHistogramData");
+            }
+            method_sendHistogramData.invoke(camera);
         }catch (Exception exception){
             exception.printStackTrace();
         }
-        return field;
     }
+
+    private static Method method_setLongshot = null;
+    public static final void setLongshot(Camera camera, boolean enable){
+        if ( DEBUG ){
+            Log.e(TAG, "" + Camera.class + " no setLongshot");
+            return;
+        }
+        try {
+            if (method_setLongshot == null) {
+                method_setLongshot =
+                        Camera.class.getDeclaredMethod("setLongshot", boolean.class);
+            }
+            method_setLongshot.invoke(camera, enable);
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+    }
+
 }
