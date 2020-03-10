@@ -93,7 +93,7 @@ public class Mosaic {
 
 
     static {
-        System.loadLibrary("jni_snapcammosaic");
+        System.loadLibrary("jni_cameramosaic");
     }
 
     /**

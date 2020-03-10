@@ -25,7 +25,7 @@ LOCAL_AAPT_FLAGS := \
         --version-name "$(version_name_package)" \
         --version-code $(version_code_package) \
 
-LOCAL_PACKAGE_NAME := SnapdragonCamera
+LOCAL_PACKAGE_NAME := ParanoidCamera
 LOCAL_PRODUCT_MODULE := true
 LOCAL_PRIVILEGED_MODULE := true
 LOCAL_PRIVATE_PLATFORM_APIS:=true
@@ -45,9 +45,9 @@ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 # leave them out of the APK
 
 ifneq (,$(TARGET_BUILD_APPS))
-  LOCAL_JNI_SHARED_LIBRARIES := libjni_snapcammosaic libjni_snapcamtinyplanet libjni_imageutil
+  LOCAL_JNI_SHARED_LIBRARIES := libjni_cameramosaic libjni_cameratinyplanet libjni_imageutil
 else
-  LOCAL_REQUIRED_MODULES := libjni_snapcammosaic libjni_snapcamtinyplanet libjni_imageutil
+  LOCAL_REQUIRED_MODULES := libjni_cameramosaic libjni_cameratinyplanet libjni_imageutil
 endif
 
 include $(BUILD_PACKAGE)

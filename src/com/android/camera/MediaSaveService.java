@@ -46,8 +46,8 @@ import com.android.camera.mpo.MpoInterface;
 import com.android.camera.util.PersistUtil;
 import com.android.camera.util.XmpUtil;
 
-import org.codeaurora.snapcam.filter.GDepth;
-import org.codeaurora.snapcam.filter.GImage;
+import co.aospa.camera.filter.GDepth;
+import co.aospa.camera.filter.GImage;
 
 import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPMeta;

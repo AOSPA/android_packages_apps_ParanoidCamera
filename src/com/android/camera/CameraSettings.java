@@ -39,9 +39,9 @@ import com.android.camera.util.ApiHelper;
 import com.android.camera.util.CameraUtil;
 import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PersistUtil;
-import org.codeaurora.snapcam.R;
-import org.codeaurora.snapcam.wrapper.CamcorderProfileWrapper;
-import org.codeaurora.snapcam.wrapper.ParametersWrapper;
+import co.aospa.camera.R;
+import co.aospa.camera.wrapper.CamcorderProfileWrapper;
+import co.aospa.camera.wrapper.ParametersWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,8 +153,8 @@ public class CameraSettings {
     private static final String KEY_QC_SUPPORTED_VIDEO_CDS_MODES = "video-cds-mode-values";
     private static final String KEY_QC_SUPPORTED_TNR_MODES = "tnr-mode-values";
     private static final String KEY_QC_SUPPORTED_VIDEO_TNR_MODES = "video-tnr-mode-values";
-    private static final String KEY_SNAPCAM_SUPPORTED_HDR_MODES = "hdr-mode-values";
-    private static final String KEY_SNAPCAM_SUPPORTED_HDR_NEED_1X = "hdr-need-1x-values";
+    private static final String KEY_CAMERA_SUPPORTED_HDR_MODES = "hdr-mode-values";
+    private static final String KEY_CAMERA_SUPPORTED_HDR_NEED_1X = "hdr-need-1x-values";
     public static final String KEY_QC_AE_BRACKETING = "ae-bracket-hdr";
     public static final String KEY_QC_AF_BRACKETING = "af-bracket";
     public static final String KEY_QC_RE_FOCUS = "re-focus";
@@ -172,8 +172,8 @@ public class CameraSettings {
     public static final String KEY_QC_VIDEO_CDS_MODE = "video-cds-mode";
     public static final String KEY_QC_TNR_MODE = "tnr-mode";
     public static final String KEY_QC_VIDEO_TNR_MODE = "video-tnr-mode";
-    public static final String KEY_SNAPCAM_HDR_MODE = "hdr-mode";
-    public static final String KEY_SNAPCAM_HDR_NEED_1X = "hdr-need-1x";
+    public static final String KEY_CAMERA_HDR_MODE = "hdr-mode";
+    public static final String KEY_CAMERA_HDR_NEED_1X = "hdr-need-1x";
     public static final String KEY_VIDEO_HSR = "video-hsr";
     public static final String KEY_QC_SEE_MORE_MODE = "see-more";
     public static final String KEY_QC_NOISE_REDUCTION_MODE = "noise-reduction-mode";
@@ -652,7 +652,7 @@ public class CameraSettings {
     }
 
     public static List<String> getSupportedHDRModes(Parameters params) {
-        String str = params.get(KEY_SNAPCAM_SUPPORTED_HDR_MODES);
+        String str = params.get(KEY_CAMERA_SUPPORTED_HDR_MODES);
         if (str == null) {
             return null;
         }
@@ -660,7 +660,7 @@ public class CameraSettings {
     }
 
     public static List<String> getSupportedHDRNeed1x(Parameters params) {
-        String str = params.get(KEY_SNAPCAM_SUPPORTED_HDR_NEED_1X);
+        String str = params.get(KEY_CAMERA_SUPPORTED_HDR_NEED_1X);
         if (str == null) {
             return null;
         }

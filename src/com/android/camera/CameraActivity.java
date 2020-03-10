@@ -118,7 +118,7 @@ import com.android.camera.util.PersistUtil;
 import com.android.camera.util.PhotoSphereHelper;
 import com.android.camera.util.PhotoSphereHelper.PanoramaViewHelper;
 import com.android.camera.util.UsageStatistics;
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,8 +141,8 @@ public class CameraActivity extends Activity
     public static final String MEDIA_ITEM_PATH = "media-item-path";
     public static final String KEY_TOTAL_NUMBER = "total-number";
 
-    // Used to show whether Gallery was launched from Snapcam
-    private static final String KEY_FROM_SNAPCAM = "from-snapcam";
+    // Used to show whether Gallery was launched from Camera
+    private static final String KEY_FROM_CAMERA = "from-camera";
 
     // The intent extra for camera from secure lock screen. True if the gallery
     // should only show newly captured pictures. sSecureAlbumId does not
@@ -607,14 +607,14 @@ public class CameraActivity extends Activity
             Intent intent = IntentHelper.getGalleryIntent(this);
             intent.setAction(Intent.ACTION_VIEW);
             intent.setData(uri);
-            intent.putExtra(KEY_FROM_SNAPCAM, true);
+            intent.putExtra(KEY_FROM_CAMERA, true);
             intent.putExtra(KEY_TOTAL_NUMBER, (adapter.getTotalNumber() -1));
             startActivity(intent);
         } catch (ActivityNotFoundException ex) {
             try {
                 Log.w(TAG, "Gallery not found");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.putExtra(KEY_FROM_SNAPCAM, true);
+                intent.putExtra(KEY_FROM_CAMERA, true);
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 Log.w(TAG, "No Activity could be found to open image or video");

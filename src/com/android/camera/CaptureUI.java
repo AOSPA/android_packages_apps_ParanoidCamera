@@ -93,7 +93,7 @@ import com.android.camera.util.CameraUtil;
 import com.android.camera.deepportrait.GLCameraPreview;
 import com.android.camera.util.PersistUtil;
 
-import org.codeaurora.snapcam.R;
+import co.aospa.camera.R;
 
 import java.util.ArrayList;
 import java.util.List;

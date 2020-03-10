@@ -86,9 +86,9 @@ import com.android.camera.util.CameraUtil;
 import com.android.camera.util.GcamHelper;
 import com.android.camera.util.PersistUtil;
 import com.android.camera.util.UsageStatistics;
-import org.codeaurora.snapcam.R;
-import org.codeaurora.snapcam.wrapper.ParametersWrapper;
-import org.codeaurora.snapcam.wrapper.CameraInfoWrapper;
+import co.aospa.camera.R;
+import co.aospa.camera.wrapper.ParametersWrapper;
+import co.aospa.camera.wrapper.CameraInfoWrapper;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -3294,7 +3294,7 @@ public class PhotoModule
         Log.v(TAG, "HDR Mode value =" + hdrMode);
         if (CameraUtil.isSupported(hdrMode,
                 CameraSettings.getSupportedHDRModes(mParameters))) {
-            mParameters.set(CameraSettings.KEY_SNAPCAM_HDR_MODE, hdrMode);
+            mParameters.set(CameraSettings.KEY_CAMERA_HDR_MODE, hdrMode);
         }
 
         // Set hdr need 1x
@@ -3304,7 +3304,7 @@ public class PhotoModule
         Log.v(TAG, "HDR need 1x value =" + hdrNeed1x);
         if (CameraUtil.isSupported(hdrNeed1x,
                 CameraSettings.getSupportedHDRNeed1x(mParameters))) {
-            mParameters.set(CameraSettings.KEY_SNAPCAM_HDR_NEED_1X, hdrNeed1x);
+            mParameters.set(CameraSettings.KEY_CAMERA_HDR_NEED_1X, hdrNeed1x);
         }
 
         // Set Advanced features.
