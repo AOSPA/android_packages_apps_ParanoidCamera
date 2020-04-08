@@ -589,16 +589,6 @@ public class PostProcessor{
                                                    CaptureRequest request,
                                                    TotalCaptureResult result) {
                         Log.d(TAG, "reprocessImage onCaptureCompleted");
-                        if (mController.isLongShotActive() && mActivity != null) {
-                            mActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (mController != null) {
-                                        mController.doShutterAnimation();
-                                    }
-                                }
-                            });
-                        }
                     }
 
                     @Override

@@ -589,13 +589,11 @@
     </array>
 
     <array name="pref_camera2_id_icons" translatable="false">
-        <item>@drawable/ic_switch_back</item>
-        <item>@drawable/ic_switch_front</item>
+        <item>@drawable/ic_switch_camera</item>
     </array>
 
     <array name="pref_camera2_id_largeicons" translatable="false">
-        <item>@drawable/ic_switch_back</item>
-        <item>@drawable/ic_switch_front</item>
+        <item>@drawable/ic_switch_camera</item>
     </array>
 
     <string-array name="pref_camera2_timer_sound_entries" translatable="false">

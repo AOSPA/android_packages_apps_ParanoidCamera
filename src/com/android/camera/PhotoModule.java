@@ -826,7 +826,6 @@ public class PhotoModule
                     mActivity.getString(R.string.setting_off_value));
         }
         updateCameraSettings();
-        showTapToFocusToastIfNeeded();
         resetManual3ASettings();
         resetMiscSettings();
     }
@@ -998,15 +997,6 @@ public class PhotoModule
         mUI.initializeSecondTime(mParameters);
     }
 
-    private void showTapToFocusToastIfNeeded() {
-        // Show the tap to focus toast if this is the first start.
-        if (mFocusAreaSupported &&
-                mPreferences.getBoolean(CameraSettings.KEY_CAMERA_FIRST_USE_HINT_SHOWN, true)) {
-            // Delay the toast for one second to wait for orientation.
-            mHandler.sendEmptyMessageDelayed(SHOW_TAP_TO_FOCUS_TOAST, 1000);
-        }
-    }
-
     private void addIdleHandler() {
         if (mIdleHandler == null) {
             mIdleHandler = new MessageQueue.IdleHandler() {
@@ -1122,8 +1112,6 @@ public class PhotoModule
                     mLongshotActive = false;
                     return;
                 }
-
-                mUI.doShutterAnimation();
 
                 Location loc = getLocationAccordPictureFormat(mParameters.get(KEY_PICTURE_FORMAT));
 
@@ -2130,16 +2118,14 @@ public class PhotoModule
 
         for(int i=0;i<numOfCams;i++) {
             CameraInfo info = CameraHolder.instance().getCameraInfo()[i];
+            iconIds[i] = R.drawable.ic_switch_camera;
+            largeIconIds[i] = R.drawable.ic_switch_camera;
             if(info.facing == CameraInfo.CAMERA_FACING_BACK) {
-                iconIds[i] = R.drawable.ic_switch_back;
                 entries[i] = mActivity.getResources().getString(R.string.pref_camera_id_entry_back);
                 labels[i] = mActivity.getResources().getString(R.string.pref_camera_id_label_back);
-                largeIconIds[i] = R.drawable.ic_switch_back;
             } else {
-                iconIds[i] = R.drawable.ic_switch_front;
                 entries[i] = mActivity.getResources().getString(R.string.pref_camera_id_entry_front);
                 labels[i] = mActivity.getResources().getString(R.string.pref_camera_id_label_front);
-                largeIconIds[i] = R.drawable.ic_switch_front;
             }
         }
 
@@ -2171,12 +2157,6 @@ public class PhotoModule
             if (mGraphView != null) {
                 mGraphView.setRotation(-mOrientation);
             }
-        }
-
-        // Show the toast after getting the first orientation changed.
-        if (mHandler.hasMessages(SHOW_TAP_TO_FOCUS_TOAST)) {
-            mHandler.removeMessages(SHOW_TAP_TO_FOCUS_TOAST);
-            showTapToFocusToast();
         }
 
         // need to re-initialize mGraphView to show histogram on rotate

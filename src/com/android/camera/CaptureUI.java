@@ -977,12 +977,6 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
         }
         mShutterButton.setOnShutterButtonListener(mModule);
         mShutterButton.setImageResource(R.drawable.one_ui_shutter_anim);
-        mShutterButton.setOnClickListener(new View.OnClickListener()  {
-            @Override
-            public void onClick(View v) {
-                    doShutterAnimation();
-            }
-        });
         mVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1646,12 +1640,6 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
         if (mModule.getCurrentIntentMode() != CaptureModule.INTENT_MODE_NORMAL) {
             mCameraControls.setIntentMode(mModule.getCurrentIntentMode());
         }
-    }
-
-    public void doShutterAnimation() {
-        AnimationDrawable frameAnimation = (AnimationDrawable) mShutterButton.getDrawable();
-        frameAnimation.stop();
-        frameAnimation.start();
     }
 
     public void showUI() {
