@@ -76,7 +76,7 @@
     <color name="setting_color_light">#ffade9fd</color>
     <color name="list_divider_color">#d8ababab</color>
 
-    <color name="camera_control_bg_opaque">#ff191919</color>
+    <color name="camera_control_bg_opaque">#000000</color>
     <color name="camera_control_bg_transparent">#4d191919</color>
 
     <color name="refocus_indicator_1">#a0ffffff</color>

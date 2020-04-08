@@ -60,7 +60,7 @@ public class ModuleSwitcher extends RotateImageView
     private boolean mIsVisible = true;
 
     private static final int[] DRAW_IDS = {
-            R.drawable.ic_switch_camera,
+            R.drawable.ic_camera_modules,
             R.drawable.ic_switch_video,
             R.drawable.ic_switch_pan,
             R.drawable.ic_switch_photosphere,
@@ -140,7 +140,7 @@ public class ModuleSwitcher extends RotateImageView
     public void setCurrentIndex(int i) {
         mCurrentIndex = i;
         if (i == GCAM_MODULE_INDEX) {
-          setImageResource(R.drawable.ic_switch_camera);
+          setImageResource(R.drawable.ic_camera_modules);
         } if (i== PANOCAPTURE_MODULE_INDEX) {
             return;
         } else {
@@ -219,7 +219,7 @@ public class ModuleSwitcher extends RotateImageView
                 }
             });
             switch (mDrawIds[i]) {
-                case R.drawable.ic_switch_camera:
+                case R.drawable.ic_camera_modules:
                     item.setContentDescription(getContext().getResources().getString(
                             R.string.accessibility_switch_to_camera));
                     break;
