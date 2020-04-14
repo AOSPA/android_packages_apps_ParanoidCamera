@@ -83,7 +83,7 @@ public class VendorTagUtil {
         }catch(IllegalArgumentException exception){
             supported = false;
             Log.d(TAG, "vendor tag " + key.getName() + " is not supported");
-            exception.printStackTrace();
+            //exception.printStackTrace();
         }
         if ( supported ) {
             Log.d(TAG, "vendor tag " + key.getName() + " is supported");
