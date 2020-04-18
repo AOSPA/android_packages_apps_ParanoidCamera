@@ -948,23 +948,28 @@ public class CaptureModule implements CameraModule, PhotoController,
             if (id == getMainCameraId()) {
                 mPreviewCaptureResult = result;
             }
-            updateCaptureStateMachine(id, result);
-            Integer ssmStatus = result.get(ssmCaptureComplete);
-            if (ssmStatus != null) {
-                Log.d(TAG, "ssmStatus: CaptureComplete is " + ssmStatus);
-                updateProgressBar(true);
-            }
-            Integer procComplete = result.get(ssmProcessingComplete);
-            if (procComplete != null && ++mCaptureCompleteCount == 1) {
-                Log.d(TAG, "ssmStatus: ProcessingComplete is " + procComplete);
-                mCaptureCompleteCount = 0;
-                mSSMCaptureCompleteFlag = true;
-                mActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stopRecordingVideo(getMainCameraId());
-                    }
-                });
+
+            if (isSSMEnabled()) {
+                updateCaptureStateMachine(id, result);
+                Integer ssmStatus = result.get(ssmCaptureComplete);
+
+                if (ssmStatus != null) {
+                    Log.d(TAG, "ssmStatus: CaptureComplete is " + ssmStatus);
+                    updateProgressBar(true);
+                }
+                Integer procComplete = result.get(ssmProcessingComplete);
+
+                if (procComplete != null && ++mCaptureCompleteCount == 1) {
+                    Log.d(TAG, "ssmStatus: ProcessingComplete is " + procComplete);
+                    mCaptureCompleteCount = 0;
+                    mSSMCaptureCompleteFlag = true;
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            stopRecordingVideo(getMainCameraId());
+                        }
+                    });
+                }
             }
         }
 
@@ -8824,7 +8829,7 @@ public class CaptureModule implements CameraModule, PhotoController,
 
     public boolean isSSMEnabled() {
         return mSuperSlomoCapture && (int)mHighSpeedFPSRange.getUpper() > NORMAL_SESSION_MAX_FPS
-                && (mCurrentSceneMode.mode == CameraMode.HFR);
+                && (mCurrentSceneMode.mode == CameraMode.HFR) && PersistUtil.isSSMEnabled();
     }
 
     /**
