@@ -9098,12 +9098,7 @@ public class CaptureModule implements CameraModule, PhotoController,
     }
 
     public void updateZoomSeekBarVisible() {
-        if (mCurrentSceneMode.mode == CameraMode.PRO_MODE ||
-                mCurrentSceneMode.mode == CameraMode.RTB || mIsRTBCameraId) {
             mUI.hideZoomSeekBar();
-        } else {
-            mUI.showZoomSeekBar();
-        }
     }
 
     public void setCurrentSceneModeOnly(int mode) {
