@@ -1111,13 +1111,13 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
     }
 
     public void initFilterModeButton() {
-        mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
         String value = mSettingsManager.getValue(SettingsManager.KEY_COLOR_EFFECT);
         if (value == null) return;
 
         enableView(mFilterModeSwitcher, SettingsManager.KEY_COLOR_EFFECT);
 
-        mFilterModeSwitcher.setVisibility(View.VISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.VISIBLE);
         mFilterModeSwitcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1320,7 +1320,7 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
         mSceneModeLabelRect.setVisibility(View.INVISIBLE);
         mDeepZoomModeRect.setVisibility(View.INVISIBLE);
         mFrontBackSwitcher.setVisibility(View.INVISIBLE);
-        mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
         mSceneModeSwitcher.setVisibility(View.INVISIBLE);
         mSettingsIcon.setVisibility(View.INVISIBLE);
         String value = mSettingsManager.getValue(SettingsManager.KEY_MAKEUP);
@@ -1346,7 +1346,7 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
             mShutterButton.setVisibility(View.INVISIBLE);
             mModeSelectLayout.setVisibility(View.VISIBLE);
         }
-        mFilterModeSwitcher.setVisibility(View.VISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.VISIBLE);
         if (mFilterMenuStatus == FILTER_MENU_ON) {
             removeFilterMenu(true);
         }
@@ -1363,7 +1363,7 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
         //settings for each mode
         switch (mode) {
             case DEFAULT:
-                mFilterModeSwitcher.setVisibility(View.VISIBLE);
+                //mFilterModeSwitcher.setVisibility(View.VISIBLE);
                 mSceneModeSwitcher.setVisibility(View.VISIBLE);
                 mVideoButton.setVisibility(View.INVISIBLE);
                 mMuteButton.setVisibility(View.INVISIBLE);
@@ -1371,7 +1371,7 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
                 break;
             case RTB:
             case SAT:
-                mFilterModeSwitcher.setVisibility(View.VISIBLE);
+                //mFilterModeSwitcher.setVisibility(View.VISIBLE);
                 mSceneModeSwitcher.setVisibility(View.VISIBLE);
                 mVideoButton.setVisibility(View.INVISIBLE);
                 mFlashButton.setVisibility(View.INVISIBLE);
@@ -1384,11 +1384,11 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
             case VIDEO:
             case HFR:
                 mVideoButton.setVisibility(View.VISIBLE);
-                mFilterModeSwitcher.setVisibility(View.VISIBLE);
+                //mFilterModeSwitcher.setVisibility(View.VISIBLE);
                 mShutterButton.setVisibility(View.INVISIBLE);
                 break;
             case PRO_MODE:
-                mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+                //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
                 mVideoButton.setVisibility(View.INVISIBLE);
                 mFrontBackSwitcher.setVisibility(View.INVISIBLE);
                 mMuteButton.setVisibility(View.INVISIBLE);
@@ -1401,9 +1401,9 @@ public class CaptureUI implements FocusOverlayManager.FocusUI,
         if (value == null) {
             mFrontBackSwitcher.setVisibility(View.INVISIBLE);
         }
-        if(mModule.mMFNREnable && mModule.getMainCameraId() ==  android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT){
-            mFilterModeSwitcher.setVisibility(View.INVISIBLE);
-        }
+        //if(mModule.mMFNREnable && mModule.getMainCameraId() ==  android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT){
+            //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+        //}
     }
 
     public void addFilterMode() {

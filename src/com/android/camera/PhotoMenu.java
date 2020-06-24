@@ -1511,12 +1511,12 @@ public class PhotoMenu extends MenuController
     public void hideTopMenu(boolean hide) {
         if (hide) {
             mSceneModeSwitcher.setVisibility(View.GONE);
-            mFilterModeSwitcher.setVisibility(View.GONE);
+            //mFilterModeSwitcher.setVisibility(View.GONE);
             mFrontBackSwitcher.setVisibility(View.GONE);
             mTsMakeupSwitcher.setVisibility(View.GONE);
         } else {
             mSceneModeSwitcher.setVisibility(View.VISIBLE);
-            mFilterModeSwitcher.setVisibility(View.VISIBLE);
+            //mFilterModeSwitcher.setVisibility(View.VISIBLE);
             mFrontBackSwitcher.setVisibility(View.VISIBLE);
             mTsMakeupSwitcher.setVisibility(View.VISIBLE);
         }
@@ -1532,7 +1532,7 @@ public class PhotoMenu extends MenuController
             mHdrSwitcher.setVisibility(status);
         }
         mSceneModeSwitcher.setVisibility(status);
-        mFilterModeSwitcher.setVisibility(status);
+        //mFilterModeSwitcher.setVisibility(status);
         if(status == View.INVISIBLE) {
             if(mCameraSwitcher.getVisibility() == View.VISIBLE) {
                 mWasVisibleSet.add(mCameraSwitcher);
