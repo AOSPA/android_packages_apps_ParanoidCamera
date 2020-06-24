@@ -127,7 +127,6 @@ public class CameraControls extends RotatableLayout {
                 mHdrSwitcher.setVisibility(View.INVISIBLE);
             }
             mSceneModeSwitcher.setVisibility(View.INVISIBLE);
-            mFilterModeSwitcher.setVisibility(View.INVISIBLE);
 
             mSwitcher.setVisibility(View.INVISIBLE);
             mShutter.setVisibility(View.INVISIBLE);
@@ -152,7 +151,6 @@ public class CameraControls extends RotatableLayout {
                 mHdrSwitcher.setVisibility(View.INVISIBLE);
             }
             mSceneModeSwitcher.setVisibility(View.INVISIBLE);
-            mFilterModeSwitcher.setVisibility(View.INVISIBLE);
 
             mSwitcher.setVisibility(View.INVISIBLE);
             mShutter.setVisibility(View.INVISIBLE);
@@ -523,7 +521,6 @@ public class CameraControls extends RotatableLayout {
         mFrontBackSwitcher.setVisibility(status);
         mMenu.setVisibility(status);
         mSceneModeSwitcher.setVisibility(status);
-        mFilterModeSwitcher.setVisibility(status);
         if(TsMakeupManager.HAS_TS_MAKEUP) {
             mTsMakeupSwitcher.setVisibility(status);
         } else {
@@ -1045,7 +1042,6 @@ public class CameraControls extends RotatableLayout {
             mHdrSwitcher.setVisibility(View.INVISIBLE);
         }
         mSceneModeSwitcher.setVisibility(View.INVISIBLE);
-        mFilterModeSwitcher.setVisibility(View.INVISIBLE);
         mMenu.setVisibility(View.INVISIBLE);
     }
 
@@ -1057,7 +1053,7 @@ public class CameraControls extends RotatableLayout {
             mHdrSwitcher.setVisibility(View.VISIBLE);
         }
         mSceneModeSwitcher.setVisibility(View.VISIBLE);
-        mFilterModeSwitcher.setVisibility(View.VISIBLE);
+        mFilterModeSwitcher.setVisibility(View.GONE);
         mMenu.setVisibility(View.VISIBLE);
     }
 
