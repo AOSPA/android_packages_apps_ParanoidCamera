@@ -851,7 +851,7 @@ public class VideoMenu extends MenuController
 
     public void hideUI() {
         mFrontBackSwitcher.setVisibility(View.INVISIBLE);
-        mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
     }
 
     public void showUI() {
@@ -859,7 +859,7 @@ public class VideoMenu extends MenuController
         final IconListPreference pref = (IconListPreference) mPreferenceGroup
                 .findPreference(CameraSettings.KEY_FILTER_MODE);
         if (pref != null) {
-            mFilterModeSwitcher.setVisibility(View.VISIBLE);
+            //mFilterModeSwitcher.setVisibility(View.VISIBLE);
         }
     }
 

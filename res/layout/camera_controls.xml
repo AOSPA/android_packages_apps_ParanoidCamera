@@ -106,7 +106,8 @@
 
     <com.android.camera.ui.RotateImageView
         android:id="@+id/filter_mode_switcher"
-        style="@style/ToggleButton" />
+        style="@style/ToggleButton"
+        android:visibility="gone" />
 
     <com.android.camera.ui.RotateImageView
         android:id="@+id/ts_makeup_switcher"
