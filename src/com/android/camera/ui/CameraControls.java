@@ -127,7 +127,7 @@ public class CameraControls extends RotatableLayout {
                 mHdrSwitcher.setVisibility(View.INVISIBLE);
             }
             mSceneModeSwitcher.setVisibility(View.INVISIBLE);
-            mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+            //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
 
             mSwitcher.setVisibility(View.INVISIBLE);
             mShutter.setVisibility(View.INVISIBLE);
@@ -152,7 +152,7 @@ public class CameraControls extends RotatableLayout {
                 mHdrSwitcher.setVisibility(View.INVISIBLE);
             }
             mSceneModeSwitcher.setVisibility(View.INVISIBLE);
-            mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+            //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
 
             mSwitcher.setVisibility(View.INVISIBLE);
             mShutter.setVisibility(View.INVISIBLE);
@@ -264,8 +264,8 @@ public class CameraControls extends RotatableLayout {
         }
         if (mSceneModeSwitcher.getVisibility() == View.VISIBLE)
             mViewList.add(mSceneModeSwitcher);
-        if (mFilterModeSwitcher.getVisibility() == View.VISIBLE)
-            mViewList.add(mFilterModeSwitcher);
+        /*if (mFilterModeSwitcher.getVisibility() == View.VISIBLE)
+            mViewList.add(mFilterModeSwitcher);*/
         if (mShutter.getVisibility() == View.VISIBLE)
             mViewList.add(mShutter);
         if (mVideoShutter.getVisibility() == View.VISIBLE)
@@ -306,7 +306,7 @@ public class CameraControls extends RotatableLayout {
         mIndicators = findViewById(R.id.on_screen_indicators);
         mPreview = findViewById(R.id.preview_thumb);
         mSceneModeSwitcher = findViewById(R.id.scene_mode_switcher);
-        mFilterModeSwitcher = findViewById(R.id.filter_mode_switcher);
+        //mFilterModeSwitcher = findViewById(R.id.filter_mode_switcher);
         mRemainingPhotos = (LinearLayout) findViewById(R.id.remaining_photos);
         mRemainingPhotosText = (TextView) findViewById(R.id.remaining_photos_text);
     }
@@ -523,7 +523,7 @@ public class CameraControls extends RotatableLayout {
         mFrontBackSwitcher.setVisibility(status);
         mMenu.setVisibility(status);
         mSceneModeSwitcher.setVisibility(status);
-        mFilterModeSwitcher.setVisibility(status);
+        //mFilterModeSwitcher.setVisibility(status);
         if(TsMakeupManager.HAS_TS_MAKEUP) {
             mTsMakeupSwitcher.setVisibility(status);
         } else {
@@ -1045,7 +1045,7 @@ public class CameraControls extends RotatableLayout {
             mHdrSwitcher.setVisibility(View.INVISIBLE);
         }
         mSceneModeSwitcher.setVisibility(View.INVISIBLE);
-        mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
         mMenu.setVisibility(View.INVISIBLE);
     }
 
@@ -1057,7 +1057,7 @@ public class CameraControls extends RotatableLayout {
             mHdrSwitcher.setVisibility(View.VISIBLE);
         }
         mSceneModeSwitcher.setVisibility(View.VISIBLE);
-        mFilterModeSwitcher.setVisibility(View.VISIBLE);
+        mFilterModeSwitcher.setVisibility(View.GONE);
         mMenu.setVisibility(View.VISIBLE);
     }
 

@@ -505,14 +505,14 @@ public class VideoMenu extends MenuController
     }
 
     public void initFilterModeButton(View button) {
-        button.setVisibility(View.INVISIBLE);
+        //button.setVisibility(View.INVISIBLE);
         final IconListPreference pref = (IconListPreference) mPreferenceGroup
                 .findPreference(CameraSettings.KEY_COLOR_EFFECT);
         if (pref == null || pref.getValue() == null)
             return;
 
         changeFilterModeControlIcon(pref.getValue());
-        button.setVisibility(View.VISIBLE);
+        //button.setVisibility(View.VISIBLE);
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -525,6 +525,7 @@ public class VideoMenu extends MenuController
                 }
             }
         });
+        button.setVisibility(View.GONE);
     }
 
     public void addModeBack() {
@@ -849,16 +850,16 @@ public class VideoMenu extends MenuController
 
     public void hideUI() {
         mFrontBackSwitcher.setVisibility(View.INVISIBLE);
-        mFilterModeSwitcher.setVisibility(View.INVISIBLE);
+        //mFilterModeSwitcher.setVisibility(View.INVISIBLE);
     }
 
     public void showUI() {
         mFrontBackSwitcher.setVisibility(View.VISIBLE);
         final IconListPreference pref = (IconListPreference) mPreferenceGroup
                 .findPreference(CameraSettings.KEY_FILTER_MODE);
-        if (pref != null) {
+        /*if (pref != null) {
             mFilterModeSwitcher.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     @Override
