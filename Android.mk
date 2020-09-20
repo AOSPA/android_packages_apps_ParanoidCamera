@@ -26,13 +26,13 @@ LOCAL_AAPT_FLAGS := \
         --version-code $(version_code_package) \
 
 LOCAL_PACKAGE_NAME := ParanoidCamera
-LOCAL_VENDOR_MODULE := true
+LOCAL_PRODUCT_MODULE := true
 LOCAL_PRIVILEGED_MODULE := true
-#LOCAL_PRIVATE_PLATFORM_APIS:=true
+LOCAL_PRIVATE_PLATFORM_APIS := true
 
 LOCAL_AAPT_FLAGS += --rename-manifest-package co.aospa.camera
 
-LOCAL_SDK_VERSION := current
+#LOCAL_SDK_VERSION := current
 LOCAL_RENDERSCRIPT_TARGET_API := 23
 
 #Do not override for targets using vanilla AOSP
