@@ -5,7 +5,7 @@
 
     <uses-sdk
         android:minSdkVersion="23"
-        android:targetSdkVersion="28" />
+        android:targetSdkVersion="29" />
 
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.SET_ORIENTATION" />
@@ -37,6 +37,7 @@
         android:label="@string/snapcam_app_name"
         android:largeHeap="true"
         android:logo="@mipmap/ic_launcher_camera"
+        android:requestLegacyExternalStorage="true"
         android:restoreAnyVersion="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Camera" >
