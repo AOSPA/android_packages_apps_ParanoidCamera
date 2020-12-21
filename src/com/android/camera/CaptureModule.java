@@ -1113,22 +1113,28 @@ public class CaptureModule implements CameraModule, PhotoController,
                 mPreviewCaptureResult = result;
             }
             updateCaptureStateMachine(id, result);
-            Integer ssmStatus = result.get(ssmCaptureComplete);
-            if (ssmStatus != null) {
-                Log.d(TAG, "ssmStatus: CaptureComplete is " + ssmStatus);
-                updateProgressBar(true);
-            }
-            Integer procComplete = result.get(ssmProcessingComplete);
-            if (procComplete != null && ++mCaptureCompleteCount == 1) {
-                Log.d(TAG, "ssmStatus: ProcessingComplete is " + procComplete);
-                mCaptureCompleteCount = 0;
-                mSSMCaptureCompleteFlag = true;
-                mActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stopRecordingVideo(getMainCameraId());
+            if (isSSMEnabled()) {
+                try {
+                    Integer ssmStatus = result.get(ssmCaptureComplete);
+                    if (ssmStatus != null) {
+                        Log.d(TAG, "ssmStatus: CaptureComplete is " + ssmStatus);
+                        updateProgressBar(true);
                     }
-                });
+                    Integer procComplete = result.get(ssmProcessingComplete);
+                    if (procComplete != null && ++mCaptureCompleteCount == 1) {
+                        Log.d(TAG, "ssmStatus: ProcessingComplete is " + procComplete);
+                        mCaptureCompleteCount = 0;
+                        mSSMCaptureCompleteFlag = true;
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                stopRecordingVideo(getMainCameraId());
+                            }
+                        });
+                    }
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
