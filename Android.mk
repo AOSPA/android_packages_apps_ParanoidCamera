@@ -46,11 +46,11 @@ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 # the libraries in the APK, otherwise just put them in /system/lib and
 # leave them out of the APK
 
-ifneq (,$(TARGET_BUILD_APPS))
-  LOCAL_JNI_SHARED_LIBRARIES := libjni_mfnrutil libjni_aidenoiserutil
-else
-  LOCAL_REQUIRED_MODULES := libjni_mfnrutil libjni_aidenoiserutil
-endif
+#ifneq (,$(TARGET_BUILD_APPS))
+  #LOCAL_JNI_SHARED_LIBRARIES := libjni_mfnrutil libjni_aidenoiserutil
+#else
+  #LOCAL_REQUIRED_MODULES := libjni_mfnrutil libjni_aidenoiserutil
+#endif
 
 include $(BUILD_PACKAGE)
 

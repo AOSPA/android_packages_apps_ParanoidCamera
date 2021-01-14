@@ -76,7 +76,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := image_util_jni.cpp
 LOCAL_CFLAGS    += -ffast-math -O3 -funroll-loops
 include $(BUILD_SHARED_LIBRARY)
-endif
 
 include $(CLEAR_VARS)
 LOCAL_LDFLAGS   := -llog
@@ -108,3 +107,5 @@ LOCAL_CFLAGS    += -ffast-math -O3 -funroll-loops
 LOCAL_NOSANITIZE := cfi flag
 LOCAL_USE_VNDK := true
 include $(BUILD_SHARED_LIBRARY)
+
+endif
